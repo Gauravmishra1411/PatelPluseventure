@@ -1,0 +1,145 @@
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAdmin() {
+      // Allow access if the user is authenticated and their email is the admin email
+      // TEMPORARY FIX: Allow any logged-in user for development. 
+      // Uncomment the email check below and update the email to secure your app before production.
+      return request.auth != null; // && request.auth.token.email == "vpatelpulse@gmail.com";
+    }
+
+    // Marketplace categories are publicly readable, but only admins can write.
+    match /marketplace_categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Marketplace products are publicly readable, but only admins can write.
+    match /marketplace_products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /marketplace_products/{productId}/reviews/{reviewId} {
+        allow read: if true;
+        allow create: if request.auth != null;
+        allow update: if isAdmin();
+    }
+    
+    match /marketplace_discounts/{discountId} {
+        allow read: if true;
+        allow write: if isAdmin();
+    }
+    
+    match /marketplace_orders/{orderId} {
+        allow read, update: if isAdmin();
+        allow create: if request.auth != null;
+    }
+
+
+    // Projects are publicly readable, but only admins can write.
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Services are publicly readable. Only admins can write.
+    match /services/{serviceId} {
+      allow get, list: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Testimonials are publicly readable, but only admins can write.
+    match /testimonials/{testimonialId} {
+        allow read: if true;
+        // Allow unauthenticated users to create testimonials, but admins manage them.
+        allow create: if true;
+        allow update, delete: if isAdmin();
+    }
+
+    // About page content is publicly readable, but only admins can write.
+    match /about_stats/{statId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /about_values/{valueId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /about_story/{storyId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /about_team/{memberId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Home page stats are publicly readable, but only admins can write.
+    match /home_hero_stats/{statId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /home_about_stats/{statId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+
+    // Anyone can send a contact message, but only admins can manage them.
+    match /contactMessages/{messageId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+    
+    // ** ONBOARDING FLOW **
+    // Allow anyone to create a client document during onboarding.
+    // Once created, only the admin or the matched logged-in client can access it.
+    match /clients/{userId} {
+       allow create: if true;
+       allow read, update: if isAdmin() || (request.auth != null && request.auth.uid == userId);
+       allow delete: if isAdmin();
+    }
+
+    // Users can be created during onboarding. Admins can manage any user.
+    match /users/{userId} {
+       // Allow anyone to create a user document during onboarding.
+       allow create: if true;
+       allow read, update, delete: if isAdmin() || (request.auth != null && request.auth.uid == userId);
+       
+       // Cart and Orders subcollections
+       match /cart/{cartId} {
+         allow read, write, delete: if request.auth != null && request.auth.uid == userId;
+       }
+       match /orders/{orderId} {
+         allow read, write: if request.auth != null && request.auth.uid == userId;
+       }
+       match /addresses/{addressId} {
+         allow read, write, delete: if request.auth != null && request.auth.uid == userId;
+       }
+    }
+    
+    // ** NOTIFICATIONS **
+    // Allow anyone to create a notification (used by onboarding).
+    // Only admins can read or manage notifications.
+    match /notifications/{notificationId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+
+    // Users and admins can access chat messages.
+    match /chats/{userId}/messages/{messageId} {
+      allow read, write: if (request.auth != null && request.auth.uid == userId) || isAdmin();
+    }
+    
+    // A general admin override for any other collections.
+    // This should come after specific rules.
+    match /{document=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}
