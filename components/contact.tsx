@@ -31,7 +31,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Call Us",
-    details: "+91 7838130064, +91 9911594905",
+    details: "+91 7838130064, +91 1205106926",
     description: "Mon - Fri, 10AM - 7PM IST",
     color: "from-[#D400FF] to-[#FF0055]",
   },
