@@ -48,16 +48,16 @@ export default function PreLoader() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-radial from-accent/10 to-transparent rounded-full blur-3xl animate-pulse opacity-50 dark:opacity-100" />
       </div>
 
-      <div className="text-center relative z-10">
+      <div className="text-center relative z-10 px-4">
         {/* Logo */}
         <motion.div
-          className="flex items-center justify-center space-x-3 mb-8"
+          className="flex items-center justify-center space-x-2 sm:space-x-3 mb-6 md:mb-8"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <motion.div
-            className="w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-2xl flex items-center justify-center"
+            className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-r from-primary to-accent rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg"
             animate={{
               boxShadow: [
                 "0 0 20px rgba(142, 217, 104, 0.3)",
@@ -71,10 +71,10 @@ export default function PreLoader() {
               ease: "easeInOut",
             }}
           >
-            <span className="text-black font-bold text-2xl">P</span>
+            <span className="text-white font-bold text-xl sm:text-2xl">P</span>
           </motion.div>
           <motion.span
-            className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
             initial={{ x: -20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -85,32 +85,32 @@ export default function PreLoader() {
 
         {/* Animated Icon */}
         <motion.div
-          className="mb-8"
+          className="mb-6 md:mb-8"
           key={currentIcon}
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           exit={{ scale: 0, rotate: 180 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="w-20 h-20 mx-auto bg-white dark:bg-gradient-to-r dark:from-background dark:to-primary rounded-full flex items-center justify-center border-2 border-gray-200 dark:border-accent/30 shadow-md dark:shadow-none">
-            <IconComponent className="w-10 h-10 text-accent" />
+          <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 mx-auto bg-white dark:bg-gradient-to-r dark:from-background dark:to-primary rounded-full flex items-center justify-center border-2 border-gray-200 dark:border-accent/30 shadow-md dark:shadow-none">
+            <IconComponent className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 text-accent" />
           </div>
         </motion.div>
 
         {/* Loading Text */}
         <motion.div
-          className="mb-8"
+          className="mb-6 md:mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Loading Experience</h2>
-          <p className="text-gray-600 dark:text-gray-400">Preparing cutting-edge solutions...</p>
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-2">Loading Experience</h2>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Preparing cutting-edge solutions...</p>
         </motion.div>
 
         {/* Progress Bar */}
         <motion.div
-          className="w-80 mx-auto"
+          className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -131,7 +131,7 @@ export default function PreLoader() {
               style={{ marginLeft: "-8px" }}
             />
           </div>
-          <div className="flex justify-between mt-2 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex justify-between mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
             <span>0%</span>
             <motion.span
               className="text-accent font-semibold"

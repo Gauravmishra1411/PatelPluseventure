@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card"
 
 export default function DevelopmentStages() {
     return (
-        <section className="py-20 relative overflow-hidden bg-background">
+        <section className="py-6 md:py-12 lg:py-20 relative overflow-hidden bg-background">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl bg-gradient-to-r from-[#1A532A] via-[#8ED968] to-[#1A532A] bg-clip-text text-transparent">

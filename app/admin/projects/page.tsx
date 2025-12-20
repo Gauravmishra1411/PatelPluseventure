@@ -66,218 +66,198 @@ export default function ProjectsPage() {
   const seedProjects = async () => {
     const seedData = [
       {
-        title: "Multimallpro",
-        description: "A multi-vendor e-commerce marketplace website is an online platform where multiple independent sellers/vendors list their products (or services) and customers can buy from many of them via a single storefront/website.",
-        techStack: ["React", "Next.js", "Node.js", "Stripe", "Mongodb"],
-        link: "https://multimallpro.com/",
+        title: "Multimall Pro",
+        description: "A sophisticated multi-vendor e-commerce marketplace platform where multiple independent sellers can list their products and customers can shop from various vendors through a unified storefront. Features advanced vendor management, unified checkout, and comprehensive analytics.",
+        techStack: ["React", "Next.js", "Node.js", "MongoDB", "Stripe"],
+        link: "https://www.multimallpro.com",
         category: "E-Commerce",
-        features: ["Multi-vendor support", "Unified storefront", "Vendor dashboard"],
-        tags: ["E-Commerce", "Marketplace"],
-        mainImage: "https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=800&q=80",
+        features: ["Multi-vendor support", "Unified storefront", "Vendor dashboard", "Payment integration"],
+        tags: ["E-Commerce", "Marketplace", "Multi-vendor"],
+        mainImage: "/multimall-pro.png",
         gallery: []
       },
       {
-        title: "Shopping Cart",
-        description: "A simple and effective shopping cart implementation, showcasing core e-commerce functionalities.",
-        techStack: ["React", "Vercel", "JavaScript"],
-        link: "https://shopcart.reactbd.com/", // Real working demo
+        title: "Urbanprox",
+        description: "A modern urban lifestyle e-commerce platform offering curated products for contemporary living. Features seamless shopping experience with advanced product filtering and personalized recommendations.",
+        techStack: ["React", "Next.js", "Firebase", "Tailwind CSS"],
+        link: "https://www.urbanprox.com",
         category: "E-Commerce",
-        features: ["Cart management", "Checkout flow"],
-        tags: ["E-Commerce", "Cart"],
+        features: ["Product curation", "Personalized recommendations", "Modern UI/UX"],
+        tags: ["E-Commerce", "Lifestyle", "Modern"],
+        mainImage: "/urbanprox.png",
+        gallery: []
+      },
+      {
+        title: "Noircart",
+        description: "An elegant e-commerce store powered by CyberLim, featuring a dark-themed interface with smooth animations and modern shopping cart functionality. Built for premium product showcases.",
+        techStack: ["Next.js", "React", "Vercel", "Stripe"],
+        link: "https://cyberlimstore.vercel.app",
+        category: "E-Commerce",
+        features: ["Dark theme UI", "Smooth animations", "Premium showcase"],
+        tags: ["E-Commerce", "Premium", "Dark Theme"],
         mainImage: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=800&q=80",
         gallery: []
       },
       {
-        title: "Luxe Threads",
-        description: "An exclusive online boutique for high-end fashion, featuring a curated collection of designer apparel.",
-        techStack: ["Shopify Plus", "Headless CMS", "React"],
-        link: "https://luxethreads.ie", // Plausible real demo
-        category: "E-Commerce",
-        features: ["Curated collections", "High-end design", "Exclusive access"],
-        tags: ["Fashion", "E-Commerce"],
-        mainImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
-        gallery: []
-      },
-      {
-        title: "TechPyro",
-        description: "A modern e-commerce platform offering a wide range of tech gadgets and accessories.",
-        techStack: ["React", "Next.js", "Node.js", "Stripe", "Mongodb"],
-        link: "https://techpyro.com/", // Official site
-        category: "E-Commerce",
-        features: ["Tech gadgets", "Accessories sales", "Modern UI"],
-        tags: ["Tech", "E-Commerce"],
-        mainImage: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=800&q=80",
-        gallery: []
-      },
-      {
-        title: "iGauge",
-        description: "An intelligent assessment platform for educational institutions.",
-        techStack: ["Angular", "Node.js", "MongoDB"],
-        link: "https://www.igauge.in/", // Official site
+        title: "KhuliKitaab",
+        description: "An open-source digital library and book sharing platform that makes reading accessible to everyone. Features book cataloging, reading lists, and community-driven recommendations.",
+        techStack: ["Next.js", "React", "Vercel", "PostgreSQL"],
+        link: "https://khulikitab.vercel.app",
         category: "Education",
-        features: ["Assessments", "Reporting", "Institution management"],
-        tags: ["Education", "SaaS"],
-        mainImage: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80",
+        features: ["Digital library", "Book cataloging", "Community recommendations"],
+        tags: ["Education", "Books", "Open Source"],
+        mainImage: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=800&q=80",
         gallery: []
       },
       {
-        title: "SkillSphere",
-        description: "An online learning platform offering a wide range of courses and certifications in tech and business.",
-        techStack: ["Next.js", "Firebase", "Vercel"],
-        link: "https://skillsphere.org/", // Plausible real demo
-        category: "Education",
-        features: ["Course management", "Certifications", "User progress tracking"],
-        tags: ["Education", "Learning"],
-        mainImage: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80",
+        title: "Food Sharing Platform",
+        description: "A social impact platform dedicated to reducing food waste by connecting food donors with those in need. Features real-time matching, location-based services, and impact tracking.",
+        techStack: ["React", "Next.js", "Firebase", "Google Maps API"],
+        link: "https://food-waste-reduction-eta.vercel.app",
+        category: "Social Impact",
+        features: ["Food waste reduction", "Real-time matching", "Impact tracking"],
+        tags: ["Social Impact", "Food", "Sustainability"],
+        mainImage: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=800&q=80",
         gallery: []
       },
       {
-        title: "Eurotech Maritime",
-        description: "A comprehensive educational platform for maritime studies and certifications.",
-        techStack: ["PHP", "CMS", "MySQL"],
-        link: "https://eurotechmaritime.org/", // Official site
-        category: "Education",
-        features: ["Maritime courses", "Certification tracking", "CMS integration"],
-        tags: ["Education", "Maritime"],
-        mainImage: "https://images.unsplash.com/photo-1559825481-12a05cc00344?auto=format&fit=crop&w=800&q=80",
-        gallery: []
-      },
-      {
-        title: "Stru.ai",
-        description: "An AI-powered platform leveraging Large Language Models for advanced data structuring and analysis.",
-        techStack: ["Python", "Genkit", "Next.js", "AI/ML"],
-        link: "https://stru.ai/", // Official site
-        category: "LLM (ML/AI)",
-        features: ["Data structuring", "LLM integration", "Analysis tools"],
-        tags: ["AI", "ML", "LLM"],
+        title: "Nexa AI",
+        description: "An advanced AI-powered platform leveraging cutting-edge language models for intelligent conversations and task automation. Features natural language processing and context-aware responses.",
+        techStack: ["Next.js", "OpenAI API", "React", "TypeScript"],
+        link: "https://nexa-ai-neon-yogesh.vercel.app",
+        category: "AI/ML",
+        features: ["AI conversations", "Task automation", "NLP integration"],
+        tags: ["AI", "Machine Learning", "NLP"],
         mainImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
         gallery: []
       },
       {
-        title: "LilithAI",
-        description: "A conversational AI assistant focused on providing personalized user experiences.",
-        techStack: ["Genkit", "React", "Firebase", "AI/ML"],
-        link: "https://lilithai.net/", // Official site
-        category: "LLM (ML/AI)",
-        features: ["Conversational AI", "Personalization", "User experience focus"],
-        tags: ["AI", "Chatbot"],
-        mainImage: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=800&q=80",
+        title: "Movie Hub",
+        description: "A comprehensive movie discovery platform with detailed information, ratings, reviews, and personalized recommendations. Powered by TMDB API for up-to-date content.",
+        techStack: ["React", "Next.js", "TMDB API", "Tailwind CSS"],
+        link: "https://mymovieapp-yogesh.vercel.app",
+        category: "Entertainment",
+        features: ["Movie search", "Ratings & reviews", "Personalized recommendations"],
+        tags: ["Entertainment", "Movies", "TMDB"],
+        mainImage: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=800&q=80",
         gallery: []
       },
       {
-        title: "InsightBot",
-        description: "An AI tool that analyzes customer feedback from multiple sources to provide actionable business insights.",
-        techStack: ["Python", "Flask", "React", "AI/ML"],
-        link: "https://storylane.io/", // Fallback to a relevant AI tool
-        category: "LLM (ML/AI)",
-        features: ["Feedback analysis", "Insight generation", "Multiple source integration"],
-        tags: ["AI", "Analytics"],
-        mainImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+        title: "EchoBlog",
+        description: "A modern blogging platform with rich text editing, markdown support, and social sharing features. Built for content creators who want a fast, elegant blogging experience.",
+        techStack: ["Next.js", "MDX", "Vercel", "TailwindCSS"],
+        link: "https://echoblog-yogesh.vercel.app",
+        category: "Content Platform",
+        features: ["Rich text editing", "Markdown support", "Social sharing"],
+        tags: ["Blog", "Content", "Writing"],
+        mainImage: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
         gallery: []
       },
       {
-        title: "Cryptoland",
-        description: "A blockchain-based gaming platform where users can trade and own virtual assets.",
-        techStack: ["Solidity", "React", "ethers.js", "Blockchain"],
-        link: "https://cryptoland.io/", // Official site
-        category: "Blockchain (Crypto)",
-        features: ["Virtual assets", "Trading", "Blockchain integration"],
-        tags: ["Blockchain", "Gaming", "Crypto"],
-        mainImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=800&q=80",
+        title: "Flavorverse",
+        description: "A culinary exploration platform featuring recipes, cooking tutorials, and food blog content. Discover flavors from around the world with detailed step-by-step guides.",
+        techStack: ["Next.js", "React", "Contentful CMS", "Vercel"],
+        link: "https://flavorverse-yogesh.vercel.app",
+        category: "Food & Cooking",
+        features: ["Recipe database", "Cooking tutorials", "Food blogging"],
+        tags: ["Food", "Recipes", "Cooking"],
+        mainImage: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80",
         gallery: []
       },
       {
-        title: "NFTStars",
-        description: "A marketplace for discovering, buying, and selling exclusive digital collectibles as NFTs.",
-        techStack: ["Next.js", "Solidity", "IPFS", "Blockchain"],
-        link: "https://nftstars.app/", // Official site
-        category: "Blockchain (Crypto)",
-        features: ["NFT Marketplace", "Exclusive collectibles", "IPFS storage"],
-        tags: ["Blockchain", "NFT"],
-        mainImage: "https://images.unsplash.com/photo-1642104704074-907c0698cbd9?auto=format&fit=crop&w=800&q=80",
+        title: "Holiday Explorer",
+        description: "A travel and holiday planning website with destination guides, booking capabilities, and personalized itinerary planning. Your gateway to unforgettable adventures.",
+        techStack: ["Next.js", "React", "Google Maps API", "Stripe"],
+        link: "https://project-x-yogesh.vercel.app",
+        category: "Travel & Tourism",
+        features: ["Destination guides", "Itinerary planning", "Booking integration"],
+        tags: ["Travel", "Tourism", "Holidays"],
+        mainImage: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80",
         gallery: []
       },
       {
-        title: "DeFi-Wallet",
-        description: "A secure, non-custodial wallet for managing decentralized finance assets across multiple chains.",
-        techStack: ["React Native", "ethers.js", "Solidity"],
-        link: "https://metamask.io/", // Relevant prominent wallet as demo
-        category: "Blockchain (Crypto)",
-        features: ["Non-custodial", "Multi-chain support", "Secure wallet"],
-        tags: ["Blockchain", "DeFi", "Wallet"],
-        mainImage: "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=800&q=80",
+        title: "Samajwadi Tech Force",
+        description: "Official technology platform for the Samajwadi Party, featuring news updates, digital campaigns, and community engagement tools. Empowering political participation through technology.",
+        techStack: ["WordPress", "PHP", "MySQL", "Custom CMS"],
+        link: "https://www.samajwaditechforce.com",
+        category: "Political Tech",
+        features: ["News updates", "Campaign management", "Community engagement"],
+        tags: ["Politics", "Website", "CMS"],
+        mainImage: "/samajwadi-tech-force.png",
         gallery: []
       },
       {
-        title: "Pinki Dashboard",
-        description: "A custom content management system with a focus on intuitive UI and flexible content modeling.",
-        techStack: ["React", "Next.js", "Tailwind CSS", "Vercel"],
-        link: "https://pinki-dashboard.vercel.app",
-        category: "Dashboards (CMS)",
-        features: ["Custom CMS", "Intuitive UI", "Content modeling"],
-        tags: ["CMS", "Dashboard"],
+        title: "Patel Pulse Ventures",
+        description: "Corporate website for Patel Pulse Ventures showcasing digital solutions, AI-powered services, and innovative web technologies. Featuring portfolio, services, and client success stories.",
+        techStack: ["Next.js", "React", "Firebase", "Framer Motion"],
+        link: "https://www.patelpulseventures.com",
+        category: "Corporate Website",
+        features: ["Portfolio showcase", "Service catalog", "Client testimonials"],
+        tags: ["Corporate", "Agency", "Portfolio"],
         mainImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
         gallery: []
       },
       {
-        title: "Baxia Admin Panel",
-        description: "A powerful admin panel for managing accounts, users, and application data.",
-        techStack: ["React", "Node.js", "PostgreSQL", "Charts"],
-        link: "https://baxia-adminpanel.vercel.app/accounts",
-        category: "Dashboards (CMS)",
-        features: ["User management", "Account management", "Data visualization"],
-        tags: ["Admin Panel", "Dashboard"],
-        mainImage: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80",
+        title: "Edemy",
+        description: "A comprehensive online learning management system with course creation tools, student progress tracking, and interactive learning features. Democratizing education through technology.",
+        techStack: ["Next.js", "React", "Firebase", "Video.js"],
+        link: "https://edemy-yogesh.vercel.app",
+        category: "Education",
+        features: ["Course management", "Progress tracking", "Interactive learning"],
+        tags: ["Education", "LMS", "E-Learning"],
+        mainImage: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80",
         gallery: []
       },
       {
-        title: "DataViz",
-        description: "A real-time analytics dashboard for visualizing complex datasets and business metrics.",
-        techStack: ["React", "D3.js", "Node.js", "WebSocket"],
-        link: "https://dataviz.vercel.app/", // Fallback plausible demo
-        category: "Dashboards (CMS)",
-        features: ["Real-time analytics", "Data visualization", "Complex datasets"],
-        tags: ["Dashboard", "Analytics", "DataViz"],
-        mainImage: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=800&q=80",
+        title: "NextStep",
+        description: "A career guidance and job portal platform connecting job seekers with opportunities. Features resume building, skill assessments, and personalized job recommendations.",
+        techStack: ["Next.js", "React", "MongoDB", "Node.js"],
+        link: "https://nextstep-yogesh.vercel.app",
+        category: "Career & Jobs",
+        features: ["Job portal", "Resume builder", "Skill assessments"],
+        tags: ["Jobs", "Career", "Portal"],
+        mainImage: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80",
+        gallery: []
+      },
+      {
+        title: "GoCart",
+        description: "A modern e-commerce shopping cart solution with advanced features like wishlist management, product comparisons, and seamless checkout experience. Built for conversion optimization.",
+        techStack: ["React", "Next.js", "Redux", "Stripe"],
+        link: "https://gocart-yogesh.vercel.app",
+        category: "E-Commerce",
+        features: ["Shopping cart", "Wishlist", "Product comparison"],
+        tags: ["E-Commerce", "Shopping", "Cart"],
+        mainImage: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80",
         gallery: []
       }
     ];
 
     try {
       setLoading(true);
+      toast.info("Clearing old projects and adding new ones...");
+
       const projectsCollection = collection(db, "projects");
+
+      // Delete ALL existing projects first
+      const allProjects = await getDocs(projectsCollection);
+      const deletePromises = allProjects.docs.map(doc => deleteDoc(doc.ref));
+      await Promise.all(deletePromises);
+      toast.success(`Deleted ${allProjects.size} old projects`);
+
+      // Add new projects
       let addedCount = 0;
-      let updatedCount = 0;
-
       for (const project of seedData) {
-        const q = query(projectsCollection, where("title", "==", project.title));
-        const querySnapshot = await getDocs(q);
-
-        if (querySnapshot.empty) {
-          await addDoc(projectsCollection, {
-            ...project,
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp(),
-            learnings: [],
-            status: "Active"
-          });
-          addedCount++;
-        } else {
-          // Update existing project with missing image
-          const docRef = doc(db, "projects", querySnapshot.docs[0].id);
-          await updateDoc(docRef, {
-            mainImage: project.mainImage,
-            link: project.link, // Explicitly update link
-            description: project.description,
-            techStack: project.techStack, // Update tech stack if it changed
-            category: project.category,
-            // We can update other fields too if needed
-          });
-          updatedCount++;
-        }
+        await addDoc(projectsCollection, {
+          ...project,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+          learnings: [],
+          status: "Completed"
+        });
+        addedCount++;
       }
 
-      toast.success(`Complete! Added ${addedCount} new, Updated ${updatedCount} existing.`);
+      toast.success(`Successfully added ${addedCount} new projects! 🎉`);
     } catch (e: any) {
       toast.error("Error seeding projects: " + e.message);
       console.error(e);

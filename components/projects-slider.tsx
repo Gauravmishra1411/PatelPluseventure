@@ -111,7 +111,7 @@ export default function ProjectsSlider() {
 
 
   return (
-    <section className="py-20 bg-gradient-to-br from-white via-gray-50 to-white dark:from-background dark:via-primary/20 dark:to-background relative overflow-hidden">
+    <section className="py-6 md:py-12 lg:py-20 bg-gradient-to-br from-white via-gray-50 to-white dark:from-background dark:via-primary/20 dark:to-background relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-radial from-accent/5 to-transparent rounded-full blur-3xl opacity-50 dark:opacity-100" />

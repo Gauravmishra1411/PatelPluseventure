@@ -8,6 +8,7 @@ import { db } from "@/lib/firebase"
 import { collection, doc, getDoc, updateDoc, addDoc, setDoc, onSnapshot, deleteDoc, getDocs, writeBatch, query, orderBy } from "firebase/firestore"
 import { toast } from "sonner"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { seedHomeHeroStats, seedHomeAboutStats } from "@/lib/seed-stats"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -566,7 +567,12 @@ export default function AdminAboutPage() {
 
                 {/* Home Page Hero Stats Section */}
                 <Card className="bg-card border-border">
-                    <CardHeader><CardTitle>Home Page Hero Stats</CardTitle></CardHeader>
+                    <CardHeader className="flex flex-row items-center justify-between">
+                        <CardTitle>Home Page Hero Stats</CardTitle>
+                        <Button onClick={seedHomeHeroStats} variant="outline" size="sm" className="ml-auto">
+                            <Plus className="w-4 h-4 mr-2" /> Auto Fill
+                        </Button>
+                    </CardHeader>
                     <CardContent className="grid lg:grid-cols-2 gap-8">
                         <div>
                             <h3 className="font-semibold mb-4">{isEditingHomeHeroStat ? 'Edit' : 'Add'} Stat</h3>
@@ -634,7 +640,12 @@ export default function AdminAboutPage() {
 
                 {/* Home Page About Section Stats */}
                 <Card className="bg-card border-border">
-                    <CardHeader><CardTitle>Home Page &apos;About&apos; Section Stats</CardTitle></CardHeader>
+                    <CardHeader className="flex flex-row items-center justify-between">
+                        <CardTitle>Home Page &apos;About&apos; Section Stats</CardTitle>
+                        <Button onClick={seedHomeAboutStats} variant="outline" size="sm" className="ml-auto">
+                            <Plus className="w-4 h-4 mr-2" /> Auto Fill
+                        </Button>
+                    </CardHeader>
                     <CardContent className="grid lg:grid-cols-2 gap-8">
                         <div>
                             <h3 className="font-semibold mb-4">{isEditingHomeAboutStat ? 'Edit' : 'Add'} Stat</h3>

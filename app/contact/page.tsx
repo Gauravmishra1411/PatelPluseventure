@@ -139,22 +139,22 @@ export default function ContactPage() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
 
-      <main className="pt-24">
+      <main className="pt-20 pb-24">
         {/* Hero Section */}
-        <section className="py-20 relative overflow-hidden">
-          <div className="container mx-auto px-6">
+        <section className="py-12 md:py-20 relative overflow-hidden">
+          <div className="container mx-auto px-4 sm:px-6">
             <motion.div
-              className="text-center mb-16"
+              className="text-center mb-12 md:mb-16"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6">
                 <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                   Get in Touch
                 </span>
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
                 Ready to transform your ideas into digital reality? Let's start the conversation and build something
                 amazing together.
               </p>
@@ -163,25 +163,25 @@ export default function ContactPage() {
         </section>
 
         {/* Contact Form & Info */}
-        <section className="py-20">
-          <div className="container mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <section className="py-8 md:py-16 lg:py-20">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="grid lg:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
               {/* Contact Form */}
               <motion.div
-                className="relative"
+                className="relative order-2 lg:order-1"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
               >
-                <div className="p-8 bg-secondary/10 backdrop-blur-sm border border-primary/20 rounded-2xl relative overflow-hidden">
+                <div className="p-6 md:p-8 bg-secondary/10 backdrop-blur-sm border border-primary/20 rounded-2xl relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
 
                   <div className="relative z-10">
-                    <h3 className="text-2xl font-bold text-foreground mb-6">Send us a message</h3>
+                    <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4 md:mb-6">Send us a message</h3>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
+                    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+                      <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
@@ -195,7 +195,7 @@ export default function ContactPage() {
                             value={formData.name}
                             onChange={handleChange}
                             required
-                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20"
+                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-11 md:h-12 text-sm md:text-base"
                           />
                         </motion.div>
 
@@ -212,12 +212,12 @@ export default function ContactPage() {
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20"
+                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-11 md:h-12 text-sm md:text-base"
                           />
                         </motion.div>
                       </div>
 
-                      <div className="grid md:grid-cols-2 gap-6">
+                      <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
@@ -230,7 +230,7 @@ export default function ContactPage() {
                             placeholder="Phone Number"
                             value={formData.phone}
                             onChange={handleChange}
-                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20"
+                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-11 md:h-12 text-sm md:text-base"
                           />
                         </motion.div>
 
@@ -246,7 +246,7 @@ export default function ContactPage() {
                             placeholder="Company Name"
                             value={formData.company}
                             onChange={handleChange}
-                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20"
+                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-11 md:h-12 text-sm md:text-base"
                           />
                         </motion.div>
                       </div>
@@ -264,7 +264,7 @@ export default function ContactPage() {
                           onChange={handleChange}
                           required
                           rows={5}
-                          className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 resize-none"
+                          className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 resize-none text-sm md:text-base min-h-[120px] md:min-h-[140px]"
                         />
                       </motion.div>
 
@@ -277,7 +277,7 @@ export default function ContactPage() {
                         <Button
                           type="submit"
                           disabled={isSubmitting}
-                          className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold py-3 hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 disabled:opacity-50"
+                          className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold py-3 md:py-4 text-sm md:text-base hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 disabled:opacity-50 h-12 md:h-14"
                         >
                           {isSubmitting ? (
                             <motion.div
@@ -290,7 +290,7 @@ export default function ContactPage() {
                           ) : (
                             <>
                               Send Message
-                              <Send className="w-5 h-5 ml-2" />
+                              <Send className="w-4 h-4 md:w-5 md:h-5 ml-2" />
                             </>
                           )}
                         </Button>
@@ -302,16 +302,16 @@ export default function ContactPage() {
 
               {/* Contact Info */}
               <motion.div
-                className="space-y-8"
+                className="space-y-6 md:space-y-8 order-1 lg:order-2"
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
               >
                 <div>
-                  <h3 className="text-2xl font-bold text-foreground mb-6">Contact Information</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4 md:mb-6">Contact Information</h3>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3 md:space-y-4">
                     {contactInfo.map((info, index) => (
                       <motion.div
                         key={info.label}
@@ -326,30 +326,30 @@ export default function ContactPage() {
                             href={info.href}
                             target={info.href.startsWith("http") ? "_blank" : undefined}
                             rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                            className="flex items-center space-x-4 p-4 bg-secondary/10 backdrop-blur-sm border border-primary/20 rounded-lg hover:border-primary/40 transition-all duration-300 group-hover:scale-102"
+                            className="flex items-start space-x-3 md:space-x-4 p-3 md:p-4 bg-secondary/10 backdrop-blur-sm border border-primary/20 rounded-lg hover:border-primary/40 transition-all duration-300 group-hover:scale-102"
                           >
                             <div
-                              className={`w-12 h-12 bg-gradient-to-r ${info.gradient} rounded-lg flex items-center justify-center`}
+                              className={`w-10 h-10 md:w-12 md:h-12 flex-shrink-0 bg-gradient-to-r ${info.gradient} rounded-lg flex items-center justify-center`}
                             >
-                              <info.icon className="w-6 h-6 text-primary-foreground" />
+                              <info.icon className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
                             </div>
-                            <div>
-                              <p className="text-sm text-muted-foreground">{info.label}</p>
-                              <p className="text-foreground font-semibold group-hover:text-primary transition-colors">
+                            <div className="min-w-0 flex-1">
+                              <p className="text-xs md:text-sm text-muted-foreground">{info.label}</p>
+                              <p className="text-sm md:text-base text-foreground font-semibold group-hover:text-primary transition-colors break-words">
                                 {info.value}
                               </p>
                             </div>
                           </a>
                         ) : (
-                          <div className="flex items-center space-x-4 p-4 bg-secondary/10 backdrop-blur-sm border border-primary/20 rounded-lg">
+                          <div className="flex items-start space-x-3 md:space-x-4 p-3 md:p-4 bg-secondary/10 backdrop-blur-sm border border-primary/20 rounded-lg">
                             <div
-                              className={`w-12 h-12 bg-gradient-to-r ${info.gradient} rounded-lg flex items-center justify-center`}
+                              className={`w-10 h-10 md:w-12 md:h-12 flex-shrink-0 bg-gradient-to-r ${info.gradient} rounded-lg flex items-center justify-center`}
                             >
-                              <info.icon className="w-6 h-6 text-primary-foreground" />
+                              <info.icon className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
                             </div>
-                            <div>
-                              <p className="text-sm text-muted-foreground">{info.label}</p>
-                              <p className="text-foreground font-semibold">{info.value}</p>
+                            <div className="min-w-0 flex-1">
+                              <p className="text-xs md:text-sm text-muted-foreground">{info.label}</p>
+                              <p className="text-sm md:text-base text-foreground font-semibold">{info.value}</p>
                             </div>
                           </div>
                         )}
@@ -360,8 +360,8 @@ export default function ContactPage() {
 
                 {/* Social Links */}
                 <div>
-                  <h4 className="text-xl font-bold text-foreground mb-4">Follow Us</h4>
-                  <div className="grid grid-cols-2 gap-4">
+                  <h4 className="text-lg md:text-xl font-bold text-foreground mb-3 md:mb-4">Follow Us</h4>
+                  <div className="grid grid-cols-2 gap-3 md:gap-4">
                     {socialLinks.map((social, index) => (
                       <motion.a
                         key={social.label}
@@ -377,12 +377,12 @@ export default function ContactPage() {
                         whileTap={{ scale: 0.95 }}
                       >
                         <div
-                          className={`w-full h-16 bg-gradient-to-r ${social.gradient} rounded-lg flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/25`}
+                          className={`w-full h-14 md:h-16 bg-gradient-to-r ${social.gradient} rounded-lg flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/25`}
                         >
-                          <social.icon className="w-6 h-6 text-white" />
+                          <social.icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
                         </div>
 
-                        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-popover/90 backdrop-blur-sm text-popover-foreground text-xs px-2 py-1 rounded-lg border border-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden md:block">
+                        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-popover/90 backdrop-blur-sm text-popover-foreground text-xs px-2 py-1 rounded-lg border border-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden md:block whitespace-nowrap">
                           {social.label}
                           <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-popover/90" />
                         </div>
@@ -393,19 +393,19 @@ export default function ContactPage() {
 
                 {/* Quick Response */}
                 <motion.div
-                  className="p-6 bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 rounded-2xl"
+                  className="p-4 md:p-6 bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 rounded-2xl"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
                   viewport={{ once: true }}
                 >
-                  <h4 className="text-xl font-bold text-foreground mb-2">Quick Response Guarantee</h4>
-                  <p className="text-muted-foreground mb-4">
+                  <h4 className="text-lg md:text-xl font-bold text-foreground mb-2">Quick Response Guarantee</h4>
+                  <p className="text-sm md:text-base text-muted-foreground mb-3 md:mb-4">
                     We typically respond to all inquiries within 2-4 hours during business hours.
                   </p>
                   <div className="flex items-center gap-2 text-primary">
                     <Clock className="w-4 h-4" />
-                    <span className="text-sm font-medium">Average response time: 2 hours</span>
+                    <span className="text-xs md:text-sm font-medium">Average response time: 2 hours</span>
                   </div>
                 </motion.div>
               </motion.div>
