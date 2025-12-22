@@ -36,7 +36,12 @@ export const metadata: Metadata = {
       "We craft cutting-edge digital experiences with AI-powered solutions, modern web technologies, and innovative design.",
     creator: "@patelpulseventures",
   },
-  generator: 'v0.dev'
+  generator: 'v0.dev',
+  verification: {
+    other: {
+      "facebook-domain-verification": "cjypvn3mhrf5svx1c89nudills5ndu",
+    },
+  },
 }
 
 
