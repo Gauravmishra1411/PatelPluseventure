@@ -26,7 +26,7 @@ interface Project {
   description?: string; // Added description
 }
 
-const categories = ["All", "Web Development", "Web Application", "Mobile Development", "AI Development", "E-commerce", "Fullstack", "MERN"]
+const categories = ["All", "Web Development", "Web Application", "Mobile Development", "AI Development", "E-commerce", "Fullstack", "MERN", "Fintech", "Public Service", "Health & Fitness"]
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([])
@@ -34,7 +34,7 @@ export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All")
 
   useEffect(() => {
-    const q = query(collection(db, "projects"), orderBy("createdAt", "desc"))
+    const q = query(collection(db, "projects"), orderBy("order", "asc"))
     const unsubscribe = onSnapshot(
       q,
       (querySnapshot) => {

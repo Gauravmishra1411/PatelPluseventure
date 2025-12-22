@@ -264,8 +264,8 @@ export default function AdminDashboard() {
             </div>
           </CardHeader>
           <CardContent className="relative">
-            <div className="text-3xl font-bold text-foreground mb-1">{stats.activeProjects}</div>
-            <p className="text-xs text-gray-400">{stats.totalProjects} total projects</p>
+            <div className="text-3xl font-bold text-foreground mb-1">{stats.totalProjects}</div>
+            <p className="text-xs text-gray-400">Total Projects</p>
           </CardContent>
         </Card>
 
@@ -278,8 +278,8 @@ export default function AdminDashboard() {
             </div>
           </CardHeader>
           <CardContent className="relative">
-            <div className="text-3xl font-bold text-foreground mb-1">{stats.unreadMessages}</div>
-            <p className="text-xs text-gray-400">{stats.totalMessages} total messages</p>
+            <div className="text-3xl font-bold text-foreground mb-1">{stats.totalMessages}</div>
+            <p className="text-xs text-gray-400">Total Messages</p>
           </CardContent>
         </Card>
 

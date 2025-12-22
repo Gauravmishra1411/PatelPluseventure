@@ -13,7 +13,7 @@ import { FolderOpen, Save, Link as LinkIcon, UploadCloud, Tag, Layers, Calendar,
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { db, auth } from "@/lib/firebase"
-import { collection, addDoc, serverTimestamp } from "firebase/firestore"
+import { collection, addDoc, serverTimestamp, getDocs } from "firebase/firestore"
 import { onAuthStateChanged } from "firebase/auth";
 
 
@@ -56,12 +56,12 @@ export default function AddProjectPage() {
       reader.readAsDataURL(file)
     }
   }
-  
+
   const handleGalleryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
       setGalleryFiles(files);
-      
+
       const previews = files.map(file => URL.createObjectURL(file));
       setGalleryPreviews(previews);
     }
@@ -96,9 +96,9 @@ export default function AddProjectPage() {
 
     const currentUser = auth.currentUser;
     if (!currentUser) {
-        toast.error("You must be logged in to add a project.");
-        setIsLoading(false);
-        return;
+      toast.error("You must be logged in to add a project.");
+      setIsLoading(false);
+      return;
     }
 
     try {
@@ -106,8 +106,8 @@ export default function AddProjectPage() {
       if (mainImageFile) {
         mainImageUrl = await uploadImage(mainImageFile);
         if (!mainImageUrl) {
-            setIsLoading(false);
-            return; 
+          setIsLoading(false);
+          return;
         }
       }
 
@@ -116,13 +116,16 @@ export default function AddProjectPage() {
         const uploadPromises = galleryFiles.map(file => uploadImage(file));
         const urls = await Promise.all(uploadPromises);
         galleryImageUrls = urls.filter((url): url is string => url !== null);
-        
+
         if (galleryImageUrls.length !== galleryFiles.length) {
-            toast.error("Some gallery images failed to upload. Please try again.");
-            setIsLoading(false);
-            return;
+          toast.error("Some gallery images failed to upload. Please try again.");
+          setIsLoading(false);
+          return;
         }
       }
+
+      const projectsSnapshot = await getDocs(collection(db, "projects"));
+      const currentCount = projectsSnapshot.size;
 
       await addDoc(collection(db, "projects"), {
         ...formData,
@@ -132,6 +135,7 @@ export default function AddProjectPage() {
         techStack: formData.techStack.split(",").map((item) => item.trim()),
         learnings: formData.learnings.split(",").map((item) => item.trim()),
         tags: formData.tags.split(",").map((item) => item.trim()),
+        order: currentCount,
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       })
@@ -159,7 +163,7 @@ export default function AddProjectPage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-8">
-              
+
               {/* Basic Info */}
               <div className="space-y-4 p-4 border border-gray-700 rounded-lg">
                 <h3 className="text-lg font-semibold text-green-400">Basic Information</h3>
@@ -177,7 +181,7 @@ export default function AddProjectPage() {
                   <Label htmlFor="description" className="text-white">Description *</Label>
                   <Textarea id="description" value={formData.description} onChange={(e) => handleInputChange("description", e.target.value)} required rows={4} className="bg-gray-700 border-gray-600" />
                 </div>
-                 <div className="space-y-2">
+                <div className="space-y-2">
                   <Label htmlFor="category" className="text-white">Category</Label>
                   <Input id="category" value={formData.category} onChange={(e) => handleInputChange("category", e.target.value)} className="bg-gray-700 border-gray-600" />
                 </div>
@@ -190,22 +194,22 @@ export default function AddProjectPage() {
                   <Label htmlFor="mainImage" className="text-white">Main Project Image</Label>
                   <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md">
                     <div className="space-y-1 text-center">
-                      {mainImagePreview ? <Image src={mainImagePreview} alt="Main preview" width={200} height={150} className="mx-auto h-24 w-auto object-contain rounded-md"/> : <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />}
-                      <div className="flex text-sm text-gray-400"><label htmlFor="mainImage" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-green-400 hover:text-green-500 px-2 py-1"><span>Upload main image</span><Input id="mainImage" name="mainImage" type="file" className="sr-only" onChange={handleMainImageChange} accept="image/*"/></label></div>
+                      {mainImagePreview ? <Image src={mainImagePreview} alt="Main preview" width={200} height={150} className="mx-auto h-24 w-auto object-contain rounded-md" /> : <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />}
+                      <div className="flex text-sm text-gray-400"><label htmlFor="mainImage" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-green-400 hover:text-green-500 px-2 py-1"><span>Upload main image</span><Input id="mainImage" name="mainImage" type="file" className="sr-only" onChange={handleMainImageChange} accept="image/*" /></label></div>
                     </div>
                   </div>
                 </div>
-                 <div className="space-y-2">
+                <div className="space-y-2">
                   <Label htmlFor="gallery" className="text-white">Image Gallery</Label>
                   <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md">
-                     <div className="space-y-1 text-center">
-                       {galleryPreviews.length > 0 ? (
+                    <div className="space-y-1 text-center">
+                      {galleryPreviews.length > 0 ? (
                         <div className="flex flex-wrap gap-2 justify-center">
-                          {galleryPreviews.map((src, idx) => <Image key={idx} src={src} alt={`Gallery preview ${idx+1}`} width={100} height={80} className="h-20 w-auto object-contain rounded-md"/>)}
+                          {galleryPreviews.map((src, idx) => <Image key={idx} src={src} alt={`Gallery preview ${idx + 1}`} width={100} height={80} className="h-20 w-auto object-contain rounded-md" />)}
                         </div>
-                       ) : <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />}
-                      <div className="flex text-sm text-gray-400"><label htmlFor="gallery" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-green-400 hover:text-green-500 px-2 py-1"><span>Upload gallery images</span><Input id="gallery" name="gallery" type="file" multiple className="sr-only" onChange={handleGalleryChange} accept="image/*"/></label></div>
-                     </div>
+                      ) : <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />}
+                      <div className="flex text-sm text-gray-400"><label htmlFor="gallery" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-green-400 hover:text-green-500 px-2 py-1"><span>Upload gallery images</span><Input id="gallery" name="gallery" type="file" multiple className="sr-only" onChange={handleGalleryChange} accept="image/*" /></label></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -213,23 +217,23 @@ export default function AddProjectPage() {
               {/* Details */}
               <div className="space-y-4 p-4 border border-gray-700 rounded-lg">
                 <h3 className="text-lg font-semibold text-green-400">Project Details</h3>
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2"><Label htmlFor="features" className="text-white flex items-center"><Layers className="w-4 h-4 mr-2"/>Features (comma-separated)</Label><Textarea id="features" value={formData.features} onChange={(e) => handleInputChange("features", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
-                    <div className="space-y-2"><Label htmlFor="techStack" className="text-white flex items-center"><Layers className="w-4 h-4 mr-2"/>Tech Stack (comma-separated)</Label><Textarea id="techStack" value={formData.techStack} onChange={(e) => handleInputChange("techStack", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
-                    <div className="space-y-2"><Label htmlFor="timeline" className="text-white flex items-center"><Calendar className="w-4 h-4 mr-2"/>Timeline</Label><Input id="timeline" value={formData.timeline} onChange={(e) => handleInputChange("timeline", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
-                    <div className="space-y-2"><Label htmlFor="role" className="text-white flex items-center"><User className="w-4 h-4 mr-2"/>Role</Label><Input id="role" value={formData.role} onChange={(e) => handleInputChange("role", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
-                    <div className="space-y-2"><Label htmlFor="learnings" className="text-white flex items-center"><Lightbulb className="w-4 h-4 mr-2"/>Learnings (comma-separated)</Label><Textarea id="learnings" value={formData.learnings} onChange={(e) => handleInputChange("learnings", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
-                    <div className="space-y-2"><Label htmlFor="tags" className="text-white flex items-center"><Tag className="w-4 h-4 mr-2"/>Tags (comma-separated)</Label><Input id="tags" value={formData.tags} onChange={(e) => handleInputChange("tags", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
-                 </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2"><Label htmlFor="features" className="text-white flex items-center"><Layers className="w-4 h-4 mr-2" />Features (comma-separated)</Label><Textarea id="features" value={formData.features} onChange={(e) => handleInputChange("features", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
+                  <div className="space-y-2"><Label htmlFor="techStack" className="text-white flex items-center"><Layers className="w-4 h-4 mr-2" />Tech Stack (comma-separated)</Label><Textarea id="techStack" value={formData.techStack} onChange={(e) => handleInputChange("techStack", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
+                  <div className="space-y-2"><Label htmlFor="timeline" className="text-white flex items-center"><Calendar className="w-4 h-4 mr-2" />Timeline</Label><Input id="timeline" value={formData.timeline} onChange={(e) => handleInputChange("timeline", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
+                  <div className="space-y-2"><Label htmlFor="role" className="text-white flex items-center"><User className="w-4 h-4 mr-2" />Role</Label><Input id="role" value={formData.role} onChange={(e) => handleInputChange("role", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
+                  <div className="space-y-2"><Label htmlFor="learnings" className="text-white flex items-center"><Lightbulb className="w-4 h-4 mr-2" />Learnings (comma-separated)</Label><Textarea id="learnings" value={formData.learnings} onChange={(e) => handleInputChange("learnings", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
+                  <div className="space-y-2"><Label htmlFor="tags" className="text-white flex items-center"><Tag className="w-4 h-4 mr-2" />Tags (comma-separated)</Label><Input id="tags" value={formData.tags} onChange={(e) => handleInputChange("tags", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
+                </div>
               </div>
 
-               {/* Links */}
+              {/* Links */}
               <div className="space-y-4 p-4 border border-gray-700 rounded-lg">
                 <h3 className="text-lg font-semibold text-green-400">Links</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2"><Label htmlFor="demoUrl" className="text-white">Live Demo URL</Label><Input id="demoUrl" type="url" value={formData.demoUrl} onChange={(e) => handleInputChange("demoUrl", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
-                    <div className="space-y-2"><Label htmlFor="githubFrontend" className="text-white">GitHub Frontend</Label><Input id="githubFrontend" type="url" value={formData.githubFrontend} onChange={(e) => handleInputChange("githubFrontend", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
-                    <div className="space-y-2"><Label htmlFor="githubBackend" className="text-white">GitHub Backend</Label><Input id="githubBackend" type="url" value={formData.githubBackend} onChange={(e) => handleInputChange("githubBackend", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
+                  <div className="space-y-2"><Label htmlFor="demoUrl" className="text-white">Live Demo URL</Label><Input id="demoUrl" type="url" value={formData.demoUrl} onChange={(e) => handleInputChange("demoUrl", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
+                  <div className="space-y-2"><Label htmlFor="githubFrontend" className="text-white">GitHub Frontend</Label><Input id="githubFrontend" type="url" value={formData.githubFrontend} onChange={(e) => handleInputChange("githubFrontend", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
+                  <div className="space-y-2"><Label htmlFor="githubBackend" className="text-white">GitHub Backend</Label><Input id="githubBackend" type="url" value={formData.githubBackend} onChange={(e) => handleInputChange("githubBackend", e.target.value)} className="bg-gray-700 border-gray-600" /></div>
                 </div>
               </div>
 
@@ -248,4 +252,3 @@ export default function AddProjectPage() {
   )
 }
 
-    

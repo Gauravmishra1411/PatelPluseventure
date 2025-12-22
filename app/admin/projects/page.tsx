@@ -2,8 +2,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import { Search, Filter, Plus, Calendar, DollarSign, User, Eye, Edit, Trash2, MoreHorizontal } from "lucide-react"
+import { motion, Reorder } from "framer-motion"
+import { Search, Filter, Plus, Calendar, DollarSign, User, Eye, Edit, Trash2, MoreHorizontal, GripVertical } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useRouter } from "next/navigation"
 import { db } from "@/lib/firebase"
-import { collection, onSnapshot, query, orderBy, Timestamp, deleteDoc, doc, addDoc, serverTimestamp, where, getDocs, updateDoc } from "firebase/firestore"
+import { collection, onSnapshot, query, orderBy, Timestamp, deleteDoc, doc, addDoc, serverTimestamp, where, getDocs, updateDoc, writeBatch } from "firebase/firestore"
 import { toast } from "sonner"
 import Image from "next/image"
 
@@ -25,6 +25,7 @@ interface Project {
   status?: string
   timeline?: string
   client?: string
+  order?: number
   createdAt: Timestamp
 }
 
@@ -34,7 +35,7 @@ export default function ProjectsPage() {
   const router = useRouter()
 
   useEffect(() => {
-    const q = query(collection(db, "projects"), orderBy("createdAt", "desc"))
+    const q = query(collection(db, "projects"), orderBy("order", "asc"))
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
@@ -61,6 +62,38 @@ export default function ProjectsPage() {
         toast.error("Failed to delete project.");
       }
     }
+  }
+
+  const handleReorderProjects = async (newOrder: Project[]) => {
+    setProjects(newOrder); // Optimistic update
+    try {
+      const batch = writeBatch(db);
+      newOrder.forEach((project, index) => {
+        const docRef = doc(db, "projects", project.id);
+        batch.update(docRef, { order: index });
+      });
+      await batch.commit();
+    } catch (error) {
+      console.error("Error reordering projects:", error);
+      toast.error("Failed to save project order.");
+    }
+  }
+
+  const handleManualOrderUpdate = async (project: Project, newPosStr: string) => {
+    const newPos = parseInt(newPosStr) - 1; // Convert to 0-indexed
+    if (isNaN(newPos)) return;
+
+    // Clamp values
+    const clampedPos = Math.max(0, Math.min(newPos, projects.length - 1));
+    const currentPos = projects.findIndex(p => p.id === project.id);
+
+    if (currentPos === clampedPos) return;
+
+    const newProjects = [...projects];
+    const [movedProject] = newProjects.splice(currentPos, 1);
+    newProjects.splice(clampedPos, 0, movedProject);
+
+    handleReorderProjects(newProjects);
   }
 
   const seedProjects = async () => {
@@ -229,6 +262,94 @@ export default function ProjectsPage() {
         tags: ["E-Commerce", "Shopping", "Cart"],
         mainImage: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80",
         gallery: []
+      },
+      {
+        title: "Maeorganics",
+        description: "A comprehensive e-commerce platform for cosmetics and organic skincare products, focusing on natural beauty and wellness.",
+        techStack: ["Next.js", "Tailwind CSS", "Firebase", "Stripe"],
+        link: "https://maeorganics.vercel.app/",
+        category: "E-commerce",
+        features: ["Product Catalog", "Shopping Cart", "User Reviews", "Organic Product Filtering"],
+        tags: ["E-commerce", "Cosmetics", "Organic"],
+        mainImage: "https://images.unsplash.com/photo-1596462502278-27bfdc4033c8?auto=format&fit=crop&q=80&w=800",
+        gallery: []
+      },
+      {
+        title: "Splityfy",
+        description: "An advanced expense tracker and bill splitter that helps groups manage shared costs effortlessly with real-time tracking.",
+        techStack: ["Next.js", "Firebase Auth", "Firestore", "Tailwind CSS"],
+        link: "https://splitlyfi.vercel.app/",
+        category: "Fintech",
+        features: ["Group Splitting", "Real-time Tracking", "Expense Categorization", "Balance Reports"],
+        tags: ["Web Application", "Fintech", "Expense Tracker"],
+        mainImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800",
+        gallery: []
+      },
+      {
+        title: "Civic Connect",
+        description: "A platform for citizens to anonymously report damaged infrastructure like roads and lights, allowing district authorities to track and resolve issues.",
+        techStack: ["React", "Node.js", "PostgreSQL", "Google Maps API"],
+        link: "https://civicconnects.vercel.app/",
+        category: "Public Service",
+        features: ["Anonymous Reporting", "Geo-tagging", "DM Admin Panel", "Issue Status Tracking"],
+        tags: ["Social Impact", "Public Service", "Community"],
+        mainImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=800",
+        gallery: []
+      },
+      {
+        title: "Maya Institute",
+        description: "A professional college website for Maya Institute, providing information about courses, campus life, and admissions management.",
+        techStack: ["Next.js", "Framer Motion", "Sanity CMS", "Tailwind CSS"],
+        link: "https://mayainstitude.vercel.app/",
+        category: "Education",
+        features: ["Course Management", "Online Admissions", "Campus Gallery", "Faculty Directory"],
+        tags: ["Education", "College", "CMS"],
+        mainImage: "https://images.unsplash.com/photo-1523050338692-7b835a01bb1e?auto=format&fit=crop&w=800&q=80",
+        gallery: []
+      },
+      {
+        title: "Neurofitness",
+        description: "A fitness application designed to track physical activity and cognitive wellness, bridging the gap between mind and body fitness.",
+        techStack: ["React Native", "Firebase", "TensorFlow.js", "Redux"],
+        link: "https://neurofitness.vercel.app/",
+        category: "Health & Fitness",
+        features: ["Workout Tracking", "Cognitive Exercises", "Progress Analytics", "Personalized Goals"],
+        tags: ["AI", "Fitness", "Health"],
+        mainImage: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800",
+        gallery: []
+      },
+      {
+        title: "Dream Deploy",
+        description: "A platform dedicated to helping college students complete their projects from 0 to 100%, offering resources, guidance, and solutions.",
+        techStack: ["Next.js", "MongoDB", "Express", "Tailwind"],
+        link: "https://dreamdeploy.vercel.app/",
+        category: "Education",
+        features: ["Project Repository", "Step-by-step Guidance", "Student Resources", "Solution Marketplace"],
+        tags: ["Education", "Projects", "Services"],
+        mainImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+        gallery: []
+      },
+      {
+        title: "CourseHUB",
+        description: "A platform to create and manage unlimited courses with the help of AI, including automated quiz generation and interactive learning content.",
+        techStack: ["Next.js", "OpenAI API", "HuggingFace", "PostgreSQL"],
+        link: "https://courseehubb.vercel.app/",
+        category: "AI Development",
+        features: ["AI Course Creation", "Automated Quizzes", "Dynamic Content", "Student Dashboard"],
+        tags: ["AI", "Education", "EdTech"],
+        mainImage: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80",
+        gallery: []
+      },
+      {
+        title: "Fitness Tracker Pro",
+        description: "An advanced fitness tracking tool that monitors full body movements, counts pushups accurately, and provides real-time training feedback.",
+        techStack: ["React", "MediaPipe", "TensorFlow.js", "Chart.js"],
+        link: "https://fitnesstracker-mu.vercel.app/",
+        category: "Health & Fitness",
+        features: ["Pushup Counter", "Motion Analysis", "Full Body Tracking", "Training Insights"],
+        tags: ["AI", "Fitness", "Motion Tracking"],
+        mainImage: "https://images.unsplash.com/photo-1510076857177-7470076d4098?auto=format&fit=crop&w=800&q=80",
+        gallery: []
       }
     ];
 
@@ -246,9 +367,11 @@ export default function ProjectsPage() {
 
       // Add new projects
       let addedCount = 0;
-      for (const project of seedData) {
+      for (let i = 0; i < seedData.length; i++) {
+        const project = seedData[i];
         await addDoc(projectsCollection, {
           ...project,
+          order: i,
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
           learnings: [],
@@ -311,11 +434,47 @@ export default function ProjectsPage() {
       </motion.div>
 
       {/* Projects Grid */}
-      <motion.div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+      <Reorder.Group
+        axis="y"
+        values={projects}
+        onReorder={handleReorderProjects}
+        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+      >
         {projects.map((project, index) => (
-          <motion.div key={project.id} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3, delay: index * 0.1 }}>
-            <Card className="bg-card/50 border-primary/20 backdrop-blur-sm hover:bg-card/70 transition-all duration-300 flex flex-col h-full">
-              <CardHeader className="pb-3">
+          <Reorder.Item
+            key={project.id}
+            value={project}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, delay: index * 0.1 }}
+          >
+            <Card className="bg-card/50 border-primary/20 backdrop-blur-sm hover:bg-card/70 transition-all duration-300 flex flex-col h-full group relative">
+              {/* Drag Handle Overlay */}
+              <div className="absolute top-2 left-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity cursor-grab active:cursor-grabbing p-1 bg-background/80 rounded-md border border-primary/20">
+                <GripVertical className="w-5 h-5 text-primary" />
+              </div>
+
+              {/* Order Number Input (Admin Only) */}
+              <div className="absolute top-2 right-12 z-20 flex items-center gap-1 bg-background/80 rounded-md border border-primary/20 p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-[10px] font-bold text-primary px-1">#</span>
+                <input
+                  type="number"
+                  key={project.order}
+                  defaultValue={(project.order ?? 0) + 1}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleManualOrderUpdate(project, e.currentTarget.value);
+                      e.currentTarget.blur();
+                    }
+                  }}
+                  onBlur={(e) => {
+                    handleManualOrderUpdate(project, e.target.value);
+                  }}
+                  className="w-10 h-5 text-xs bg-transparent border-none text-foreground focus:outline-none focus:ring-0 text-center font-bold"
+                />
+              </div>
+
+              <CardHeader className="pb-3 pl-10 md:pl-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <CardTitle className="text-xl mb-1">{project.title}</CardTitle>
@@ -348,9 +507,9 @@ export default function ProjectsPage() {
                 </Button>
               </CardContent>
             </Card>
-          </motion.div>
+          </Reorder.Item>
         ))}
-      </motion.div>
+      </Reorder.Group>
     </div>
   )
 }
