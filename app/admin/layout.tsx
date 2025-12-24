@@ -18,7 +18,7 @@ import {
   SidebarGroupLabel,
   SidebarGroupContent,
 } from "@/components/ui/sidebar"
-import { BarChart3, FolderOpen, Home, MessageSquare, Users, Zap, Wrench, Info, Star, Briefcase, ShoppingBag, Settings, LayoutDashboard, FileBarChart, ShoppingCart, LogOut, Package, Percent, Palette, LayoutGrid, Bell } from "lucide-react"
+import { BarChart3, FolderOpen, Home, MessageSquare, Users, Zap, Wrench, Info, Star, Briefcase, ShoppingBag, Settings, LayoutDashboard, FileBarChart, ShoppingCart, LogOut, Package, Percent, Palette, LayoutGrid, Bell, FileText } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
@@ -119,6 +119,19 @@ export default function AdminLayout({
                         <Link href="/admin/clients" className="flex items-center gap-3">
                           <Briefcase className="h-5 w-5 group-hover:scale-110 transition-transform" />
                           <span className="font-medium">Clients</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+
+                    <SidebarMenuItem>
+                      <SidebarMenuButton
+                        href="/admin/pages"
+                        asChild
+                        className="w-full justify-start text-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 rounded-lg px-4 py-3 group"
+                      >
+                        <Link href="/admin/pages" className="flex items-center gap-3">
+                          <FileText className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                          <span className="font-medium">Pages</span>
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>

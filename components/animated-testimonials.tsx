@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useState, useCallback } from "react"
 import { cn } from "@/lib/utils"
 import useEmblaCarousel from "embla-carousel-react"
+import Image from "next/image"
 
 type Testimonial = {
   quote: string
@@ -105,13 +106,13 @@ export const AnimatedTestimonials = ({
                       className="absolute inset-0 origin-bottom"
                     >
                       <div className="relative h-full w-full">
-                        <img
+                        <Image
                           src={testimonial.src || "/placeholder.svg"}
                           alt={testimonial.name}
-                          width={500}
-                          height={500}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 500px"
                           draggable={false}
-                          className="h-full w-full rounded-3xl object-cover object-center border-2 border-gray-200 dark:border-accent/20 shadow-2xl"
+                          className="object-cover object-center rounded-3xl border-2 border-gray-200 dark:border-accent/20 shadow-2xl"
                         />
                         {/* Glow Effect */}
                         <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-accent/10 via-transparent to-transparent" />
@@ -214,6 +215,7 @@ export const AnimatedTestimonials = ({
             <div className="flex gap-4 items-center justify-center md:justify-start">
               <button
                 onClick={handlePrev}
+                aria-label="Previous testimonial"
                 className={cn(
                   "group/button flex h-12 w-12 items-center justify-center rounded-full",
                   "bg-white dark:bg-gradient-to-r dark:from-primary dark:to-accent border border-gray-200 dark:border-accent/30",
@@ -226,6 +228,7 @@ export const AnimatedTestimonials = ({
 
               <button
                 onClick={handleNext}
+                aria-label="Next testimonial"
                 className={cn(
                   "group/button flex h-12 w-12 items-center justify-center rounded-full",
                   "bg-white dark:bg-gradient-to-r dark:from-primary dark:to-accent border border-gray-200 dark:border-accent/30",
@@ -242,6 +245,7 @@ export const AnimatedTestimonials = ({
                   <button
                     key={index}
                     onClick={() => emblaApi?.scrollTo(index)}
+                    aria-label={`Go to testimonial ${index + 1}`}
                     className={cn(
                       "w-3 h-3 rounded-full transition-all duration-300",
                       activeIndex === index

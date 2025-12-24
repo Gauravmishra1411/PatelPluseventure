@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore"
 import { db } from "@/lib/firebase"
+import Image from "next/image"
 
 interface TeamMember {
     id: string
@@ -60,10 +61,12 @@ export default function Team() {
                             className="group relative bg-card/60 backdrop-blur-sm border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300"
                         >
                             <div className="aspect-square relative overflow-hidden bg-muted">
-                                <img
+                                <Image
                                     src={member.image || "/placeholder.svg"}
                                     alt={member.name}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
                             </div>
 

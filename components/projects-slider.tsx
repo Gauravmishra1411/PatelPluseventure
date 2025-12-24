@@ -204,6 +204,7 @@ export default function ProjectsSlider() {
           {/* Navigation Buttons */}
           <button
             onClick={scrollPrev}
+            aria-label="Previous project"
             className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-12 w-12 h-12 bg-white/80 dark:bg-primary/80 backdrop-blur-sm border border-gray-200 dark:border-accent/20 rounded-full md:flex items-center justify-center text-accent hover:bg-accent/10 hover:border-accent/40 transition-all duration-300 z-10 hidden shadow-md dark:shadow-none"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -211,6 +212,7 @@ export default function ProjectsSlider() {
 
           <button
             onClick={scrollNext}
+            aria-label="Next project"
             className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-12 w-12 h-12 bg-white/80 dark:bg-[#1A532A]/80 backdrop-blur-sm border border-gray-200 dark:border-[#8ED968]/20 rounded-full md:flex items-center justify-center text-[#8ED968] hover:bg-[#8ED968]/10 hover:border-[#8ED968]/40 transition-all duration-300 z-10 hidden shadow-md dark:shadow-none"
           >
             <ChevronRight className="w-6 h-6" />
