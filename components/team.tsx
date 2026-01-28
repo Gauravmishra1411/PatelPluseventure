@@ -21,14 +21,16 @@ export default function Team() {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const q = query(collection(db, "about_team"), orderBy("order", "asc"));
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            setTeam(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as TeamMember)))
-            setLoading(false)
-        })
+        const unsubscribe = onSnapshot(collection(db, "about_team"), (snapshot) => {
+            const loadedTeam = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as TeamMember));
+            // Sort by order, putting items without order at the end
+            loadedTeam.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+            setTeam(loadedTeam);
+            setLoading(false);
+        });
 
-        return () => unsubscribe()
-    }, [])
+        return () => unsubscribe();
+    }, []);
 
     if (loading) return null
 

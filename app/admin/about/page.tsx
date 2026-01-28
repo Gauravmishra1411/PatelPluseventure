@@ -182,7 +182,14 @@ export default function AdminAboutPage() {
 
     // Team State
     const [team, setTeam] = useState<any[]>([])
-    const [currentMember, setCurrentMember] = useState({ id: null, name: '', role: '', bio: '', skills: '', image: '' })
+    const [currentMember, setCurrentMember] = useState<{
+        id: string | null;
+        name: string;
+        role: string;
+        bio: string;
+        skills: string | string[];
+        image: string;
+    }>({ id: null, name: '', role: '', bio: '', skills: '', image: '' })
     const [memberImageFile, setMemberImageFile] = useState<File | null>(null)
     const [memberImagePreview, setMemberImagePreview] = useState<string | null>(null)
     const [isEditingMember, setIsEditingMember] = useState(false)
@@ -226,10 +233,11 @@ export default function AdminAboutPage() {
                 });
                 unsubscribers.push(valuesUnsub);
 
-                // Subscribe to Team (ordered)
-                const teamQ = query(collection(db, "about_team"), orderBy("order", "asc"));
-                const teamUnsub = onSnapshot(teamQ, (snapshot) => {
-                    const loadedTeam = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                // Subscribe to Team
+                const teamUnsub = onSnapshot(collection(db, "about_team"), (snapshot) => {
+                    const loadedTeam = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as any[];
+                    // Sort by order, putting items without order at the end
+                    loadedTeam.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
                     setTeam(loadedTeam);
                 });
                 unsubscribers.push(teamUnsub);
@@ -433,12 +441,26 @@ export default function AdminAboutPage() {
                 imageUrl = await uploadImage(memberImageFile) || currentMember.image;
             }
 
-            const { id, ...memberData } = { ...currentMember, image: imageUrl, skills: (currentMember.skills as string).split(',').map(s => s.trim()) };
+            const skillsArray = typeof currentMember.skills === 'string'
+                ? currentMember.skills.split(',').map(s => s.trim())
+                : currentMember.skills;
 
-            if (isEditingMember && id) {
-                await updateDoc(doc(db, "about_team", id), memberData);
+            if (isEditingMember && currentMember.id) {
+                const { id, ...memberData } = { ...currentMember, image: imageUrl, skills: skillsArray };
+                await updateDoc(doc(db, "about_team", id as string), memberData);
                 toast.success("Team member updated successfully!");
             } else {
+                // For new members, calculate the next order
+                const nextOrder = team.length > 0
+                    ? Math.max(...team.map(m => m.order ?? 0)) + 1
+                    : 0;
+
+                const { id, ...memberData } = {
+                    ...currentMember,
+                    image: imageUrl,
+                    skills: skillsArray,
+                    order: nextOrder
+                };
                 await addDoc(collection(db, "about_team"), memberData);
                 toast.success("Team member added successfully!");
             }
@@ -448,6 +470,7 @@ export default function AdminAboutPage() {
             setMemberImagePreview(null);
             setIsEditingMember(false);
         } catch (error) {
+            console.error("Error saving team member:", error);
             toast.error(`Failed to ${isEditingMember ? 'update' : 'add'} team member.`);
         }
     };
