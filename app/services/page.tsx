@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import Navbar from "@/components/navbar"
+import Logo from "@/components/logo"
 import Footer from "@/components/footer"
 import MobileBottomNav from "@/components/mobile-bottom-nav"
 import { Button } from "@/components/ui/button"
@@ -52,8 +53,6 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-
       <main className="pt-24">
         {/* Hero Section */}
         <section className="py-20 relative overflow-hidden">
@@ -65,12 +64,12 @@ export default function ServicesPage() {
               transition={{ duration: 0.8 }}
             >
               <h1 className="text-5xl md:text-7xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#81f5fd] bg-clip-text text-transparent">
                   Our Services
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Comprehensive digital solutions tailored to transform your business and accelerate growth
+                Comprehensive tender solutions tailored for construction, infrastructure, and allied sectors
               </p>
             </motion.div>
           </div>
@@ -101,30 +100,31 @@ export default function ServicesPage() {
                 services.map((service, index) => (
                   <motion.div
                     key={service.id}
-                    className="group relative"
+                    className="group relative flex flex-col h-full"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: index * 0.1 }}
                     viewport={{ once: true }}
                     whileHover={{ y: -10 }}
                   >
-                    <div className="relative p-8 h-full bg-secondary/10 backdrop-blur-sm border border-primary/20 rounded-2xl overflow-hidden">
+                    <div className="relative p-8 h-full bg-secondary/10 backdrop-blur-sm border border-primary/20 rounded-2xl overflow-hidden flex flex-col">
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
 
                       <motion.div
                         className={`absolute inset-0 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-20 rounded-2xl transition-opacity duration-300`}
                       />
 
-                      <div className="relative z-10 flex flex-col h-full">
-                        <motion.div
-                          className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-2xl flex items-center justify-center mb-6 p-2`}
-                          whileHover={{ rotate: 10, scale: 1.1 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {service.icon ? (
-                            <Image src={service.icon} alt={`${service.title} icon`} width={48} height={48} className="object-contain" />
-                          ) : null}
-                        </motion.div>
+                      <div className="relative z-10 flex flex-col h-full flex-grow">
+                        {service.icon ? (
+                          <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-6 border border-[#81f5fd]/25 bg-gray-50 shadow-sm">
+                            <Image
+                              src={service.icon}
+                              alt={`${service.title} image`}
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </div>
+                        ) : null}
 
                         <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
                         <p className="text-muted-foreground mb-6 leading-relaxed flex-grow">{service.description}</p>
@@ -138,24 +138,7 @@ export default function ServicesPage() {
                           ))}
                         </ul>
 
-                        <div className="mb-6">
-                          <h4 className="text-sm font-semibold text-primary mb-3">Technologies</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {service.technologies?.slice(0, 3).map((tech) => (
-                              <span
-                                key={tech}
-                                className="px-2 py-1 bg-primary/10 border border-primary/20 rounded-lg text-xs text-primary"
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                            {service.technologies?.length > 3 && (
-                              <span className="px-2 py-1 bg-muted rounded-lg text-xs text-muted-foreground">
-                                +{service.technologies.length - 3} more
-                              </span>
-                            )}
-                          </div>
-                        </div>
+
 
                         <div className="mb-6">
                           <p className="text-lg font-bold text-primary">{service.price}</p>
@@ -193,7 +176,7 @@ export default function ServicesPage() {
               viewport={{ once: true }}
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#81f5fd] bg-clip-text text-transparent">
                   Ready to Start Your Project?
                 </span>
               </h2>

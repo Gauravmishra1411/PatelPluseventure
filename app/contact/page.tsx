@@ -26,7 +26,7 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Phone",
-    value: "+91 7838130064, +91 1205106926",
+    value: "+91 7838130064, +91 8796140682",
     href: "tel:+917838130064",
     gradient: "from-accent to-[#00D4FF]",
   },
@@ -137,9 +137,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <Navbar />
-
-      <main className="pt-20 pb-24">
+      <main className="pt-24 pb-20">
         {/* Hero Section */}
         <section className="py-12 md:py-20 relative overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6">
@@ -150,12 +148,12 @@ export default function ContactPage() {
               transition={{ duration: 0.8 }}
             >
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6">
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#81f5fd] bg-clip-text text-transparent">
                   Get in Touch
                 </span>
               </h1>
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
-                Ready to transform your ideas into digital reality? Let's start the conversation and build something
+                Ready to partner on major construction and infrastructure projects? Let&apos;s start the conversation and build something
                 amazing together.
               </p>
             </motion.div>

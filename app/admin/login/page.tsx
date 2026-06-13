@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Eye, EyeOff, Lock, Mail, Shield, AlertCircle } from "lucide-react"
+import { Logo } from "@/components/logo"
 import { toast } from "sonner"
 import { auth } from "@/lib/firebase"
 import { signInWithEmailAndPassword } from "firebase/auth"
@@ -51,8 +52,8 @@ export default function AdminLogin() {
 
       <Card className="w-full max-w-md relative backdrop-blur-xl bg-white/10 border-white/20">
         <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
-            <Shield className="w-8 h-8 text-white" />
+          <div className="flex justify-center mb-2">
+            <Logo size="xl" linked={false} priority />
           </div>
           <div>
             <CardTitle className="text-2xl font-bold text-white">Admin Login</CardTitle>

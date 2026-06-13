@@ -89,7 +89,7 @@ export default function UsersPage() {
   const getStatusVariant = (status: string) => {
     switch (status.toLowerCase()) {
       case "active":
-        return "bg-green-500/20 text-green-400 border-green-500/30"
+        return "bg-green-500/20 text-[#81f5fd] border-[#81f5fd]/30"
       case "pending":
         return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
       case "inactive":

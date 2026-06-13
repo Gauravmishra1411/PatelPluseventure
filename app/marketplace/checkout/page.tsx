@@ -179,9 +179,9 @@ export default function CheckoutPage() {
                     className="fixed inset-0 flex items-center justify-center z-50 bg-black/50"
                 >
                     <Card className="text-center p-8">
-                        <PartyPopper className="w-16 h-16 mx-auto text-green-500 mb-4" />
+                        <PartyPopper className="w-16 h-16 mx-auto text-[#81f5fd] mb-4" />
                         <CardTitle>Congratulations!</CardTitle>
-                        <CardDescription>Coupon '{appliedDiscount?.code}' applied successfully.</CardDescription>
+                        <CardDescription>Coupon &apos;{appliedDiscount?.code}&apos; applied successfully.</CardDescription>
                     </Card>
                 </motion.div>
             )}
@@ -278,7 +278,7 @@ export default function CheckoutPage() {
                                 <div className="flex justify-between"><span>Subtotal</span><span>₹{subtotal.toFixed(2)}</span></div>
                                 <div className="flex justify-between"><span>Taxes</span><span>₹10.00</span></div>
                                 {appliedDiscount && (
-                                    <div className="flex justify-between text-green-500">
+                                    <div className="flex justify-between text-[#81f5fd]">
                                         <span>Discount ({appliedDiscount.code})</span>
                                         <span>- ₹{(subtotal + 10 - total).toFixed(2)}</span>
                                     </div>

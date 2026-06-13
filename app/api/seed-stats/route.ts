@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server'
 import { db } from '@/lib/firebase'
 import { collection, addDoc, getDocs, deleteDoc } from 'firebase/firestore'
 
+export const dynamic = 'force-dynamic';
+
+
 // Hero Stats Data - Shows in Hero section
 const heroStats = [
     {

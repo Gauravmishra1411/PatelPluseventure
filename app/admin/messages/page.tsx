@@ -170,7 +170,7 @@ export default function MessagesPage() {
                               message.status === "unread"
                                 ? "bg-primary/20 text-primary border-primary/30"
                                 : message.status === "replied"
-                                  ? "bg-green-500/20 text-green-400 border-green-500/30"
+                                  ? "bg-green-500/20 text-[#81f5fd] border-[#81f5fd]/30"
                                   : "bg-secondary/20 text-muted-foreground border-secondary/30"
                             }
                           >

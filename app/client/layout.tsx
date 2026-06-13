@@ -13,8 +13,9 @@ import {
   SidebarInset,
   SidebarFooter,
 } from "@/components/ui/sidebar"
-import { BarChart3, FolderOpen, Home, MessageSquare, Users, Zap, Wrench, Info, Star, Briefcase, User, FileText, BarChart, CreditCard, LogOut, Palette, ListChecks } from "lucide-react"
+import { BarChart3, FolderOpen, Home, MessageSquare, Users, Wrench, Info, Star, Briefcase, User, FileText, BarChart, CreditCard, LogOut, Palette, ListChecks } from "lucide-react"
 import Link from "next/link"
+import { Logo } from "@/components/logo"
 import { auth } from "@/lib/firebase"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
@@ -46,14 +47,7 @@ export default function ClientLayout({
         <Sidebar>
           <SidebarHeader>
             <div className="flex items-center gap-2">
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="p-2 rounded-lg bg-gradient-to-r from-primary to-accent">
-                  <Zap className="h-6 w-6 text-primary-foreground" />
-                </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                  Patel Pulse Ventures
-                </span>
-              </Link>
+              <Logo size="md" />
             </div>
           </SidebarHeader>
           <SidebarContent>
@@ -132,10 +126,7 @@ export default function ClientLayout({
 
         <SidebarInset>
           <header className="flex h-12 items-center justify-between border-b bg-background/50 backdrop-blur-sm px-4 md:hidden">
-            <div className="flex items-center gap-2">
-              <Zap className="h-6 w-6 text-primary" />
-              <span className="text-lg font-bold">Client Dashboard</span>
-            </div>
+            <Logo size="sm" />
             <SidebarTrigger />
           </header>
           <main className="flex-1 overflow-y-auto bg-background text-foreground p-4 sm:p-6 lg:p-8">

@@ -161,7 +161,7 @@ export default function ClientDesignsPage() {
                             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md">
                                 <div className="space-y-1 text-center">
                                 {filePreview ? <Image src={filePreview} alt="Preview" width={100} height={80} className="mx-auto h-24 w-auto object-contain rounded-md"/> : <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />}
-                                <div className="flex text-sm text-gray-400"><label htmlFor="file-upload" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-green-400 hover:text-green-500 px-2 py-1"><span>Upload a file</span><Input id="file-upload" type="file" className="sr-only" onChange={handleFileChange} accept="image/*" disabled={!!newLink}/></label></div>
+                                <div className="flex text-sm text-gray-400"><label htmlFor="file-upload" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-[#81f5fd] hover:text-[#81f5fd] px-2 py-1"><span>Upload a file</span><Input id="file-upload" type="file" className="sr-only" onChange={handleFileChange} accept="image/*" disabled={!!newLink}/></label></div>
                                 </div>
                             </div>
                          </div>
@@ -199,12 +199,12 @@ export default function ClientDesignsPage() {
                                         </div>
                                     )}
                                     <p className="text-sm mt-2 truncate">{asset.description || (asset.type === 'link' ? asset.url : 'Image')}</p>
-                                    {asset.type === 'link' && <a href={asset.url} target="_blank" rel="noopener noreferrer" className="text-xs text-green-400 hover:underline">View Link</a>}
+                                    {asset.type === 'link' && <a href={asset.url} target="_blank" rel="noopener noreferrer" className="text-xs text-[#81f5fd] hover:underline">View Link</a>}
                                 </Card>
                             ))}
                         </div>
                     ) : (
-                        <p className="text-gray-400">You haven't submitted any design assets yet.</p>
+                        <p className="text-gray-400">You haven&apos;t submitted any design assets yet.</p>
                     )}
                 </CardContent>
             </Card>

@@ -60,7 +60,7 @@ export default function AdminReviewsPage() {
 
   const getStatusVariant = (status: string) => {
     switch (status) {
-      case 'approved': return 'bg-green-500/20 text-green-400';
+      case 'approved': return 'bg-green-500/20 text-[#81f5fd]';
       case 'rejected': return 'bg-red-500/20 text-red-400';
       default: return 'bg-yellow-500/20 text-yellow-400';
     }
@@ -100,7 +100,7 @@ export default function AdminReviewsPage() {
                   <div className="flex md:flex-col items-center justify-between md:justify-start gap-2">
                     <Badge variant="outline" className={getStatusVariant(review.status)}>{review.status}</Badge>
                     <div className="flex gap-2">
-                      <Button size="icon" variant="outline" className="text-green-500 border-green-500/50 hover:bg-green-500/10 hover:text-green-400" onClick={() => handleUpdateStatus(review, 'approved')}><ThumbsUp className="w-4 h-4" /></Button>
+                      <Button size="icon" variant="outline" className="text-[#81f5fd] border-[#81f5fd]/50 hover:bg-green-500/10 hover:text-[#81f5fd]" onClick={() => handleUpdateStatus(review, 'approved')}><ThumbsUp className="w-4 h-4" /></Button>
                       <Button size="icon" variant="outline" className="text-red-500 border-red-500/50 hover:bg-red-500/10 hover:text-red-400" onClick={() => handleUpdateStatus(review, 'rejected')}><ThumbsDown className="w-4 h-4" /></Button>
                     </div>
                   </div>

@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
-import { Zap, Code, Smartphone, Brain, Cloud, Shield } from "lucide-react"
+import { Logo } from "@/components/logo"
+import { Code, Smartphone, Brain, Cloud, Shield, Zap } from "lucide-react"
 
 const icons = [Zap, Code, Smartphone, Brain, Cloud, Shield]
 
@@ -51,18 +52,17 @@ export default function PreLoader() {
       <div className="text-center relative z-10 px-4">
         {/* Logo */}
         <motion.div
-          className="flex items-center justify-center space-x-2 sm:space-x-3 mb-6 md:mb-8"
+          className="flex items-center justify-center mb-6 md:mb-8"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <motion.div
-            className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-r from-primary to-accent rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg"
             animate={{
-              boxShadow: [
-                "0 0 20px rgba(142, 217, 104, 0.3)",
-                "0 0 40px rgba(142, 217, 104, 0.6)",
-                "0 0 20px rgba(142, 217, 104, 0.3)",
+              filter: [
+                "drop-shadow(0 0 8px rgba(142, 217, 104, 0.3))",
+                "drop-shadow(0 0 20px rgba(142, 217, 104, 0.7))",
+                "drop-shadow(0 0 8px rgba(142, 217, 104, 0.3))",
               ],
             }}
             transition={{
@@ -71,16 +71,8 @@ export default function PreLoader() {
               ease: "easeInOut",
             }}
           >
-            <span className="text-white font-bold text-xl sm:text-2xl">P</span>
+            <Logo size="xl" linked={false} priority />
           </motion.div>
-          <motion.span
-            className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Patel Pulse Ventures
-          </motion.span>
         </motion.div>
 
         {/* Animated Icon */}

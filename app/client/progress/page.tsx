@@ -64,7 +64,7 @@ export default function ClientProgressPage() {
     const progressHistory: ProgressHistoryItem[] = clientData?.progressHistory || [];
 
     if (loading) {
-        return <div className="flex justify-center items-center h-full"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div></div>
+        return <div className="flex justify-center items-center h-full"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#81f5fd]"></div></div>
     }
 
     if (!clientData) {
@@ -82,7 +82,7 @@ export default function ClientProgressPage() {
                     <div className="space-y-2 mb-6">
                         <div className="flex justify-between items-center text-lg">
                            <span className="font-medium text-white">Overall Progress</span>
-                           <span className="font-bold text-green-400">{overallProgress.toFixed(0)}%</span>
+                           <span className="font-bold text-[#81f5fd]">{overallProgress.toFixed(0)}%</span>
                         </div>
                         <Progress value={overallProgress} />
                     </div>

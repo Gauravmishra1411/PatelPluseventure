@@ -5,10 +5,10 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import NextImage from "next/image";
+import { Logo } from "@/components/logo";
 import { useTheme } from "next-themes";
 
 import {
-  Zap,
   ChevronLeft, 
   Minus, 
   Plus,
@@ -98,11 +98,7 @@ export default function MarketplaceHeader() {
           <div className="flex items-center justify-between h-20">
             {/* Desktop Logo & Nav */}
             <div className="hidden md:flex items-center gap-6">
-              <Link href="/marketplace" className="flex items-center space-x-2">
-                <div className="p-2 rounded-lg bg-gradient-to-r from-[#B6F500] to-[#00FF88]">
-                  <Zap className="h-6 w-6 text-black" />
-                </div>
-              </Link>
+              <Logo size="md" href="/marketplace" />
               <nav className="flex items-center gap-1">
                   {navLinks.map(link => (
                     <Link key={link.name} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md">{link.name}</Link>
@@ -112,11 +108,7 @@ export default function MarketplaceHeader() {
             
             {/* Mobile Logo */}
             <div className="md:hidden">
-                 <Link href="/marketplace" className="flex items-center space-x-2">
-                    <div className="p-2 rounded-lg bg-gradient-to-r from-[#B6F500] to-[#00FF88]">
-                        <Zap className="h-5 w-5 text-black" />
-                    </div>
-                 </Link>
+                 <Logo size="sm" href="/marketplace" />
             </div>
 
             <div className="flex items-center flex-1 justify-end md:justify-center">

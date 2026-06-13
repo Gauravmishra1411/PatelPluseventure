@@ -71,7 +71,7 @@ export default function AdminCustomerDetailPage() {
     const getStatusVariant = (status: string) => {
         switch (status) {
             case 'Fulfilled':
-            case 'Delivered': return 'bg-green-500/20 text-green-400';
+            case 'Delivered': return 'bg-green-500/20 text-[#81f5fd]';
             case 'Cancelled': return 'bg-red-500/20 text-red-400';
             default: return 'bg-yellow-500/20 text-yellow-400';
         }

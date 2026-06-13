@@ -11,10 +11,24 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Star, Save, UploadCloud, User, Briefcase, Building, MessageSquare, Award, Tag } from "lucide-react"
+import { FaFileContract, FaHelmetSafety, FaBuilding, FaCity, FaRoad, FaGavel } from "react-icons/fa6"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { db, auth } from "@/lib/firebase"
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"
+
+function Icons(){
+  return (
+    <div className="flex gap-6 text-5xl text-teal-600 mb-4">
+      <FaFileContract />
+      <FaHelmetSafety />
+      <FaBuilding />
+      <FaCity />
+      <FaRoad />
+      <FaGavel />
+    </div>
+  );
+}
 
 export default function AddTestimonialPage() {
   const [formData, setFormData] = useState({

@@ -214,7 +214,7 @@ export default function AdminCategoriesPage() {
                              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md">
                                 <div className="space-y-1 text-center">
                                     {iconPreview ? <Image src={iconPreview} alt="Icon Preview" width={64} height={64} className="mx-auto h-16 w-16 object-contain rounded-md"/> : <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />}
-                                    <div className="flex text-sm text-gray-400"><label htmlFor="icon-upload" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-green-400 hover:text-green-500 px-2 py-1"><span>Upload icon</span><Input id="icon-upload" type="file" className="sr-only" onChange={handleIconChange} accept="image/*"/></label></div>
+                                    <div className="flex text-sm text-gray-400"><label htmlFor="icon-upload" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-[#81f5fd] hover:text-[#81f5fd] px-2 py-1"><span>Upload icon</span><Input id="icon-upload" type="file" className="sr-only" onChange={handleIconChange} accept="image/*"/></label></div>
                                 </div>
                             </div>
                         </div>

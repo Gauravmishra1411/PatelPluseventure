@@ -8,14 +8,15 @@ import SmoothScroll from "@/components/smooth-scroll"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
 import { ThemeProvider } from "@/components/theme-provider"
 import ThemeCustomizer from "@/components/theme-customizer"
+import Navbar from "@/components/navbar"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Patel Pulse Ventures - Transforming Ideas into Digital Reality",
   description:
-    "We craft cutting-edge digital experiences with AI-powered solutions, modern web technologies, and innovative design that drive business growth and user engagement.",
-  keywords: "web development, mobile apps, AI solutions, digital transformation, patel pulse ventures",
+    "We invite eligible contractors, suppliers, and service providers to bid on our construction and infrastructure projects. All tenders are evaluated on technical competence, financial capability, and value for money — ensuring a fair and transparent process for every participant.",
+  keywords: "construction tenders, infrastructure projects, allied sectors, contracting, patel pulse ventures",
   authors: [{ name: "Patel Pulse Ventures" }],
   creator: "Patel Pulse Ventures",
   publisher: "Patel Pulse Ventures",
@@ -26,15 +27,21 @@ export const metadata: Metadata = {
     url: "https://patelpulseventures.com",
     title: "Patel Pulse Ventures - Transforming Ideas into Digital Reality",
     description:
-      "We craft cutting-edge digital experiences with AI-powered solutions, modern web technologies, and innovative design.",
+      "We invite eligible contractors, suppliers, and service providers to bid on our construction and infrastructure projects. All tenders are evaluated on technical competence, financial capability, and value for money — ensuring a fair and transparent process for every participant.",
     siteName: "Patel Pulse Ventures",
+    images: ["/logo.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Patel Pulse Ventures - Transforming Ideas into Digital Reality",
     description:
-      "We craft cutting-edge digital experiences with AI-powered solutions, modern web technologies, and innovative design.",
+      "We invite eligible contractors, suppliers, and service providers to bid on our construction and infrastructure projects. All tenders are evaluated on technical competence, financial capability, and value for money — ensuring a fair and transparent process for every participant",
     creator: "@patelpulseventures",
+    images: ["/logo.png"],
+  },
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
   },
   generator: 'v0.dev',
   verification: {
@@ -55,18 +62,19 @@ export default function RootLayout({
       <head>
         <GoogleAnalytics />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} overflow-y-auto`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
-          <ThemeCustomizer />
+          {/* <ThemeCustomizer /> */}
           <SmoothScroll>
-            {children}
-            <Toaster position="top-center" richColors />
-          </SmoothScroll>
+        <Navbar />
+        {children}
+        <Toaster position="top-center" richColors />
+      </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

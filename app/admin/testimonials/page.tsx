@@ -89,7 +89,7 @@ export default function TestimonialsAdminPage() {
 
   const getStatusVariant = (status: string | undefined) => {
     switch (status) {
-      case 'approved': return 'bg-green-500/20 text-green-400 border-green-500/30';
+      case 'approved': return 'bg-green-500/20 text-[#81f5fd] border-[#81f5fd]/30';
       case 'rejected': return 'bg-red-500/20 text-red-400 border-red-500/30';
       default: return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
     }
@@ -279,7 +279,7 @@ export default function TestimonialsAdminPage() {
                     <Badge variant="outline" className={getStatusVariant(testimonial.status)}>{testimonial.status || 'pending'}</Badge>
                   </div>
                   <div className="flex gap-2">
-                    <Button size="sm" className="w-full bg-green-500/20 text-green-400 hover:bg-green-500/30" onClick={() => handleUpdateStatus(testimonial.id, 'approved')}><ThumbsUp className="w-4 h-4 mr-2" />Approve</Button>
+                    <Button size="sm" className="w-full bg-green-500/20 text-[#81f5fd] hover:bg-green-500/30" onClick={() => handleUpdateStatus(testimonial.id, 'approved')}><ThumbsUp className="w-4 h-4 mr-2" />Approve</Button>
                     <Button size="sm" className="w-full bg-red-500/20 text-red-400 hover:bg-red-500/30" onClick={() => handleUpdateStatus(testimonial.id, 'rejected')}><ThumbsDown className="w-4 h-4 mr-2" />Reject</Button>
                   </div>
                 </div>

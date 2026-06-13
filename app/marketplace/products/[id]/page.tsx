@@ -521,7 +521,7 @@ export default function ProductDetailPage() {
                                 <TabsTrigger value="description">Description</TabsTrigger>
                                 <TabsTrigger value="features">Features</TabsTrigger>
                                 <TabsTrigger value="technical">Tech Specs</TabsTrigger>
-                                <TabsTrigger value="included">What's Included</TabsTrigger>
+                                <TabsTrigger value="included">What&apos;s Included</TabsTrigger>
                                 <TabsTrigger value="usage">Usage Guide</TabsTrigger>
                                 <TabsTrigger value="license">License</TabsTrigger>
                                 <TabsTrigger value="reviews">Reviews ({approvedReviews.length})</TabsTrigger>
@@ -534,7 +534,7 @@ export default function ProductDetailPage() {
                         <TabsContent value="features" className="py-4">
                             <ul className="grid sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-2">
                                 {product.features.map(feature => (
-                                    <li key={feature} className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-500" />{feature}</li>
+                                    <li key={feature} className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#81f5fd]" />{feature}</li>
                                 ))}
                             </ul>
                         </TabsContent>

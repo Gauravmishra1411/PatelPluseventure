@@ -130,11 +130,11 @@ export default function ProjectsSlider() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Featured Projects
+              Featured Tenders
             </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Explore our portfolio of successful digital transformations and innovative solutions
+            Explore our track record of successful construction and infrastructure tenders
           </p>
         </motion.div>
 
@@ -188,7 +188,7 @@ export default function ProjectsSlider() {
                               <div
                                 className={`inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2 w-full mt-auto bg-gradient-to-r from-[#FF0080] to-[#D400FF] text-white hover:shadow-lg hover:shadow-[#FF0080]/25 transition-all duration-300`}
                               >
-                                View Project
+                                View Tender
                               </div>
                             </motion.div>
                           </div>
@@ -204,7 +204,7 @@ export default function ProjectsSlider() {
           {/* Navigation Buttons */}
           <button
             onClick={scrollPrev}
-            aria-label="Previous project"
+            aria-label="Previous tender"
             className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-12 w-12 h-12 bg-white/80 dark:bg-primary/80 backdrop-blur-sm border border-gray-200 dark:border-accent/20 rounded-full md:flex items-center justify-center text-accent hover:bg-accent/10 hover:border-accent/40 transition-all duration-300 z-10 hidden shadow-md dark:shadow-none"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -212,8 +212,8 @@ export default function ProjectsSlider() {
 
           <button
             onClick={scrollNext}
-            aria-label="Next project"
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-12 w-12 h-12 bg-white/80 dark:bg-[#1A532A]/80 backdrop-blur-sm border border-gray-200 dark:border-[#8ED968]/20 rounded-full md:flex items-center justify-center text-[#8ED968] hover:bg-[#8ED968]/10 hover:border-[#8ED968]/40 transition-all duration-300 z-10 hidden shadow-md dark:shadow-none"
+            aria-label="Next tender"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-12 w-12 h-12 bg-white/80 dark:bg-[#1565c0]/80 backdrop-blur-sm border border-gray-200 dark:border-[#81f5fd]/20 rounded-full md:flex items-center justify-center text-[#81f5fd] hover:bg-[#81f5fd]/10 hover:border-[#81f5fd]/40 transition-all duration-300 z-10 hidden shadow-md dark:shadow-none"
           >
             <ChevronRight className="w-6 h-6" />
           </button>

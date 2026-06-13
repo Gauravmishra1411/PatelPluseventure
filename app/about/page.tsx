@@ -13,7 +13,6 @@ import Link from "next/link"
 import { db } from "@/lib/firebase"
 import { collection, doc, getDoc, onSnapshot, query, orderBy } from "firebase/firestore"
 import { toast } from "sonner"
-
 const iconComponents: { [key: string]: React.ElementType } = {
   Users, Target, Zap, Award, Code, Heart, Lightbulb, Rocket, Check, Star, Plus, Percent
 };
@@ -81,8 +80,6 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <Navbar />
-
       <main className="pt-24">
         {/* Hero Section */}
         <section className="py-20 relative overflow-hidden">
@@ -99,7 +96,7 @@ export default function AboutPage() {
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Pioneering the future of digital innovation with cutting-edge technology and creative excellence
+                Pioneering excellence in construction, infrastructure, and contracting services
               </p>
             </motion.div>
           </div>
@@ -297,7 +294,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#1565c0] bg-clip-text text-transparent">
                   Meet Our Team
                 </span>
               </h2>
@@ -369,26 +366,28 @@ export default function AboutPage() {
                 </span>
               </h2>
               <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Let&apos;s transform your ideas into digital reality. Get in touch with our team today.
+                Let&apos;s collaborate on your next major infrastructure project. Get in touch with our team today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/contact">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold px-8 py-4 text-lg hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
-                  >
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold px-8 py-4 text-lg hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                >
+                  <Link href="/contact">
                     Start Your Project
-                  </Button>
-                </Link>
-                <Link href="/services">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-primary/30 text-primary hover:bg-primary/10 hover:border-primary px-8 py-4 text-lg bg-transparent"
-                  >
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-primary/30 text-primary hover:bg-primary/10 hover:border-primary px-8 py-4 text-lg bg-transparent"
+                >
+                  <Link href="/services">
                     View Our Services
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </motion.div>
           </div>

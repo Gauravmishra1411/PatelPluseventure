@@ -391,7 +391,7 @@ export default function ProjectsPage() {
 
   const getStatusColor = (status: string | undefined) => {
     switch (status) {
-      case "Completed": return "bg-green-500/20 text-green-400 border-green-500/30"
+      case "Completed": return "bg-green-500/20 text-[#81f5fd] border-[#81f5fd]/30"
       case "In Progress": return "bg-blue-500/20 text-blue-400 border-blue-500/30"
       case "On Hold": return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
       case "Planning": return "bg-gray-500/20 text-gray-400 border-gray-500/30"

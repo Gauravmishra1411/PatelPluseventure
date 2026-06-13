@@ -64,7 +64,7 @@ export default function ClientDashboardPage() {
       : 0;
 
     if (loading) {
-        return <div className="flex justify-center items-center h-full"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div></div>
+        return <div className="flex justify-center items-center h-full"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#81f5fd]"></div></div>
     }
 
     if (!clientData) {
@@ -77,7 +77,7 @@ export default function ClientDashboardPage() {
                  <Card className="bg-gray-800 border-gray-700">
                     <CardHeader>
                         <CardTitle className="text-2xl">Welcome, {clientData.fullName}!</CardTitle>
-                        <CardDescription>Here's the current overview of your project: {clientData.projectTitle}</CardDescription>
+                        <CardDescription>Here&apos;s the current overview of your project: {clientData.projectTitle}</CardDescription>
                     </CardHeader>
                 </Card>
             </motion.div>

@@ -50,7 +50,7 @@ export default function AdminProductsPage() {
 
   const getStatusVariant = (status: string) => {
     switch (status) {
-      case 'published': return 'bg-green-500/20 text-green-400';
+      case 'published': return 'bg-green-500/20 text-[#81f5fd]';
       case 'draft': return 'bg-yellow-500/20 text-yellow-400';
       case 'archived': return 'bg-gray-500/20 text-gray-400';
       default: return 'secondary';

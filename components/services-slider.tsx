@@ -128,15 +128,16 @@ export default function ServicesSlider() {
                           className={`absolute inset-0 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-20 rounded-2xl transition-opacity duration-300`}
                         />
                         <div className="relative z-10 flex flex-col flex-grow">
-                          <motion.div
-                            className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-2xl flex items-center justify-center mb-6 p-2`}
-                            whileHover={{ rotate: 10, scale: 1.1 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            {service.icon ? (
-                              <Image src={service.icon} alt={`${service.title} icon`} width={48} height={48} className="object-contain" />
-                            ) : null}
-                          </motion.div>
+                          {service.icon ? (
+                            <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-6 border border-[#81f5fd]/25 bg-gray-50 shadow-sm">
+                              <Image 
+                                src={service.icon} 
+                                alt={`${service.title} image`} 
+                                fill 
+                                className="object-cover transition-transform duration-500 group-hover:scale-105" 
+                              />
+                            </div>
+                          ) : null}
                           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{service.title}</h3>
                           <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed flex-grow line-clamp-3">{service.description}</p>
 
@@ -151,18 +152,7 @@ export default function ServicesSlider() {
                               {service.features?.length > 2 && <li className="text-sm text-gray-500">... and more</li>}
                             </ul>
 
-                            <div className="flex flex-wrap gap-2">
-                              {service.technologies?.slice(0, 3).map((tech, idx) => (
-                                <span key={idx} className="px-3 py-1 bg-gray-100 dark:bg-[#020617]/50 rounded-full text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-accent/20 group-hover:border-accent/50 transition-colors">
-                                  {tech}
-                                </span>
-                              ))}
-                              {service.technologies?.length > 3 && (
-                                <span className="px-2 py-1 bg-gray-600/20 rounded-lg text-xs text-gray-400">
-                                  +{service.technologies.length - 3} more
-                                </span>
-                              )}
-                            </div>
+
                           </div>
 
                           <Link href="/services" className="mt-auto">
@@ -187,7 +177,7 @@ export default function ServicesSlider() {
               onClick={scrollPrev}
               variant="outline"
               size="icon"
-              className="absolute left-[-20px] top-1/2 -translate-y-1/2 bg-white/80 dark:bg-[#1A532A]/80 backdrop-blur-sm border border-gray-200 dark:border-[#8ED968]/20 rounded-full text-[#8ED968] hover:bg-[#8ED968]/10 disabled:opacity-50 disabled:cursor-not-allowed shadow-md dark:shadow-none"
+              className="absolute left-[-20px] top-1/2 -translate-y-1/2 bg-white/80 dark:bg-[#1565c0]/80 backdrop-blur-sm border border-gray-200 dark:border-[#81f5fd]/20 rounded-full text-[#81f5fd] hover:bg-[#81f5fd]/10 disabled:opacity-50 disabled:cursor-not-allowed shadow-md dark:shadow-none"
               disabled={loading}
             >
               <ChevronLeft className="h-6 w-6" />
@@ -196,7 +186,7 @@ export default function ServicesSlider() {
               onClick={scrollNext}
               variant="outline"
               size="icon"
-              className="absolute right-[-20px] top-1/2 -translate-y-1/2 bg-white/80 dark:bg-[#1A532A]/80 backdrop-blur-sm border border-gray-200 dark:border-[#8ED968]/20 rounded-full text-[#8ED968] hover:bg-[#8ED968]/10 disabled:opacity-50 disabled:cursor-not-allowed shadow-md dark:shadow-none"
+              className="absolute right-[-20px] top-1/2 -translate-y-1/2 bg-white/80 dark:bg-[#1565c0]/80 backdrop-blur-sm border border-gray-200 dark:border-[#81f5fd]/20 rounded-full text-[#81f5fd] hover:bg-[#81f5fd]/10 disabled:opacity-50 disabled:cursor-not-allowed shadow-md dark:shadow-none"
               disabled={loading}
             >
               <ChevronRight className="h-6 w-6" />

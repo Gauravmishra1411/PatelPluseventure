@@ -63,7 +63,7 @@ export default function WishlistPage() {
         <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Star className="text-yellow-400"/> My Wishlist</CardTitle>
-                <CardDescription>The products you've saved for later.</CardDescription>
+                <CardDescription>The products you&apos;ve saved for later.</CardDescription>
             </CardHeader>
             <CardContent>
                 {loading ? (

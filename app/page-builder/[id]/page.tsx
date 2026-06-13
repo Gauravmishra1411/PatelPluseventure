@@ -383,7 +383,7 @@ export default function PageBuilderPage() {
                                     <div className="grid grid-cols-2 gap-3">
                                         <Button variant="outline" className="h-24 flex flex-col gap-2 hover:border-primary hover:bg-primary/5" onClick={() => addSection('features')}>
                                             <div className="p-2 bg-green-500/10 rounded-md">
-                                                <List className="h-5 w-5 text-green-500" />
+                                                <List className="h-5 w-5 text-[#81f5fd]" />
                                             </div>
                                             <span className="text-xs">Features</span>
                                         </Button>

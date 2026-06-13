@@ -3,7 +3,8 @@
 
 import NextImage from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Search, Zap } from "lucide-react";
+import { Search } from "lucide-react";
+import { Logo } from "@/components/logo";
 import FilterDrawer from "./filter-drawer";
 
 export default function ShopHeader() {
@@ -11,11 +12,7 @@ export default function ShopHeader() {
     <header className="md:hidden sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b">
         <div className="container mx-auto px-4">
             <div className="flex items-center justify-between h-16 gap-2">
-                <Link href="/marketplace" className="flex items-center space-x-2">
-                  <div className="p-2 rounded-lg bg-gradient-to-r from-[#B6F500] to-[#00FF88]">
-                    <Zap className="h-5 w-5 text-black" />
-                  </div>
-                </Link>
+                <Logo size="sm" href="/marketplace" />
                 <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <input

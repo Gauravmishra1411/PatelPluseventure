@@ -111,11 +111,11 @@ export default function AnalyticsPage() {
                     <p className="text-2xl md:text-3xl font-bold">{stat.value}</p>
                     <div className="flex items-center mt-2">
                       {stat.trend === "up" ? (
-                        <ArrowUpRight className="w-4 h-4 text-green-500 mr-1" />
+                        <ArrowUpRight className="w-4 h-4 text-[#81f5fd] mr-1" />
                       ) : (
                         <ArrowDownRight className="w-4 h-4 text-red-500 mr-1" />
                       )}
-                      <span className={`text-sm ${stat.trend === "up" ? "text-green-500" : "text-red-500"}`}>
+                      <span className={`text-sm ${stat.trend === "up" ? "text-[#81f5fd]" : "text-red-500"}`}>
                         {stat.change}
                       </span>
                     </div>

@@ -10,9 +10,7 @@ import Link from "next/link"
 export default function TermsOfService() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <Navbar />
-
-      <main className="pt-24">
+      <main className="pt-24 pb-12">
         {/* Hero Section */}
         <section className="py-16 relative overflow-hidden">
           <div className="container mx-auto px-6">

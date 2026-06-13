@@ -24,19 +24,19 @@ interface ThemeConfig {
     dark: ThemeColors
 }
 
-// Default "Toxic Green" Theme
+// Default "Blue Logo" Theme
 const defaultTheme: ThemeConfig = {
     light: {
-        primary: "#1A532A",
-        accent: "#8ED968",
+        primary: "#1565c0",
+        accent: "#81f5fd",
         background: "#ffffff",
         secondaryBackground: "#f9fafb"
     },
     dark: {
-        primary: "#1A532A",
-        accent: "#8ED968",
+        primary: "#1565c0",
+        accent: "#81f5fd",
         background: "#020617",
-        secondaryBackground: "#1A532A" // Used for cards/overlays with opacity
+        secondaryBackground: "#1565c0" // Used for cards/overlays with opacity
     }
 }
 

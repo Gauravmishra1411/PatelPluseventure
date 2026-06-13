@@ -180,7 +180,7 @@ export default function HeroCustomizationPage() {
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md">
                 <div className="space-y-1 text-center">
                     {bannerImagePreview ? <Image src={bannerImagePreview} alt="Banner Preview" width={200} height={100} className="mx-auto h-24 w-auto object-contain rounded-md"/> : <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />}
-                    <div className="flex text-sm text-gray-400"><label htmlFor="image-upload" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-green-400 hover:text-green-500 px-2 py-1"><span>Upload image</span><Input id="image-upload" type="file" className="sr-only" onChange={(e) => { const file = e.target.files?.[0]; if(file) { setBannerImageFile(file); setBannerImagePreview(URL.createObjectURL(file));}}} accept="image/*"/></label></div>
+                    <div className="flex text-sm text-gray-400"><label htmlFor="image-upload" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-[#81f5fd] hover:text-[#81f5fd] px-2 py-1"><span>Upload image</span><Input id="image-upload" type="file" className="sr-only" onChange={(e) => { const file = e.target.files?.[0]; if(file) { setBannerImageFile(file); setBannerImagePreview(URL.createObjectURL(file));}}} accept="image/*"/></label></div>
                 </div>
             </div>
         </div>

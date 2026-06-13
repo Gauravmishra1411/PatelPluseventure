@@ -217,7 +217,7 @@ export default function AdminOrderDetailPage() {
                         <CardHeader><CardTitle className="flex items-center gap-2"><DollarSign/>Pricing</CardTitle></CardHeader>
                         <CardContent className="grid md:grid-cols-3 gap-4 text-sm">
                             <p><strong>Subtotal:</strong> ₹{order.subtotal.toFixed(2)}</p>
-                            {order.discount && <p className="text-green-400"><strong>Discount ({order.discount.code}):</strong> -₹{(order.subtotal - order.total + 10).toFixed(2)}</p>}
+                            {order.discount && <p className="text-[#81f5fd]"><strong>Discount ({order.discount.code}):</strong> -₹{(order.subtotal - order.total + 10).toFixed(2)}</p>}
                             <p className="font-bold text-lg"><strong>Total:</strong> ₹{order.total.toFixed(2)}</p>
                         </CardContent>
                     </Card>

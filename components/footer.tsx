@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { Zap, Mail, Phone, Facebook, MapPin, Github, Twitter, Linkedin, Instagram, ArrowUp, Youtube } from "lucide-react"
+import { Logo } from "@/components/logo"
+import { Mail, Phone, Facebook, MapPin, Github, Twitter, Linkedin, Instagram, ArrowUp, Youtube } from "lucide-react"
 
 const footerLinks = {
   company: [
@@ -12,10 +13,10 @@ const footerLinks = {
     { name: "Contact", href: "/contact" },
   ],
   services: [
-    { name: "Web Development", href: "/services" },
-    { name: "Mobile Apps", href: "/services" },
-    { name: "AI Solutions", href: "/services" },
-    { name: "Cloud Services", href: "/services" },
+    { name: "Manpower", href: "/services" },
+    { name: "Horticulture", href: "/services" },
+    { name: "Housekeeping", href: "/services" },
+    { name: "Canteen Services", href: "/services" },
   ],
   resources: [
     { name: "Documentation", href: "/about" },
@@ -54,16 +55,11 @@ export default function Footer() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <Link href="/" className="flex items-center space-x-2 mb-6">
-                <div className="p-2 rounded-lg bg-gradient-to-r from-primary to-accent">
-                  <Zap className="h-6 w-6 text-white" />
-                </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                  Patel Pulse Ventures
-                </span>
-              </Link>
+              <div className="mb-6">
+                <Logo size="lg" />
+              </div>
               <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                Transforming ideas into digital realities with cutting-edge technology and innovative design.
+                A leading provider of comprehensive solutions for construction, infrastructure, and allied sector tenders.
               </p>
               <div className="space-y-3">
                 <div className="flex items-center text-gray-600 dark:text-gray-300">

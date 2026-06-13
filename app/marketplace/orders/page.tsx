@@ -53,7 +53,7 @@ export default function OrdersPage() {
         switch (status) {
             case 'Delivered':
             case 'Fulfilled':
-                return 'bg-green-500/20 text-green-400 border-green-500/30';
+                return 'bg-green-500/20 text-[#81f5fd] border-[#81f5fd]/30';
             case 'Pending':
                 return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
             case 'Cancelled':

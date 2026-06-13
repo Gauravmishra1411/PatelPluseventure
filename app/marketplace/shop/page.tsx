@@ -15,6 +15,7 @@ interface Product {
     salePrice: string;
     regularPrice: string;
     mainImageUrl: string;
+    status?: string;
 }
 
 export default function ShopPage() {

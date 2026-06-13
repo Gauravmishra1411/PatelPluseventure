@@ -3,14 +3,14 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { ArrowRight, Play, Zap, Code, Smartphone, Brain } from "lucide-react"
+import { ArrowRight, Play, Zap, Axe, ChefHat, Armchair, ParkingCircleOff } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { db } from "@/lib/firebase"
 import { collection, onSnapshot } from "firebase/firestore"
 import Link from "next/link"
 
 const iconComponents: { [key: string]: React.ElementType } = {
-  Zap, Code, Smartphone, Brain, Users: Zap, Award: Zap, Clock: Zap, Target: Zap, Check: Zap, Star: Zap, Plus: Zap, Percent: Zap
+  Zap, Axe, ChefHat, Armchair, ParkingCircleOff, Users: Zap, Award: Zap, Clock: Zap, Target: Zap, Check: Zap, Star: Zap, Plus: Zap, Percent: Zap
 };
 
 
@@ -39,14 +39,14 @@ export default function Hero() {
       {/* Floating Icons */}
       <div className="absolute inset-0 pointer-events-none">
         {[
-          { Icon: Code, top: "20%", left: "10%", delay: 0 },
-          { Icon: Smartphone, top: "30%", right: "15%", delay: 1 },
-          { Icon: Brain, bottom: "25%", left: "15%", delay: 2 },
-          { Icon: Zap, bottom: "20%", right: "10%", delay: 3 },
+          { Icon: Axe, top: "20%", left: "10%", delay: 0 },
+          { Icon: ChefHat, top: "30%", right: "15%", delay: 1 },
+          { Icon: Armchair, bottom: "25%", left: "15%", delay: 2 },
+          { Icon: ParkingCircleOff, bottom: "20%", right: "10%", delay: 3 },
         ].map(({ Icon, delay, ...position }, index) => (
           <motion.div
             key={index}
-            className="absolute w-12 h-12 text-green-500/20 dark:text-[#8ED968]/20"
+            className="absolute w-12 h-12 text-blue-500/20 dark:text-[#81f5fd]/20"
             style={position}
             animate={{
               y: [0, -20, 0],
@@ -78,10 +78,10 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center px-5 py-2.5 bg-green-50 dark:bg-[#8ED968]/10 border border-green-200 dark:border-[#8ED968]/30 rounded-full text-sm text-green-700 dark:text-[#8ED968] font-medium shadow-sm dark:shadow-[0_0_20px_rgba(142,217,104,0.15)]"
+            className="inline-flex items-center px-5 py-2.5 bg-blue-50 dark:bg-[#81f5fd]/10 border border-blue-200 dark:border-[#81f5fd]/30 rounded-full text-sm text-blue-700 dark:text-[#81f5fd] font-medium shadow-sm dark:shadow-[0_0_20px_rgba(39,152,245,0.15)]"
           >
-            <Zap className="w-4 h-4 mr-2 text-green-600 dark:text-[#8ED968]" />
-            Transforming Ideas into Digital Reality
+            <Zap className="w-4 h-4 mr-2 text-blue-600 dark:text-[#81f5fd]" />
+            Excellence in Contracting & Services
           </motion.div>
 
           {/* Main Heading */}
@@ -93,29 +93,30 @@ export default function Hero() {
           >
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center lg:gap-4">
               <div className="flex flex-wrap items-center justify-center gap-2 lg:gap-4">
-                <span className="bg-gradient-to-r from-[#1A532A] via-[#8ED968] to-[#1A532A] bg-clip-text text-transparent font-extrabold">
+                <span className="bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#1565c0] bg-clip-text text-transparent font-extrabold">
                   Patel
                 </span>
-                <span className="bg-gradient-to-r from-[#1A532A] via-[#8ED968] to-[#1A532A] bg-clip-text text-transparent font-extrabold">
+                <span className="bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#1565c0] bg-clip-text text-transparent font-extrabold">
                   Pulse
                 </span>
               </div>
-              <span className="bg-gradient-to-r from-[#1A532A] via-[#8ED968] to-[#1A532A] bg-clip-text text-transparent font-bold">Ventures</span>
+              <span className="bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#1565c0] bg-clip-text text-transparent font-bold">Ventures</span>
             </div>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            className="text-lg md:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed px-4 mt-6"
+            className="mt-10 text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
           >
-            We craft cutting-edge digital experiences with{" "}
-            <span className="text-[#8ED968] font-semibold">AI-powered solutions</span>,{" "}
-            <span className="text-[#8ED968] font-semibold">modern web technologies</span>, and{" "}
-            <span className="text-[#8ED968] font-semibold">innovative design</span> that drive business growth and user
-            engagement.
+            We undertake{" "}
+            <span className="text-[#81f5fd] font-semibold">Government and Private Tenders</span>{" "}
+            across various sectors, including{" "}
+            <span className="text-[#81f5fd] font-semibold">Manpower Supply, Housekeeping, Horticulture, Facility Management, and Maintenance Services</span>.
+            We source opportunities through GeM, CPPP, e-Procurement, e-Tender portals, and direct client engagement, 
+            ensuring timely execution, quality service, and complete compliance for every project.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -128,9 +129,9 @@ export default function Hero() {
             <Link href="/contact">
               <Button
                 size="lg"
-                className="group bg-gradient-to-r from-[#1A532A] to-[#8ED968] dark:from-[#8ED968] dark:to-[#00FF88] text-white dark:text-black font-bold px-8 py-6 rounded-full border-0 hover:shadow-lg dark:hover:shadow-[0_0_30px_rgba(142,217,104,0.5)] transition-all duration-300 transform hover:scale-105"
+                className="group bg-gradient-to-r from-[#1565c0] to-[#81f5fd] dark:from-[#81f5fd] dark:to-[#64B5F6] text-white font-bold px-8 py-6 rounded-full border-0 hover:shadow-lg dark:hover:shadow-[0_0_30px_rgba(39,152,245,0.5)] transition-all duration-300 transform hover:scale-105"
               >
-                Start Your Project
+                Contact Us
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -139,7 +140,7 @@ export default function Hero() {
           {/* Stats */}
           {stats.length > 0 && (
             <motion.div
-              className="bg-white/70 dark:bg-[#0D1829]/80 backdrop-blur-xl p-5 md:p-6 rounded-2xl flex items-center justify-center gap-6 md:gap-8 border border-gray-200 dark:border-[#8ED968]/20 shadow-lg dark:shadow-[0_0_30px_rgba(142,217,104,0.1)] max-w-4xl mx-auto mt-8"
+              className="bg-white/70 dark:bg-[#0D1829]/80 backdrop-blur-xl p-5 md:p-6 rounded-2xl flex items-center justify-center gap-6 md:gap-8 border border-gray-200 dark:border-[#81f5fd]/20 shadow-lg dark:shadow-[0_0_30px_rgba(39,152,245,0.1)] max-w-4xl mx-auto mt-8"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1 }}
@@ -152,7 +153,7 @@ export default function Hero() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 1.2 + index * 0.1 }}
                 >
-                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#1A532A] via-[#8ED968] to-[#1A532A] dark:from-[#8ED968] dark:to-[#00FF88] bg-clip-text text-transparent mb-1">
+                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#1565c0] dark:from-[#81f5fd] dark:to-[#64B5F6] bg-clip-text text-transparent mb-1">
                     {stat.number}{stat.suffix || ''}
                   </div>
                   <div className="text-gray-600 dark:text-gray-400 text-xs md:text-sm font-medium">{stat.title}</div>
@@ -171,12 +172,12 @@ export default function Hero() {
         transition={{ duration: 1, delay: 1.5 }}
       >
         <motion.div
-          className="w-6 h-10 border-2 border-gray-300 dark:border-[#8ED968]/30 rounded-full flex justify-center"
-          animate={{ borderColor: ["rgba(142, 217, 104, 0.3)", "rgba(142, 217, 104, 0.8)", "rgba(142, 217, 104, 0.3)"] }}
+          className="w-6 h-10 border-2 border-gray-300 dark:border-[#81f5fd]/30 rounded-full flex justify-center"
+          animate={{ borderColor: ["rgba(39, 152, 245, 0.3)", "rgba(39, 152, 245, 0.8)", "rgba(39, 152, 245, 0.3)"] }}
           transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
         >
           <motion.div
-            className="w-1 h-3 bg-[#8ED968] rounded-full mt-2"
+            className="w-1 h-3 bg-[#81f5fd] rounded-full mt-2"
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
           />

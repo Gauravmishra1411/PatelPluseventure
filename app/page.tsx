@@ -10,6 +10,7 @@ import ProjectsSlider from "@/components/projects-slider"
 import DevelopmentStages from "@/components/development-stages"
 import Integrations from "@/components/integrations"
 import InnovationLab from "@/components/innovation-lab"
+import KeyDates from "@/components/key-dates"
 import TestimonialsSlider from "@/components/testimonials-slider"
 import About from "@/components/about"
 import Team from "@/components/team"
@@ -17,7 +18,6 @@ import Counters from "@/components/counters"
 import Contact from "@/components/contact"
 import Footer from "@/components/footer"
 import MobileBottomNav from "@/components/mobile-bottom-nav"
-
 export default function Home() {
   const [loading, setLoading] = useState(true)
 
@@ -39,7 +39,6 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-[#0A0110] text-gray-900 dark:text-white overflow-x-hidden">
       <AnimatePresence>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="w-full">
-          <Navbar />
           <main>
             <Hero />
             <ServicesSlider />
@@ -47,6 +46,7 @@ export default function Home() {
             <Integrations />
             <ProjectsSlider />
             <InnovationLab />
+            <KeyDates />
             <TestimonialsSlider />
             <Counters />
             <About />

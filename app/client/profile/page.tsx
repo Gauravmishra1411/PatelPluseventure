@@ -20,7 +20,7 @@ const InfoItem = ({ icon: Icon, label, value }: { icon: React.ElementType, label
     if (!value) return null
     return (
         <div className="flex items-start gap-3 rounded-lg bg-gray-700/50 p-3">
-            <Icon className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+            <Icon className="w-5 h-5 text-[#81f5fd] mt-1 flex-shrink-0" />
             <div>
                 <p className="text-sm text-gray-400">{label}</p>
                 <p className="font-medium text-white break-words">{value}</p>
@@ -73,7 +73,7 @@ export default function ClientProfilePage() {
 
             const ordersQuery = query(collection(db, "users", user.uid, "orders"));
             const unsubOrders = onSnapshot(ordersQuery, (snapshot) => {
-                setOrders(snapshot.docs.map(doc => ({id: doc.id, ...doc.data() as Order})));
+                setOrders(snapshot.docs.map(doc => ({ ...(doc.data() as Order), id: doc.id })));
             });
 
             return () => {
@@ -86,7 +86,7 @@ export default function ClientProfilePage() {
     const totalSpent = orders.reduce((sum, order) => sum + order.total, 0);
 
     if (loading) {
-        return <div className="flex justify-center items-center h-full"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div></div>
+        return <div className="flex justify-center items-center h-full"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#81f5fd]"></div></div>
     }
 
     if (!clientData) {
@@ -145,11 +145,11 @@ export default function ClientProfilePage() {
                     <CardContent className="grid md:grid-cols-2 gap-4">
                         <div className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg">
                            <span className="font-medium">Total Orders</span>
-                           <span className="text-2xl font-bold text-green-400">{orders.length}</span>
+                           <span className="text-2xl font-bold text-[#81f5fd]">{orders.length}</span>
                         </div>
                         <div className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg">
                            <span className="font-medium">Total Spent</span>
-                           <span className="text-2xl font-bold text-green-400">₹{totalSpent.toFixed(2)}</span>
+                           <span className="text-2xl font-bold text-[#81f5fd]">₹{totalSpent.toFixed(2)}</span>
                         </div>
                     </CardContent>
                 </Card>

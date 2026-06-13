@@ -51,15 +51,94 @@ export default function About() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-[#1A532A] via-[#8ED968] to-[#1A532A] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#1565c0] bg-clip-text text-transparent">
               About Patel Pulse Ventures
             </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            We are a team of passionate developers, designers, and innovators dedicated to transforming ideas into
-            powerful digital solutions. With expertise in cutting-edge technologies and a commitment to excellence, we
-            help businesses thrive in the digital age.
-          </p>
+          <div className="space-y-10 text-center">
+            {/* First Paragraph */}
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed" style={{ textAlign: "justify" }}>
+              At Patel Pulse Ventures, we specialize in handling both government and
+              private sector tenders with professionalism, transparency, and
+              efficiency. Our commitment to delivering high-quality projects on time
+              has earned the trust of our clients across various industries.
+            </p>
+
+            {/* First 3 Images */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              <img
+                src="https://res.cloudinary.com/ddthlutz4/image/upload/v1781244828/vjchttcd2lxyz8puoxwl.png"
+                alt="Government Tender"
+                className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer"
+              />
+              <img
+                src="https://res.cloudinary.com/ddthlutz4/image/upload/v1781244828/g06ldthf4i7sf1cyns7g.png"
+                alt="Government Tender"
+                className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer"
+              />
+              <img
+                src="https://res.cloudinary.com/ddthlutz4/image/upload/v1781244827/npdijotkgxqlz4wa4c6r.png"
+                alt="Government Tender"
+                className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer"
+              />
+            </div>
+
+            {/* Second Paragraph */}
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed" style={{ textAlign: "justify" }}>
+              We ensure that every project is supported by legally compliant
+              documentation and is executed under our registered GST business,
+              maintaining complete transparency throughout the process. From tender
+              participation to project completion, we provide regular day-to-day
+              updates, ensuring our clients stay informed at every stage.
+            </p>
+
+            {/* Second 3 Images */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              <img
+                src="https://res.cloudinary.com/ddthlutz4/image/upload/v1781245931/abh4h5wdoqnigbxw5eyc.png"
+                alt="Trusted Services"
+                className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer"
+              />
+              <img
+                src="https://res.cloudinary.com/ddthlutz4/image/upload/v1781245930/aghdcbovggt5dr6ze3v5.png"
+                alt="Trusted Services"
+                className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer"
+              />
+              <img
+                src="https://res.cloudinary.com/ddthlutz4/image/upload/v1781245925/ou8o6mz4eh00mu6tzfrm.png"
+                alt="Trusted Services"
+                className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer"
+              />
+            </div>
+
+            {/* Third Paragraph */}
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed" style={{ textAlign: "justify" }}>
+              Our team is dedicated to timely project delivery, no unnecessary
+              delays, and smooth billing processes, ensuring that invoices and
+              payments are managed promptly and professionally. With a strong focus
+              on reliability, quality, and customer satisfaction, we strive to build
+              long-term partnerships and deliver results that exceed expectations.
+            </p>
+
+            {/* Third 3 Images */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              <img
+                src="https://res.cloudinary.com/ddthlutz4/image/upload/v1781246600/jmpohekhlkf4spyflhjk.png"
+                alt="Project Delivery"
+                className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer"
+              />
+              <img
+                src="https://res.cloudinary.com/ddthlutz4/image/upload/v1781246599/psuo2np0ynziu3ggvdc9.png"
+                alt="Billing Process"
+                className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer"
+              />
+              <img
+                src="https://res.cloudinary.com/ddthlutz4/image/upload/v1781246599/itextrrikxdxvrxt2acy.png"
+                alt="Customer Satisfaction"
+                className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer"
+              />
+            </div>
+          </div>
         </motion.div>
 
 
@@ -73,7 +152,7 @@ export default function About() {
           className="mb-20"
         >
           <h3 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            <span className="bg-gradient-to-r from-[#1A532A] to-[#8ED968] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#1565c0] to-[#81f5fd] bg-clip-text text-transparent">
               Our Core Values
             </span>
           </h3>
@@ -92,7 +171,7 @@ export default function About() {
                   className="group p-6 rounded-2xl bg-white dark:bg-[#18181B] border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-md transition-all"
                 >
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 rounded-lg bg-[hsl(88,60%,63%)] flex items-center justify-center flex-shrink-0 mb-4 shadow-[0_0_15px_rgba(142,217,104,0.3)]">
+                    <div className="w-12 h-12 rounded-lg bg-[#81f5fd] flex items-center justify-center flex-shrink-0 mb-4 shadow-[0_0_15px_rgba(39,152,245,0.3)]">
                       <Icon className="w-6 h-6 text-black" />
                     </div>
                     <div>
@@ -116,15 +195,13 @@ export default function About() {
         >
           <Card className="bg-white/50 dark:bg-gradient-to-br dark:from-background dark:to-primary border-gray-200 dark:border-accent/20 backdrop-blur-sm shadow-sm dark:shadow-none">
             <CardContent className="p-8 md:p-12">
-              <h3 className="text-3xl md:text-4xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              <h3 className="text-3xl md:text-4xl font-bold mb-6" style={{ textShadow: "-10px -13px 13px rgba(255,255,255,0.8)" }}>
+                <span className="bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#81f5fd] bg-clip-text text-transparent">
                   Our Mission
                 </span>
               </h3>
               <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl mx-auto">
-                To empower businesses with innovative digital solutions that drive growth, enhance user experiences, and
-                create lasting value. We believe in the transformative power of technology and are committed to
-                delivering excellence in every project we undertake.
+                To deliver government and private sector tender projects with integrity, transparency, and excellence while ensuring timely execution and complete client satisfaction. We are committed to providing legally compliant, GST-registered services, maintaining clear communication throughout every stage of the project, and building long-term partnerships through quality workmanship, reliability, and trust.
               </p>
             </CardContent>
           </Card>

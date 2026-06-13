@@ -84,57 +84,18 @@ export default function OnboardingPage() {
 
     return (
         <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-            <Navbar />
             <main className="pt-24 pb-12 flex items-center justify-center">
                 <AnimatePresence mode="wait">
-                    {!clientType ? (
-                        <motion.div
-                            key="selection"
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <Card className="w-full max-w-md bg-card/50 border-primary/20 backdrop-blur-sm">
-                                <CardHeader>
-                                    <CardTitle className="text-2xl font-bold text-card-foreground text-center">Welcome to Patel Pulse Ventures</CardTitle>
-                                    <CardDescription className="text-muted-foreground text-center">
-                                        Are you a new or existing client?
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent className="flex flex-col space-y-4">
-                                    <Button onClick={() => setClientType("new")} className="bg-gradient-to-r from-primary to-accent text-primary-foreground h-12 text-base">
-                                        I&apos;m a New Client
-                                    </Button>
-                                    <Button onClick={() => setClientType("existing")} variant="outline" className="border-border h-12 text-base">
-                                        I&apos;m an Existing Client
-                                    </Button>
-                                </CardContent>
-                            </Card>
-                        </motion.div>
-                    ) : clientType === 'new' ? (
-                        <motion.div
-                            key="onboarding-form"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.5 }}
-                            className="w-full"
-                        >
-                            <ClientOnboardingForm />
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            key="login-form"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.5 }}
-                            className="w-full flex justify-center"
-                        >
-                            <LoginForm />
-                        </motion.div>
-                    )}
+                    <motion.div
+                        key="login-form"
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
+                        transition={{ duration: 0.5 }}
+                        className="w-full flex justify-center"
+                    >
+                        <LoginForm />
+                    </motion.div>
                 </AnimatePresence>
             </main>
             <Footer />

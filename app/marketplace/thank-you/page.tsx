@@ -24,7 +24,7 @@ export default function ThankYouPage() {
                     transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.2 }}
                     className="mx-auto w-24 h-24 mb-6 bg-green-500/20 rounded-full flex items-center justify-center"
                 >
-                    <PartyPopper className="w-12 h-12 text-green-400" />
+                    <PartyPopper className="w-12 h-12 text-[#81f5fd]" />
                 </motion.div>
                 
                 <h1 className="text-3xl md:text-4xl font-bold mb-3">Thank You for Your Order!</h1>

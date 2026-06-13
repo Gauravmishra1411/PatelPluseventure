@@ -96,10 +96,10 @@ export default function Counters() {
                                 viewport={{ once: true }}
                                 className="flex flex-col items-center justify-center space-y-3"
                             >
-                                <div className="w-14 h-14 rounded-xl bg-[hsl(88,60%,63%)]/20 dark:from-primary/20 dark:to-accent/20 flex items-center justify-center mb-2 shadow-sm dark:shadow-[0_0_20px_rgba(142,217,104,0.15)]">
-                                    <Icon className="w-7 h-7 text-[#1A532A] dark:text-accent" />
+                                <div className="w-14 h-14 rounded-xl bg-[#81f5fd]/20 flex items-center justify-center mb-2 shadow-sm dark:shadow-[0_0_20px_rgba(39,152,245,0.15)]">
+                                    <Icon className="w-7 h-7 text-[#1565c0] dark:text-[#81f5fd]" />
                                 </div>
-                                <div className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-[#1A532A] via-[#8ED968] to-[#1A532A] dark:from-primary dark:to-accent bg-clip-text text-transparent flex items-center justify-center tracking-tight">
+                                <div className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#1565c0] dark:from-[#81f5fd] dark:to-[#64B5F6] bg-clip-text text-transparent flex items-center justify-center tracking-tight">
                                     <Counter value={numValue} />
                                     <span>{stat.suffix || ''}</span>
                                 </div>

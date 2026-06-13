@@ -21,7 +21,7 @@ export default function PricingSection({ content }: PricingSectionProps) {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    {content.items?.map((plan: any, index: number) => (
+                    {content.plans?.map((plan: any, index: number) => (
                         <div key={index} className="flex flex-col p-8 rounded-3xl bg-card border border-border shadow-xl hover:scale-105 transition-transform duration-300 relative overflow-hidden">
                             {index === 1 && (
                                 <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-bl-xl">
@@ -38,7 +38,7 @@ export default function PricingSection({ content }: PricingSectionProps) {
                             <div className="flex-1 space-y-4 mb-8">
                                 {plan.features?.map((feature: string, i: number) => (
                                     <div key={i} className="flex items-start gap-3">
-                                        <div className="p-1 bg-green-500/10 rounded-full text-green-500 mt-0.5">
+                                        <div className="p-1 bg-green-500/10 rounded-full text-[#81f5fd] mt-0.5">
                                             <Check className="w-3 h-3" />
                                         </div>
                                         <span className="text-sm text-muted-foreground">{feature}</span>

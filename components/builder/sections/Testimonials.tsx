@@ -18,7 +18,7 @@ export default function TestimonialsSection({ content }: TestimonialsSectionProp
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {content.items?.map((item, index) => (
                         <div key={index} className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 relative">
-                            <div className="absolute -top-4 -left-4 text-6xl text-primary opacity-30 font-serif">"</div>
+                            <div className="absolute -top-4 -left-4 text-6xl text-primary opacity-30 font-serif">&quot;</div>
                             <p className="text-lg text-gray-300 mb-8 relative z-10 leading-relaxed">
                                 {item.quote}
                             </p>

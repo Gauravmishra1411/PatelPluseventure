@@ -16,7 +16,7 @@ const Section = ({ icon, title, children, gridCols = 2 }: { icon: React.ElementT
     const Icon = icon;
     return (
         <Card className="bg-gray-800 border-gray-700">
-            <CardHeader><CardTitle className="flex items-center gap-2 text-lg text-green-400"><Icon className="w-5 h-5"/>{title}</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="flex items-center gap-2 text-lg text-[#81f5fd]"><Icon className="w-5 h-5"/>{title}</CardTitle></CardHeader>
             <CardContent className={`grid md:grid-cols-${gridCols} gap-x-8 gap-y-4 text-sm`}>{children}</CardContent>
         </Card>
     )
@@ -58,7 +58,7 @@ export default function ClientDetailPage() {
     }, [id])
 
     if (loading) {
-        return <div className="flex justify-center items-center h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div></div>
+        return <div className="flex justify-center items-center h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#81f5fd]"></div></div>
     }
 
     if (!client) {
@@ -118,7 +118,7 @@ export default function ClientDetailPage() {
                         {client.designFileUrl && (
                              <div>
                                 <span className="text-gray-400">Design File</span>
-                                <a href={client.designFileUrl} target="_blank" rel="noopener noreferrer" className="text-green-400 hover:underline block mt-1">View Uploaded File</a>
+                                <a href={client.designFileUrl} target="_blank" rel="noopener noreferrer" className="text-[#81f5fd] hover:underline block mt-1">View Uploaded File</a>
                              </div>
                         )}
                         <InfoItem label="Wants Design Service" value={client.designService} />

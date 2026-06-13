@@ -107,13 +107,13 @@ export default function AdminDashboard() {
         });
 
         // Recent Orders
-        const ordersQuery = query(collection(db, "marketplace_orders"), orderBy("createdAt", "desc"), where("status", "in", ["Pending", "Processing", "Fulfilled", "Delivered"]), where("createdAt", "!=", null));
+        const ordersQuery = query(collection(db, "marketplace_orders"), orderBy("createdAt", "desc"));
         const ordersUnsub = onSnapshot(ordersQuery, (snapshot) => {
           setRecentOrders(snapshot.docs.map(doc => ({
             id: doc.id,
-            customer: doc.data().userName,
-            amount: doc.data().total,
-            status: doc.data().status,
+            customer: doc.data().userName || "Unknown",
+            amount: doc.data().total || 0,
+            status: doc.data().status || "Pending",
           })));
         });
 
@@ -132,13 +132,18 @@ export default function AdminDashboard() {
         // Chart Data
         const salesByDay: { [key: string]: { sales: number, orders: number } } = {};
         ordersSnapshot.docs.forEach(doc => {
-          const order = doc.data();
-          const date = order.createdAt.toDate().toLocaleDateString('en-US', { weekday: 'short' });
-          if (!salesByDay[date]) {
-            salesByDay[date] = { sales: 0, orders: 0 };
+          try {
+            const order = doc.data();
+            if (!order.createdAt) return; // skip docs with no timestamp
+            const date = order.createdAt.toDate().toLocaleDateString('en-US', { weekday: 'short' });
+            if (!salesByDay[date]) {
+              salesByDay[date] = { sales: 0, orders: 0 };
+            }
+            salesByDay[date].sales += (order.total || 0);
+            salesByDay[date].orders += 1;
+          } catch (e) {
+            // skip malformed docs
           }
-          salesByDay[date].sales += order.total;
-          salesByDay[date].orders += 1;
         });
 
         const formattedChartData = Object.entries(salesByDay).map(([name, data]) => ({ name, ...data }));
@@ -248,8 +253,8 @@ export default function AdminDashboard() {
           <CardContent className="relative">
             <div className="text-3xl font-bold text-foreground mb-1">{stats.totalUsers}</div>
             <div className="flex items-center text-xs">
-              <ArrowUpRight className="w-3 h-3 text-green-400 mr-1" />
-              <span className="text-green-400">+12%</span>
+              <ArrowUpRight className="w-3 h-3 text-[#81f5fd] mr-1" />
+              <span className="text-[#81f5fd]">+12%</span>
               <span className="text-gray-400 ml-1">from last month</span>
             </div>
           </CardContent>
@@ -288,14 +293,14 @@ export default function AdminDashboard() {
           <CardHeader className="relative flex flex-row items-center justify-between space-y-0 pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">Project Revenue</CardTitle>
             <div className="p-2 rounded-lg bg-gradient-to-r from-green-500/20 to-emerald-500/20">
-              <DollarSign className="h-5 w-5 text-green-400" />
+              <DollarSign className="h-5 w-5 text-[#81f5fd]" />
             </div>
           </CardHeader>
           <CardContent className="relative">
             <div className="text-3xl font-bold text-foreground mb-1">₹{stats.totalRevenue.toLocaleString()}</div>
             <div className="flex items-center text-xs">
-              <ArrowUpRight className="w-3 h-3 text-green-400 mr-1" />
-              <span className="text-green-400">+8%</span>
+              <ArrowUpRight className="w-3 h-3 text-[#81f5fd] mr-1" />
+              <span className="text-[#81f5fd]">+8%</span>
               <span className="text-gray-400 ml-1">from last month</span>
             </div>
           </CardContent>
@@ -323,8 +328,8 @@ export default function AdminDashboard() {
             <CardContent className="relative">
               <div className="text-3xl font-bold text-foreground mb-1">{stats.totalProducts}</div>
               <div className="flex items-center text-xs">
-                <ArrowUpRight className="w-3 h-3 text-green-400 mr-1" />
-                <span className="text-green-400">+5%</span>
+                <ArrowUpRight className="w-3 h-3 text-[#81f5fd] mr-1" />
+                <span className="text-[#81f5fd]">+5%</span>
                 <span className="text-gray-400 ml-1">new this month</span>
               </div>
             </CardContent>
@@ -341,8 +346,8 @@ export default function AdminDashboard() {
             <CardContent className="relative">
               <div className="text-3xl font-bold text-foreground mb-1">{stats.totalOrders}</div>
               <div className="flex items-center text-xs">
-                <ArrowUpRight className="w-3 h-3 text-green-400 mr-1" />
-                <span className="text-green-400">+18%</span>
+                <ArrowUpRight className="w-3 h-3 text-[#81f5fd] mr-1" />
+                <span className="text-[#81f5fd]">+18%</span>
                 <span className="text-gray-400 ml-1">from last week</span>
               </div>
             </CardContent>
@@ -359,8 +364,8 @@ export default function AdminDashboard() {
             <CardContent className="relative">
               <div className="text-3xl font-bold text-foreground mb-1">{stats.totalCustomers.toLocaleString()}</div>
               <div className="flex items-center text-xs">
-                <ArrowUpRight className="w-3 h-3 text-green-400 mr-1" />
-                <span className="text-green-400">+23%</span>
+                <ArrowUpRight className="w-3 h-3 text-[#81f5fd] mr-1" />
+                <span className="text-[#81f5fd]">+23%</span>
                 <span className="text-gray-400 ml-1">growth rate</span>
               </div>
             </CardContent>
@@ -377,8 +382,8 @@ export default function AdminDashboard() {
             <CardContent className="relative">
               <div className="text-3xl font-bold text-white mb-1">₹{stats.monthlyRevenue.toLocaleString()}</div>
               <div className="flex items-center text-xs">
-                <ArrowUpRight className="w-3 h-3 text-green-400 mr-1" />
-                <span className="text-green-400">+15%</span>
+                <ArrowUpRight className="w-3 h-3 text-[#81f5fd] mr-1" />
+                <span className="text-[#81f5fd]">+15%</span>
                 <span className="text-gray-400 ml-1">vs last month</span>
               </div>
             </CardContent>
@@ -542,7 +547,7 @@ export default function AdminDashboard() {
         <Card className="bg-gradient-to-br from-[#1F1F2E]/80 to-[#2A2A3E]/80 border-[#00FF88]/20 backdrop-blur-lg hover:shadow-xl hover:shadow-[#00FF88]/10 transition-all duration-500">
           <CardHeader>
             <CardTitle className="text-foreground text-xl font-semibold flex items-center gap-2">
-              <ShoppingCart className="h-5 w-5 text-green-400" />
+              <ShoppingCart className="h-5 w-5 text-[#81f5fd]" />
               Recent Orders
             </CardTitle>
             <CardDescription className="text-muted-foreground">Latest ecommerce transactions</CardDescription>
@@ -552,8 +557,8 @@ export default function AdminDashboard() {
               {recentOrders.slice(0, 5).map((order) => (
                 <div key={order.id} className="flex items-center justify-between p-3 rounded-lg bg-secondary/20 hover:bg-secondary/30 border-border">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full flex items-center justify-center">
-                      <ShoppingBag className="w-5 h-5 text-green-400" />
+                    <div className="w-10 h-10 bg-gradient-to-r from-[#81f5fd]/20 to-[#64B5F6]/20 rounded-full flex items-center justify-center">
+                      <ShoppingBag className="w-5 h-5 text-[#81f5fd]" />
                     </div>
                     <div>
                       <p className="text-sm font-medium text-white">{order.customer}</p>
@@ -635,7 +640,7 @@ export default function AdminDashboard() {
 
               <Button
                 onClick={() => router.push("/admin/orders")}
-                className="w-full justify-start bg-gradient-to-r from-green-600/20 to-emerald-600/20 border border-green-500/30 text-muted-foreground hover:from-green-600/30 hover:to-emerald-600/30 hover:border-green-500/50 transition-all duration-300 p-4 h-auto"
+                className="w-full justify-start bg-gradient-to-r from-green-600/20 to-emerald-600/20 border border-[#81f5fd]/30 text-muted-foreground hover:from-green-600/30 hover:to-emerald-600/30 hover:border-[#81f5fd]/50 transition-all duration-300 p-4 h-auto"
               >
                 <ShoppingCart className="w-5 h-5 mr-3" />
                 <div className="text-left">

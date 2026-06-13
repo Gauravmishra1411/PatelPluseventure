@@ -36,7 +36,7 @@ const notificationIcons = {
 
 const notificationColors = {
     new_order: 'bg-blue-500/20 text-blue-300',
-    new_client: 'bg-green-500/20 text-green-300',
+    new_client: 'bg-green-500/20 text-[#81f5fd]',
     new_testimonial: 'bg-yellow-500/20 text-yellow-300',
     new_review: 'bg-yellow-500/20 text-yellow-300',
     new_message: 'bg-purple-500/20 text-purple-300',

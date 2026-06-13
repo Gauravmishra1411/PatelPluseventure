@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server'
 import { db } from '@/lib/firebase'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
+export const dynamic = 'force-dynamic';
+
+
 const projects = [
     {
         title: "Maeorganics",

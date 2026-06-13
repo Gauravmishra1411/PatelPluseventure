@@ -224,11 +224,11 @@ export default function UserOrderDetailPage() {
                                     <Card>
                                         <CardHeader><CardTitle className="text-base flex items-center gap-2"><CheckCircle/> Features</CardTitle></CardHeader>
                                         <CardContent>
-                                            <ul className="space-y-2 text-sm">{productDetails.features.map(f => <li key={f} className="flex items-center gap-2"><Check className="w-4 h-4 text-green-500"/>{f}</li>)}</ul>
+                                            <ul className="space-y-2 text-sm">{productDetails.features.map(f => <li key={f} className="flex items-center gap-2"><Check className="w-4 h-4 text-[#81f5fd]"/>{f}</li>)}</ul>
                                         </CardContent>
                                     </Card>
                                     <Card>
-                                        <CardHeader><CardTitle className="text-base flex items-center gap-2"><Layers/> What's Included</CardTitle></CardHeader>
+                                        <CardHeader><CardTitle className="text-base flex items-center gap-2"><Layers/> What&apos;s Included</CardTitle></CardHeader>
                                         <CardContent>
                                             <ul className="space-y-2 text-sm">{productDetails.whatsIncluded.map(item => <li key={item} className="flex items-center gap-2"><FileText className="w-4 h-4 text-blue-400"/>{item}</li>)}</ul>
                                         </CardContent>

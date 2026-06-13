@@ -18,8 +18,9 @@ import {
   SidebarGroupLabel,
   SidebarGroupContent,
 } from "@/components/ui/sidebar"
-import { BarChart3, FolderOpen, Home, MessageSquare, Users, Zap, Wrench, Info, Star, Briefcase, ShoppingBag, Settings, LayoutDashboard, FileBarChart, ShoppingCart, LogOut, Package, Percent, Palette, LayoutGrid, Bell, FileText } from "lucide-react"
+import { BarChart3, FolderOpen, Home, MessageSquare, Users, Wrench, Info, Star, Briefcase, ShoppingBag, Settings, LayoutDashboard, FileBarChart, ShoppingCart, LogOut, Package, Percent, Palette, LayoutGrid, Bell, FileText } from "lucide-react"
 import Link from "next/link"
+import { Logo } from "@/components/logo"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { signOut } from "firebase/auth"
@@ -62,14 +63,7 @@ export default function AdminLayout({
           <Sidebar className="border-r border-border bg-card">
             <SidebarHeader className="border-b border-border p-6">
               <div className="flex items-center gap-3">
-                <Link href="/" className="flex items-center space-x-3">
-                  <div className="p-2.5 rounded-xl bg-gradient-to-r from-primary to-accent shadow-lg">
-                    <Zap className="h-7 w-7 text-primary-foreground" />
-                  </div>
-                  <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    Patel Pulse Ventures
-                  </span>
-                </Link>
+                <Logo size="xl" priority />
               </div>
             </SidebarHeader>
 
@@ -310,12 +304,9 @@ export default function AdminLayout({
           </Sidebar>
 
           <SidebarInset className="bg-background">
-            <header className="flex h-16 items-center justify-between border-b border-border bg-background/80 backdrop-blur-lg px-6 md:hidden">
+            <header className="flex h-20 items-center justify-between border-b border-border bg-background/80 backdrop-blur-lg px-6 md:hidden">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-gradient-to-r from-primary to-accent">
-                  <Zap className="h-5 w-5 text-primary-foreground" />
-                </div>
-                <span className="text-lg font-bold text-foreground">Patel Pulse Ventures Admin</span>
+                <Logo size="md" priority />
               </div>
               <SidebarTrigger className="text-foreground hover:text-foreground" />
             </header>

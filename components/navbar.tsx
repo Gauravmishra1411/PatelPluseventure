@@ -1,20 +1,18 @@
 
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import { Logo } from "@/components/logo"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
-import { Menu, X, Zap, Home, Briefcase, User, Mail, Settings, Star, ShoppingCartIcon, Moon, Sun } from "lucide-react"
+import { Menu, X, Home, Briefcase, User, Mail, Star, Moon, Sun } from "lucide-react"
 
 const navItems = [
   { name: "Home", href: "/", icon: Home },
   { name: "Services", href: "/services", icon: Briefcase },
-  { name: "Projects", href: "/projects", icon: Briefcase },
-  { name: "About", href: "/about", icon: User },
-  { name: "Testimonials", href: "/testimonials", icon: Star },
-  // { name: "Market Place", href: "/marketplace", icon: ShoppingCartIcon },
+  { name: "Projects", href: "/projects", icon: Star },
   { name: "Contact", href: "/contact", icon: Mail },
 ]
 
@@ -23,6 +21,20 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const { theme, setTheme } = useTheme()
   const pathname = usePathname()
+  const navRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [isOpen])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,42 +49,25 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/90 dark:bg-background/90 backdrop-blur-md border-b border-gray-200 dark:border-accent/20" : "bg-transparent"
-        }`}
+      ref={navRef}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/90 dark:bg-background/90 backdrop-blur-md border-b border-gray-200 dark:border-accent/20" : "bg-transparent"}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <motion.div className="flex items-center space-x-2" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link href="/" className="flex items-center space-x-2">
-              <motion.div
-                className="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center"
-                animate={{
-                  boxShadow: [
-                    "0 0 10px rgba(142, 217, 104, 0.3)",
-                    "0 0 20px rgba(142, 217, 104, 0.6)",
-                    "0 0 10px rgba(142, 217, 104, 0.3)",
-                  ],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              >
-                <Zap className="w-6 h-6 text-white" />
-              </motion.div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Patel Pulse Ventures
-              </span>
-            </Link>
-          </motion.div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
+
+          <div className="flex items-center flex-shrink-0">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link href="/" className="flex items-center">
+                <Logo size="md" className="h-10" linked={false} />
+              </Link>
+            </motion.div>
+          </div>
+
+          <div className="hidden md:flex flex-1 items-center justify-center">
             <div className="ml-10 flex items-baseline space-x-4">
               {navItems.map((item, index) => (
                 <motion.div
@@ -110,13 +105,7 @@ export default function Navbar() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.7 }}
             >
-              <Link
-                href="/onboarding"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 transition-colors"
-              >
-                <User className="w-4 h-4 mr-2 text-gray-900 dark:text-white" />
-                <span className="text-gray-900 dark:text-white">Client Portal</span>
-              </Link>
+
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -212,21 +201,7 @@ export default function Navbar() {
                   </Link>
                 </motion.div>
               ))}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: (navItems.length + 1) * 0.1 }}
-                className="pt-2"
-              >
-                <Link
-                  href="/onboarding"
-                  className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white bg-black/5 dark:bg-white/10"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <User className="w-5 h-5 mr-3" />
-                  Client Portal
-                </Link>
-              </motion.div>
+
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}

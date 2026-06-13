@@ -53,12 +53,30 @@ export default function AdminAuthGuard({ children }: AdminAuthGuardProps) {
     }
   }, [user, loading, pathname, router])
 
-  if (loading || (!user && pathname !== "/admin/login") || (user && user.email !== process.env.NEXT_PUBLIC_ADMIN_EMAIL && pathname !== '/admin/login')) {
+  // Always show the login page without a loading spinner
+  if (pathname === "/admin/login") {
+    return <>{children}</>
+  }
+
+  // Show loading spinner while checking auth state
+  if (loading) {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-green-500 mx-auto mb-4" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#81f5fd] mx-auto mb-4" />
           <p className="text-white">Authenticating...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // If not authenticated or not the admin, show loading (redirect is in progress)
+  if (!user || user.email !== process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin text-[#81f5fd] mx-auto mb-4" />
+          <p className="text-white">Redirecting...</p>
         </div>
       </div>
     )

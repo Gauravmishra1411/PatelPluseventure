@@ -48,7 +48,6 @@ export default function TestimonialsSlider() {
       },
       (error) => {
         console.error("Error fetching testimonials:", error)
-        toast.error("Failed to load testimonials.")
         setLoading(false)
       }
     )
@@ -59,7 +58,7 @@ export default function TestimonialsSlider() {
     return (
       <section className="py-8 bg-gradient-to-br from-white via-gray-50 to-white dark:from-[#020617] dark:via-[#1A532A]/20 dark:to-[#020617] relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 py-20 text-center text-gray-600 dark:text-gray-400">
-          {loading ? "Loading testimonials..." : "No testimonials yet."}
+          {/* {loading ? "Loading testimonials..." : "No testimonials yet."} */}
         </div>
       </section>
     )

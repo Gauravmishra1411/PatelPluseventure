@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ExternalLink, Github, ArrowRight } from "lucide-react"
 import Navbar from "@/components/navbar"
+import Logo from "@/components/logo"
 import Footer from "@/components/footer"
 import MobileBottomNav from "@/components/mobile-bottom-nav"
 import { Button } from "@/components/ui/button"
@@ -60,8 +61,6 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-
       <main className="pt-24">
         {/* Hero Section */}
         <section className="py-20 relative overflow-hidden">
@@ -74,11 +73,11 @@ export default function ProjectsPage() {
             >
               <h1 className="text-5xl md:text-7xl font-bold mb-6">
                 <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                  Our Portfolio
+                  Our Tenders
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                A showcase of our passion for innovation, design, and technology.
+                Explore our active and completed tender opportunities across construction, infrastructure, and allied sectors.
               </p>
             </motion.div>
 
@@ -95,9 +94,8 @@ export default function ProjectsPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <AnimatePresence>
                   {filteredProjects.map((project, index) => {
-                    const projectUrl = (project.link && project.link !== '#') ? project.link : undefined;
-                    const isExternal = projectUrl?.startsWith('http') ?? false;
-
+                    const projectUrl = (project.link && project.link !== '#') ? project.link : `/projects/${project.id}`;
+                    const isExternal = projectUrl.startsWith('http');
                     return (
                       <motion.div
                         key={project.id}
@@ -108,47 +106,48 @@ export default function ProjectsPage() {
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                       >
                         <Link
-                          href={projectUrl || '#'}
+                          href={projectUrl}
                           target={isExternal ? "_blank" : undefined}
                           rel={isExternal ? "noopener noreferrer" : undefined}
                           passHref
                           className="block h-full cursor-pointer"
-                          onClick={(e) => {
-                            if (!projectUrl) {
-                              e.preventDefault();
-                            }
-                          }}
                         >
-                          <div className="group relative block overflow-hidden bg-gradient-to-br from-secondary/10 to-background/50 backdrop-blur-sm border border-primary/20 rounded-2xl h-full flex flex-col">
-                            <div className="relative overflow-hidden aspect-video">
+                          <div className="group relative block overflow-hidden bg-white border-2 border-[#81f5fd] rounded-xl h-full flex flex-col hover:shadow-lg transition-all duration-300">
+                            <div className="relative overflow-hidden aspect-[4/3] w-full">
                               <Image
                                 src={project.mainImage || "/placeholder.svg?height=400&width=600"}
                                 alt={project.title}
                                 fill
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                className="object-cover transition-transform duration-500 group-hover:scale-105"
                               />
-                              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-100 transition-opacity duration-300" />
+                              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent pointer-events-none" />
                             </div>
 
-                            <div className="p-6 flex flex-col flex-grow">
-                              <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-2">
+                            <div className="p-6 pt-2 flex flex-col flex-grow bg-white relative z-10">
+                              <h3 className="text-xl font-bold text-[#81f5fd] mb-2 leading-tight transition-colors duration-300">
                                 {project.title}
                               </h3>
-                              <p className="text-muted-foreground mb-4 leading-relaxed text-sm line-clamp-2 flex-grow">{project.tagline || project.description}</p>
+                              <p className="text-gray-500 mb-4 leading-relaxed text-sm flex-grow line-clamp-2">
+                                {project.tagline || project.description || project.category}
+                              </p>
 
-                              <div className="flex flex-wrap gap-2 mb-4">
-                                {project.tags?.slice(0, 3).map((tag) => (
-                                  <Badge key={tag} variant="outline" className="border-primary/30 text-primary bg-primary/10 text-xs">
-                                    {tag}
-                                  </Badge>
-                                ))}
+                              <div className="flex flex-wrap gap-2 mb-6">
+                                {project.tags && project.tags.length > 0 ? (
+                                  project.tags.slice(0, 3).map((tag) => (
+                                    <span key={tag} className="inline-block px-3 py-0.5 border border-[#81f5fd]/40 text-[#81f5fd] bg-blue-50/50 rounded-full text-xs">
+                                      {tag}
+                                    </span>
+                                  ))
+                                ) : (
+                                  <span className="inline-block w-8 h-2.5 border border-[#81f5fd]/40 rounded-full bg-blue-50/30"></span>
+                                )}
                               </div>
 
-                              <div className="mt-auto flex justify-between items-center">
-                                <span className="text-sm font-semibold text-primary flex items-center">
-                                  View Project
-                                  <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                              <div className="mt-auto flex justify-start items-center">
+                                <span className="text-sm font-bold text-[#81f5fd] flex items-center">
+                                  View Tender
+                                  <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
                                 </span>
                               </div>
                             </div>
@@ -162,7 +161,7 @@ export default function ProjectsPage() {
             )}
             {!loading && filteredProjects.length === 0 && (
               <div className="text-center text-muted-foreground py-20">
-                <p className="text-lg">No projects found for this category.</p>
+                <p className="text-lg">No tenders found for this category.</p>
                 <p className="text-sm">Try selecting a different one.</p>
               </div>
             )}

@@ -107,7 +107,7 @@ export default function PagesAdmin() {
                                     <div className="p-3 rounded-lg bg-primary/10">
                                         <FileText className="w-6 h-6 text-primary" />
                                     </div>
-                                    <Badge variant={page.isPublished ? "default" : "secondary"} className={page.isPublished ? "bg-green-500/15 text-green-600 hover:bg-green-500/25 border-green-500/20" : ""}>
+                                    <Badge variant={page.isPublished ? "default" : "secondary"} className={page.isPublished ? "bg-green-500/15 text-[#81f5fd] hover:bg-green-500/25 border-[#81f5fd]/20" : ""}>
                                         {page.isPublished ? "Published" : "Draft"}
                                     </Badge>
                                 </div>
@@ -140,7 +140,7 @@ export default function PagesAdmin() {
                                             <AlertDialogHeader>
                                                 <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                                                 <AlertDialogDescription>
-                                                    This action cannot be undone. This will permanently delete the page "{page.title}".
+                                                    This action cannot be undone. This will permanently delete the page &quot;{page.title}&quot;.
                                                 </AlertDialogDescription>
                                             </AlertDialogHeader>
                                             <AlertDialogFooter>

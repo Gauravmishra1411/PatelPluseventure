@@ -48,7 +48,6 @@ const initialFormData = {
   logoBranding: "No",
   // Step 3
   existingDesign: "No",
-  designFile: null as File | null,
   designFileUrl: "",
   designService: "No",
   colorScheme: "",
@@ -92,20 +91,20 @@ export function ClientOnboardingForm({ isAdmin = false, initialData, clientId }:
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev: typeof initialFormData) => ({ ...prev, [name]: value }));
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev: typeof initialFormData) => ({ ...prev, [name]: value }));
   }
 
   const handleCheckboxChange = (name: keyof typeof initialFormData, checked: boolean, value: string) => {
-    setFormData(prev => {
+    setFormData((prev: typeof initialFormData) => {
       const field = prev[name] as string[];
       if (checked) {
         return { ...prev, [name]: [...field, value] };
       } else {
-        return { ...prev, [name]: field.filter(item => item !== value) };
+        return { ...prev, [name]: field.filter((item: string) => item !== value) };
       }
     });
   }
@@ -113,7 +112,7 @@ export function ClientOnboardingForm({ isAdmin = false, initialData, clientId }:
   const handleDesignFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFormData(prev => ({ ...prev, designFile: file }));
+      setFormData((prev: typeof initialFormData) => ({ ...prev, designFile: file }));
       setDesignFilePreview(URL.createObjectURL(file));
     }
   }

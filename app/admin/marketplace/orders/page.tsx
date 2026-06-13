@@ -97,7 +97,7 @@ export default function AdminOrdersPage() {
         switch (status) {
             case 'Fulfilled':
             case 'Delivered':
-                return 'text-green-400 border-green-400/50 bg-green-500/10 hover:bg-green-500/20';
+                return 'text-[#81f5fd] border-[#81f5fd]/50 bg-green-500/10 hover:bg-green-500/20';
             case 'Confirmed':
                 return 'text-blue-400 border-blue-400/50 bg-blue-500/10 hover:bg-blue-500/20';
             case 'Cancelled':

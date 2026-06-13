@@ -23,15 +23,6 @@ export default function EditProjectPage() {
         title: "",
         tagline: "",
         description: "",
-        features: "",
-        techStack: "",
-        demoUrl: "",
-        githubFrontend: "",
-        githubBackend: "",
-        timeline: "",
-        role: "",
-        learnings: "",
-        tags: "",
         category: "",
     })
 
@@ -66,15 +57,6 @@ export default function EditProjectPage() {
                         title: data.title || "",
                         tagline: data.tagline || "",
                         description: data.description || "",
-                        features: data.features ? data.features.join(", ") : "",
-                        techStack: data.techStack ? data.techStack.join(", ") : "",
-                        demoUrl: data.demoUrl || "",
-                        githubFrontend: data.githubFrontend || "",
-                        githubBackend: data.githubBackend || "",
-                        timeline: data.timeline || "",
-                        role: data.role || "",
-                        learnings: data.learnings ? data.learnings.join(", ") : "",
-                        tags: data.tags ? data.tags.join(", ") : "",
                         category: data.category || "",
                     });
 
@@ -180,10 +162,6 @@ export default function EditProjectPage() {
                 ...formData,
                 mainImage: mainImageUrl,
                 gallery: galleryImageUrls,
-                features: formData.features.split(",").map((item) => item.trim()).filter(Boolean),
-                techStack: formData.techStack.split(",").map((item) => item.trim()).filter(Boolean),
-                learnings: formData.learnings.split(",").map((item) => item.trim()).filter(Boolean),
-                tags: formData.tags.split(",").map((item) => item.trim()).filter(Boolean),
                 updatedAt: serverTimestamp(),
             })
 
@@ -287,30 +265,7 @@ export default function EditProjectPage() {
                                 </div>
                             </div>
 
-                            {/* Details */}
-                            <div className="space-y-4 p-4 border border-border rounded-lg">
-                                <h3 className="text-lg font-semibold text-primary">Project Details</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="space-y-2"><Label htmlFor="features" className="text-foreground flex items-center"><Layers className="w-4 h-4 mr-2" />Features (comma-separated)</Label><Textarea id="features" value={formData.features} onChange={(e) => handleInputChange("features", e.target.value)} className="bg-input border-border" /></div>
-                                    <div className="space-y-2"><Label htmlFor="techStack" className="text-foreground flex items-center"><Layers className="w-4 h-4 mr-2" />Tech Stack (comma-separated)</Label><Textarea id="techStack" value={formData.techStack} onChange={(e) => handleInputChange("techStack", e.target.value)} className="bg-input border-border" /></div>
-                                    <div className="space-y-2"><Label htmlFor="timeline" className="text-foreground flex items-center"><Calendar className="w-4 h-4 mr-2" />Timeline</Label><Input id="timeline" value={formData.timeline} onChange={(e) => handleInputChange("timeline", e.target.value)} className="bg-input border-border" /></div>
-                                    <div className="space-y-2"><Label htmlFor="role" className="text-foreground flex items-center"><User className="w-4 h-4 mr-2" />Role</Label><Input id="role" value={formData.role} onChange={(e) => handleInputChange("role", e.target.value)} className="bg-input border-border" /></div>
-                                    <div className="space-y-2"><Label htmlFor="learnings" className="text-foreground flex items-center"><Lightbulb className="w-4 h-4 mr-2" />Learnings (comma-separated)</Label><Textarea id="learnings" value={formData.learnings} onChange={(e) => handleInputChange("learnings", e.target.value)} className="bg-input border-border" /></div>
-                                    <div className="space-y-2"><Label htmlFor="tags" className="text-foreground flex items-center"><Tag className="w-4 h-4 mr-2" />Tags (comma-separated)</Label><Input id="tags" value={formData.tags} onChange={(e) => handleInputChange("tags", e.target.value)} className="bg-input border-border" /></div>
-                                </div>
-                            </div>
-
-                            {/* Links */}
-                            <div className="space-y-4 p-4 border border-border rounded-lg">
-                                <h3 className="text-lg font-semibold text-primary">Links</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="space-y-2"><Label htmlFor="demoUrl" className="text-foreground">Live Demo URL</Label><Input id="demoUrl" type="url" value={formData.demoUrl} onChange={(e) => handleInputChange("demoUrl", e.target.value)} className="bg-input border-border" /></div>
-                                    <div className="space-y-2"><Label htmlFor="githubFrontend" className="text-foreground">GitHub Frontend</Label><Input id="githubFrontend" type="url" value={formData.githubFrontend} onChange={(e) => handleInputChange("githubFrontend", e.target.value)} className="bg-input border-border" /></div>
-                                    <div className="space-y-2"><Label htmlFor="githubBackend" className="text-foreground">GitHub Backend</Label><Input id="githubBackend" type="url" value={formData.githubBackend} onChange={(e) => handleInputChange("githubBackend", e.target.value)} className="bg-input border-border" /></div>
-                                </div>
-                            </div>
-
-
+                            {/* Details and Links removed */}
                             <div className="flex items-center justify-end space-x-4 pt-6">
                                 <Button type="button" variant="outline" onClick={() => router.back()} className="border-border text-muted-foreground hover:bg-secondary">Cancel</Button>
                                 <Button type="submit" disabled={isLoading} className="bg-primary hover:bg-primary/90">

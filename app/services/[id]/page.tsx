@@ -72,10 +72,8 @@ export default function ServiceDetailPage() {
     if (!service) return null
 
     return (
-        <div className="min-h-screen bg-background text-foreground flex flex-col">
-            <Navbar />
-
-            <main className="flex-grow pt-24 pb-20">
+        <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+            <main className="pt-24 pb-20">
                 <div className="container mx-auto px-6">
                     <Button variant="ghost" onClick={() => router.back()} className="mb-8 pl-0 hover:bg-transparent text-muted-foreground hover:text-foreground group">
                         <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
@@ -106,8 +104,8 @@ export default function ServiceDetailPage() {
                                 <div className="flex items-center gap-4">
                                     <span className="text-2xl font-bold text-primary">{service.price}</span>
                                     <Link href="/contact">
-                                        <Button size="lg" className="bg-gradient-to-r from-primary to-accent text-primary-foreground">
-                                            Get Started
+                                        <Button size="lg" className="bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#81f5fd] text-primary-foreground">
+                                            Get Started...
                                         </Button>
                                     </Link>
                                 </div>
@@ -128,7 +126,7 @@ export default function ServiceDetailPage() {
                             <ul className="space-y-4">
                                 {service.features && service.features.map((feature, index) => (
                                     <li key={index} className="flex items-start gap-3 p-4 rounded-xl bg-secondary/5 border border-border/50">
-                                        <span className="mt-1 bg-green-500/20 text-green-500 rounded-full p-1"><Check className="w-3 h-3" /></span>
+                                        <span className="mt-1 bg-green-500/20 text-[#81f5fd] rounded-full p-1"><Check className="w-3 h-3" /></span>
                                         <span>{feature}</span>
                                     </li>
                                 ))}
