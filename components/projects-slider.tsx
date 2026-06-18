@@ -111,7 +111,7 @@ export default function ProjectsSlider() {
 
 
   return (
-    <section className="py-6 md:py-12 lg:py-20 bg-gradient-to-br from-white via-gray-50 to-white dark:from-background dark:via-primary/20 dark:to-background relative overflow-hidden">
+    <section id="projects" className="py-6 md:py-12 lg:py-20 bg-gradient-to-br from-white via-gray-50 to-white dark:from-background dark:via-primary/20 dark:to-background relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-radial from-accent/5 to-transparent rounded-full blur-3xl opacity-50 dark:opacity-100" />
@@ -148,25 +148,15 @@ export default function ProjectsSlider() {
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex -ml-4">
                 {projects.map((project) => {
-                  const projectUrl = (project.link && project.link !== '#') ? project.link : undefined;
-                  const isExternal = projectUrl?.startsWith('http') ?? false;
-
                   return (
                     <div
                       key={project.id}
                       className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 pl-4"
                     >
                       <Link
-                        href={projectUrl || '#'}
-                        target={isExternal ? "_blank" : undefined}
-                        rel={isExternal ? "noopener noreferrer" : undefined}
+                        href={`/projects/${project.id}`}
                         passHref
                         className="block h-full cursor-pointer"
-                        onClick={(e) => {
-                          if (!projectUrl) {
-                            e.preventDefault();
-                          }
-                        }}
                       >
                         <Card className="group relative overflow-hidden rounded-2xl h-96 bg-white dark:bg-primary/30 border border-gray-200 dark:border-accent/20 shadow-sm dark:shadow-none transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
                           <Image

@@ -101,9 +101,9 @@ export default function EditProjectPage() {
     const handleGalleryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const files = Array.from(e.target.files);
-            setGalleryFiles(files);
+            setGalleryFiles(prev => [...prev, ...files]);
             const previews = files.map(file => URL.createObjectURL(file));
-            setGalleryPreviews(previews);
+            setGalleryPreviews(prev => [...prev, ...previews]);
         }
     };
 
@@ -253,7 +253,7 @@ export default function EditProjectPage() {
                                                 <div className="mb-2">
                                                     <p className="text-xs text-muted-foreground mb-2">New Uploads:</p>
                                                     <div className="flex flex-wrap gap-2 justify-center">
-                                                        {galleryPreviews.map((src, idx) => <Image key={`new-${idx}`} src={src} alt={`Gallery new ${idx + 1}`} width={100} height={80} className="h-20 w-auto object-contain rounded-md border border-primary/50" />)}
+                                                        {galleryPreviews.map((src, idx) => <img key={`new-${idx}`} src={src} alt={`Gallery new ${idx + 1}`} width={100} height={80} className="h-20 w-auto object-contain rounded-md border border-primary/50" />)}
                                                     </div>
                                                 </div>
                                             )}

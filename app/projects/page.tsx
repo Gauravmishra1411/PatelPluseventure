@@ -3,7 +3,6 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ExternalLink, Github, ArrowRight } from "lucide-react"
 import Navbar from "@/components/navbar"
 import Logo from "@/components/logo"
 import Footer from "@/components/footer"
@@ -147,7 +146,6 @@ export default function ProjectsPage() {
                               <div className="mt-auto flex justify-start items-center">
                                 <span className="text-sm font-bold text-[#81f5fd] flex items-center">
                                   View Tender
-                                  <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
                                 </span>
                               </div>
                             </div>

@@ -66,7 +66,7 @@ export default function ServicesSlider() {
   }, [emblaApi]);
 
   return (
-    <section className="py-6 md:py-12 lg:py-20 relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-white dark:from-background dark:via-primary/20 dark:to-background" id="services">
+    <section className="pt-8 pb-12 lg:pt-12 lg:pb-20 relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-white dark:from-background dark:via-primary/20 dark:to-background" id="services">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-full h-full bg-[url('/grid.svg')] opacity-[0.03] dark:opacity-[0.1]" />

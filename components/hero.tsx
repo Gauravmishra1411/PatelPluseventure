@@ -25,7 +25,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-gray-50 to-white dark:from-[#0A0F1C] dark:via-[#0D1829] dark:to-[#0A0F1C] pt-20 pb-24">
+    <section id="home" className="relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-gray-50 to-white dark:from-[#0A0F1C] dark:via-[#0D1829] dark:to-[#0A0F1C] pt-20 pb-10 md:pt-32 md:pb-12">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-full h-full bg-[url('/grid.svg')] opacity-[0.03] dark:opacity-[0.1]" />
@@ -163,26 +163,6 @@ export default function Hero() {
           )}
         </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.5 }}
-      >
-        <motion.div
-          className="w-6 h-10 border-2 border-gray-300 dark:border-[#81f5fd]/30 rounded-full flex justify-center"
-          animate={{ borderColor: ["rgba(39, 152, 245, 0.3)", "rgba(39, 152, 245, 0.8)", "rgba(39, 152, 245, 0.3)"] }}
-          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-        >
-          <motion.div
-            className="w-1 h-3 bg-[#81f5fd] rounded-full mt-2"
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-          />
-        </motion.div>
-      </motion.div>
     </section >
   )
 }

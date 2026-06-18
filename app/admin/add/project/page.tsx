@@ -51,10 +51,10 @@ export default function AddProjectPage() {
   const handleGalleryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
-      setGalleryFiles(files);
+      setGalleryFiles(prev => [...prev, ...files]);
 
       const previews = files.map(file => URL.createObjectURL(file));
-      setGalleryPreviews(previews);
+      setGalleryPreviews(prev => [...prev, ...previews]);
     }
   };
 
@@ -181,7 +181,7 @@ export default function AddProjectPage() {
                   <Label htmlFor="mainImage" className="text-white">Main Project Image</Label>
                   <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md">
                     <div className="space-y-1 text-center">
-                      {mainImagePreview ? <Image src={mainImagePreview} alt="Main preview" width={200} height={150} className="mx-auto h-24 w-auto object-contain rounded-md" /> : <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />}
+                      {mainImagePreview ? <img src={mainImagePreview} alt="Main preview" width={200} height={150} className="mx-auto h-24 w-auto object-contain rounded-md" /> : <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />}
                       <div className="flex text-sm text-gray-400"><label htmlFor="mainImage" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-[#81f5fd] hover:text-[#81f5fd] px-2 py-1"><span>Upload main image</span><Input id="mainImage" name="mainImage" type="file" className="sr-only" onChange={handleMainImageChange} accept="image/*" /></label></div>
                     </div>
                   </div>
@@ -192,7 +192,7 @@ export default function AddProjectPage() {
                     <div className="space-y-1 text-center">
                       {galleryPreviews.length > 0 ? (
                         <div className="flex flex-wrap gap-2 justify-center">
-                          {galleryPreviews.map((src, idx) => <Image key={idx} src={src} alt={`Gallery preview ${idx + 1}`} width={100} height={80} className="h-20 w-auto object-contain rounded-md" />)}
+                          {galleryPreviews.map((src, idx) => <img key={idx} src={src} alt={`Gallery preview ${idx + 1}`} width={100} height={80} className="h-20 w-auto object-contain rounded-md" />)}
                         </div>
                       ) : <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />}
                       <div className="flex text-sm text-gray-400"><label htmlFor="gallery" className="relative cursor-pointer bg-gray-700 rounded-md font-medium text-[#81f5fd] hover:text-[#81f5fd] px-2 py-1"><span>Upload gallery images</span><Input id="gallery" name="gallery" type="file" multiple className="sr-only" onChange={handleGalleryChange} accept="image/*" /></label></div>

@@ -19,6 +19,7 @@ const navItems = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState("")
   const { theme, setTheme } = useTheme()
   const pathname = usePathname()
   const navRef = useRef<HTMLElement>(null)
@@ -45,7 +46,35 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const isActive = (href: string) => pathname === href
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const sections = document.querySelectorAll("section[id]");
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  const isActive = (href: string) => {
+    if (pathname === href && pathname !== "/") return true;
+    if (pathname === "/") {
+      if (href === "/" && (activeSection === "home" || !activeSection)) return true;
+      if (href === "/services" && activeSection === "services") return true;
+      if (href === "/projects" && activeSection === "projects") return true;
+      if (href === "/contact" && activeSection === "contact") return true;
+    }
+    return false;
+  }
 
   return (
     <motion.nav
@@ -62,7 +91,7 @@ export default function Navbar() {
           <div className="flex items-center flex-shrink-0">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link href="/" className="flex items-center">
-                <Logo size="md" className="h-10" linked={false} />
+                <Logo size="md" className="h-16 md:h-20" linked={false} />
               </Link>
             </motion.div>
           </div>

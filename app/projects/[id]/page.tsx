@@ -25,6 +25,7 @@ interface Project {
   mainImage?: string;
   category?: string;
   tags?: string[];
+  gallery?: string[];
   link?: string;
   createdAt?: any;
 }
@@ -119,6 +120,37 @@ export default function ProjectDetailPage() {
               </div>
             </div>
           </motion.div>
+
+          {(() => {
+            const actualImages = [project.mainImage, ...(project.gallery || [])].filter(Boolean) as string[];
+            if (actualImages.length === 0) return null;
+
+            // Remove duplicates just in case mainImage is also in gallery
+            const allImages = Array.from(new Set(actualImages));
+
+            return (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mb-12"
+              >
+                <h2 className="text-3xl font-bold mb-8 text-center">Project Gallery</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {allImages.map((img, idx) => (
+                    <div key={idx} className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg group">
+                      <Image
+                        src={img}
+                        alt={`${project.title} image ${idx + 1}`}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })()}
         </div>
       </main>
       <Footer />

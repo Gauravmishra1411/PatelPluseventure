@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description:
       "We invite eligible contractors, suppliers, and service providers to bid on our construction and infrastructure projects. All tenders are evaluated on technical competence, financial capability, and value for money — ensuring a fair and transparent process for every participant.",
     siteName: "Patel Pulse Ventures",
-    images: ["/logo.png"],
+    images: ["/logo-ppv.png"],
   },
   twitter: {
     card: "summary_large_image",
@@ -37,11 +37,11 @@ export const metadata: Metadata = {
     description:
       "We invite eligible contractors, suppliers, and service providers to bid on our construction and infrastructure projects. All tenders are evaluated on technical competence, financial capability, and value for money — ensuring a fair and transparent process for every participant",
     creator: "@patelpulseventures",
-    images: ["/logo.png"],
+    images: ["/logo-ppv.png"],
   },
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/logo-ppv.png",
+    apple: "/logo-ppv.png",
   },
   generator: 'v0.dev',
   verification: {
