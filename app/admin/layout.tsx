@@ -18,7 +18,7 @@ import {
   SidebarGroupLabel,
   SidebarGroupContent,
 } from "@/components/ui/sidebar"
-import { BarChart3, FolderOpen, Home, MessageSquare, Users, Wrench, Info, Star, Briefcase, ShoppingBag, Settings, LayoutDashboard, FileBarChart, ShoppingCart, LogOut, Package, Percent, Palette, LayoutGrid, Bell, FileText } from "lucide-react"
+import { BarChart3, FolderOpen, Home, MessageSquare, Users, Wrench, Info, Star, Briefcase, ShoppingBag, Settings, LayoutDashboard, FileBarChart, ShoppingCart, LogOut, Package, Percent, Palette, LayoutGrid, Bell, FileText, FileSignature } from "lucide-react"
 import Link from "next/link"
 import { Logo } from "@/components/logo"
 import { useRouter } from "next/navigation"
@@ -178,6 +178,19 @@ export default function AdminLayout({
                         <Link href="/admin/services" className="flex items-center gap-3">
                           <Wrench className="h-5 w-5 group-hover:scale-110 transition-transform" />
                           <span className="font-medium">Services</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+
+                    <SidebarMenuItem>
+                      <SidebarMenuButton
+                        href="/admin/tenders"
+                        asChild
+                        className="w-full justify-start text-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 rounded-lg px-4 py-3 group"
+                      >
+                        <Link href="/admin/tenders" className="flex items-center gap-3">
+                          <FileSignature className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                          <span className="font-medium">Tenders</span>
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>

@@ -7,12 +7,13 @@ import Link from "next/link"
 import { Logo } from "@/components/logo"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
-import { Menu, X, Home, Briefcase, User, Mail, Star, Moon, Sun } from "lucide-react"
+import { Menu, X, Home, Briefcase, User, Mail, Star, Moon, Sun, FileText } from "lucide-react"
 
 const navItems = [
   { name: "Home", href: "/", icon: Home },
   { name: "Services", href: "/services", icon: Briefcase },
   { name: "Projects", href: "/projects", icon: Star },
+  { name: "Tenders", href: "/tenders", icon: FileText },
   { name: "Contact", href: "/contact", icon: Mail },
 ]
 
@@ -74,6 +75,10 @@ export default function Navbar() {
       if (href === "/contact" && activeSection === "contact") return true;
     }
     return false;
+  }
+
+  if (pathname.startsWith("/admin")) {
+    return null;
   }
 
   return (

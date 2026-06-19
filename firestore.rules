@@ -78,6 +78,16 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
     
+    // Tenders page content is publicly readable, but only admins can write.
+    match /tenders_header/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /tenders_list/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
     // Home page stats are publicly readable, but only admins can write.
     match /home_hero_stats/{statId} {
       allow read: if true;

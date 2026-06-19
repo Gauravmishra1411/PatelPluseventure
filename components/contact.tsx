@@ -180,53 +180,7 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Social Links */}
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Follow Us</h3>
-              <div className="flex space-x-4">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <a href="https://www.linkedin.com/company/patel-pulse-ventures" target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline" size="icon" className="rounded-full w-12 h-12 border-gray-200 dark:border-accent/20 hover:border-accent hover:text-accent dark:text-white dark:hover:text-accent transition-colors bg-white/50 dark:bg-primary/30 backdrop-blur-sm">
-                          <Linkedin className="h-5 w-5" />
-                          <span className="sr-only">LinkedIn</span>
-                        </Button>
-                      </a>
-                    </TooltipTrigger>
-                    <TooltipContent><p>Follow us on LinkedIn</p></TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
 
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <a href="https://x.com/patel_puls43877" target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline" size="icon" className="rounded-full w-12 h-12 border-gray-200 dark:border-accent/20 hover:border-accent hover:text-accent dark:text-white dark:hover:text-accent transition-colors bg-white/50 dark:bg-primary/30 backdrop-blur-sm">
-                          <Twitter className="h-5 w-5" />
-                          <span className="sr-only">Twitter</span>
-                        </Button>
-                      </a>
-                    </TooltipTrigger>
-                    <TooltipContent><p>Follow us on Twitter</p></TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <a href="https://www.instagram.com/patel_pulse_ventures/?hl=en" target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline" size="icon" className="rounded-full w-12 h-12 border-gray-200 dark:border-accent/20 hover:border-accent hover:text-accent dark:text-white dark:hover:text-accent transition-colors bg-white/50 dark:bg-primary/30 backdrop-blur-sm">
-                          <Instagram className="h-5 w-5" />
-                          <span className="sr-only">Instagram</span>
-                        </Button>
-                      </a>
-                    </TooltipTrigger>
-                    <TooltipContent><p>Follow us on Instagram</p></TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-            </div>
           </motion.div>
 
           {/* Contact Form */}
