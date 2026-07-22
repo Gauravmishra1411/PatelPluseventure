@@ -58,7 +58,7 @@ export default function About() {
           <div className="space-y-10 text-center">
             {/* First Paragraph */}
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed" style={{ textAlign: "justify" }}>
-              At Patel Pulse Ventures, we specialize in handling both government and
+              at Patel Pulse Ventures, we specialize in handling both government and
               private sector tenders with professionalism, transparency, and
               efficiency. Our commitment to delivering high-quality projects on time
               has earned the trust of our clients across various industries.
