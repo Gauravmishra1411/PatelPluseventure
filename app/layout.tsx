@@ -1,7 +1,7 @@
 
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Outfit } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
 import SmoothScroll from "@/components/smooth-scroll"
@@ -10,7 +10,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import ThemeCustomizer from "@/components/theme-customizer"
 import Navbar from "@/components/navbar"
 
-const inter = Inter({ subsets: ["latin"] })
+const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800"] })
 
 export const metadata: Metadata = {
   title: "Patel Pulse Ventures - Transforming Ideas into Digital Reality",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description:
       "We invite eligible contractors, suppliers, and service providers to bid on our construction and infrastructure projects. All tenders are evaluated on technical competence, financial capability, and value for money — ensuring a fair and transparent process for every participant.",
     siteName: "Patel Pulse Ventures",
-    images: ["/logo-ppv.png"],
+    images: ["/bg.png"],
   },
   twitter: {
     card: "summary_large_image",
@@ -37,11 +37,11 @@ export const metadata: Metadata = {
     description:
       "We invite eligible contractors, suppliers, and service providers to bid on our construction and infrastructure projects. All tenders are evaluated on technical competence, financial capability, and value for money — ensuring a fair and transparent process for every participant",
     creator: "@patelpulseventures",
-    images: ["/logo-ppv.png"],
+    images: ["/bg.png"],
   },
   icons: {
-    icon: "/logo-ppv.png",
-    apple: "/logo-ppv.png",
+    icon: "/bg.png",
+    apple: "/bg.png",
   },
   generator: 'v0.dev',
   verification: {
@@ -62,7 +62,7 @@ export default function RootLayout({
       <head>
         <GoogleAnalytics />
       </head>
-      <body className={`${inter.className} overflow-y-auto`}>
+      <body className={`${outfit.className} overflow-y-auto`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

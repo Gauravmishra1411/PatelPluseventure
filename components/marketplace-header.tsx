@@ -58,8 +58,8 @@ export default function MarketplaceHeader() {
   useEffect(() => {
     if (user) {
         const cartQuery = query(collection(db, "users", user.uid, "cart"));
-        const unsubCart = onSnapshot(cartQuery, (snapshot) => {
-            const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as CartItem));
+        const unsubCart = onSnapshot(cartQuery, (snapshot: any) => {
+            const items = snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() } as CartItem));
             setCartItems(items);
         });
         return () => unsubCart();

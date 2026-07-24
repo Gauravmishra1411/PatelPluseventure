@@ -4,15 +4,66 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { db } from "@/lib/firebase"
 import { collection, doc, getDoc, getDocs, query } from "firebase/firestore"
-import Image from "next/image"
-import { ExternalLink } from "lucide-react"
+import { ExternalLink, Landmark, Building2, Laptop, ArrowRight } from "lucide-react"
 import { SupportCard } from "@/components/support-card"
+import Footer from "@/components/footer"
+import MobileBottomNav from "@/components/mobile-bottom-nav"
+
+const defaultGov = [
+  {
+    id: "gov-1",
+    title: "Indian Railways E-Procurement System (IREPS)",
+    category: "Government Tenders",
+    bulletPoints: ["Railway supply, infrastructure construction, & specialized service contracts.", "Official zonal e-procurement bidding."]
+  },
+  {
+    id: "gov-2",
+    title: "GeM (Government e-Marketplace)",
+    category: "Government Tenders",
+    bulletPoints: ["Direct government order bids and reverse auction opportunities.", "Special MSME and Startup vendor allocations."]
+  },
+  {
+    id: "gov-3",
+    title: "Central Public Procurement Portal (CPPP)",
+    category: "Government Tenders",
+    bulletPoints: ["Central ministry infrastructure, civil works, & manpower supply tenders.", "Transparent bid evaluations."]
+  }
+]
+
+const defaultPrivate = [
+  {
+    id: "pvt-1",
+    title: "Industrial & Manufacturing Operations Contract",
+    category: "Private Tenders",
+    bulletPoints: ["Turnkey plant maintenance, operations management, & logistics.", "Long-term private enterprise contracts."]
+  },
+  {
+    id: "pvt-2",
+    title: "Corporate Infrastructure & Commercial Development",
+    category: "Private Tenders",
+    bulletPoints: ["Commercial building development, electrical fitting, & civil work.", "Strict milestone SLA delivery."]
+  }
+]
+
+const defaultIT = [
+  {
+    id: "it-1",
+    title: "Enterprise Web & Cloud Software Solutions",
+    category: "IT Tenders",
+    bulletPoints: ["Custom ERP portals, web application development, & cloud deployment.", "Cybersecurity compliance & audit."]
+  },
+  {
+    id: "it-2",
+    title: "Smart City Digital Transformation Platform",
+    category: "IT Tenders",
+    bulletPoints: ["IoT device network, analytics dashboards, & real-time monitoring.", "Mobile app & backend infrastructure."]
+  }
+]
 
 export default function TendersPage() {
   const [headerData, setHeaderData] = useState<any>(null)
   const [tenders, setTenders] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [showAllGov, setShowAllGov] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +75,7 @@ export default function TendersPage() {
 
         const listQuery = query(collection(db, "tenders_list"))
         const listSnapshot = await getDocs(listQuery)
-        const listData = listSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+        const listData = listSnapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
         setTenders(listData)
       } catch (error) {
         console.error("Error fetching tenders data:", error)
@@ -38,252 +89,219 @@ export default function TendersPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
+        <div className="w-10 h-10 border-4 border-[#FFA800] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
 
-  const govTenders = tenders.filter(t => (t.category || "").toLowerCase().includes("government"))
-  const privateTenders = tenders.filter(t => (t.category || "").toLowerCase().includes("private"))
+  const dbGov = tenders.filter(t => {
+    const cat = (t.category || "").toLowerCase()
+    return cat.includes("government") || cat.includes("gov") || cat.includes("public")
+  })
+  const dbPrivate = tenders.filter(t => {
+    const cat = (t.category || "").toLowerCase()
+    return cat.includes("private") || cat.includes("corporate") || cat.includes("commercial")
+  })
+  const dbIT = tenders.filter(t => {
+    const cat = (t.category || "").toLowerCase()
+    return cat.includes("it") || cat.includes("software") || cat.includes("tech") || cat.includes("app") || cat.includes("cloud")
+  })
+
+  const govList = dbGov.length > 0 ? dbGov : defaultGov
+  const privateList = dbPrivate.length > 0 ? dbPrivate : defaultPrivate
+  const itList = dbIT.length > 0 ? dbIT : defaultIT
 
   return (
-    <div className="min-h-screen bg-background text-foreground pt-24 pb-12">
-      {/* Header Section */}
-      <section className="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-[60vh] flex flex-col items-center justify-center text-center">
+    <div
+      className="min-h-screen text-white pt-24 pb-16 relative overflow-hidden bg-[linear-gradient(-45deg,#020617,#111827,#1e293b,#f59e0b,#facc15,#111827)] bg-400 animate-gradient transition-all duration-1000"
+    >
+      {/* ── Header ── */}
+      <section className="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-6 pb-12 text-center z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto space-y-8"
+          className="max-w-4xl mx-auto space-y-4"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#4AF3F3]">
+          <div className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#FFA800]/15 border border-[#FFA800]/30 text-[#FFA800]">
+            Procurement Portal
+          </div>
+          <h1
+            className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#FFA800] leading-tight"
+            style={{ textShadow: "0 0 35px rgba(255,168,0,0.3)" }}
+          >
             {headerData?.heading || "TENDERS & PROCUREMENT AT PATEL PULSE VENTURES"}
           </h1>
-
-          {tenders.length > 0 && (
-            <div className="w-full max-w-7xl mx-auto py-12 px-2 sm:px-6">
-              {govTenders.length > 0 && (
-                <div className="mb-12">
-                  <motion.h2
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    className="text-2xl sm:text-3xl font-extrabold mb-4 text-left text-gray-900 dark:text-white pl-4 border-l-4 border-[#1E3A8A]"
-                  >
-                    Government Tenders
-                  </motion.h2>
-                  <button
-                    onClick={() => setShowAllGov(!showAllGov)}
-                    className="ml-4 mb-4 px-4 py-2 bg-[#1E3A8A]/20 text-[#1E3A8A] rounded-full hover:bg-[#1E3A8A] hover:text-black transition-colors"
-                  >
-                    {showAllGov ? 'Show Less' : 'View All'}
-                  </button>
-
-                  {showAllGov ? (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      {govTenders.map((tender, index) => {
-                        const bgColors = [
-                          "bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/20 dark:to-zinc-900",
-                          "bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-zinc-900",
-                          "bg-gradient-to-br from-teal-50 to-white dark:from-teal-900/20 dark:to-zinc-900",
-                          "bg-gradient-to-br from-rose-50 to-white dark:from-rose-900/20 dark:to-zinc-900"
-                        ];
-                        const bgClass = bgColors[index % bgColors.length];
-                        return (
-                          <motion.div
-                            key={tender.id}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            whileHover={{ y: -8, scale: 1.02 }}
-                            transition={{ duration: 0.3 }}
-                            className={`snap-start shrink-0 w-full max-w-[300px] border border-gray-100 dark:border-zinc-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl relative overflow-hidden group flex flex-col h-[340px] ${bgClass}`}
-                          >
-                            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#4AF3F3] to-blue-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
-                            <div className="mb-4 flex items-center justify-between">
-                              <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/80 dark:bg-black/50 text-gray-800 dark:text-gray-200 backdrop-blur-sm border border-gray-200 dark:border-zinc-700 shadow-sm">
-                                {tender.category}
-                              </span>
-                              {tender.url && (
-                                <a href={tender.url} target="_blank" rel="noopener noreferrer" className="bg-[#4AF3F3]/20 text-[#00E5E5] p-2.5 rounded-full hover:bg-[#4AF3F3] hover:text-black transition-all duration-300 shrink-0 shadow-sm group-hover:shadow-md">
-                                  <ExternalLink className="w-4 h-4" />
-                                </a>
-                              )}
-                            </div>
-                            <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-4 pr-4 leading-tight">
-                              {tender.title}
-                            </h3>
-                            {tender.bulletPoints && tender.bulletPoints.length > 0 && (
-                              <ul className="space-y-3 mt-2 text-gray-600 dark:text-gray-400 flex-grow overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                                {tender.bulletPoints.map((point: string, i: number) => (
-                                  <li key={i} className="flex items-start">
-                                    <span className="text-[#1E3A8A] mr-3 mt-1 text-lg leading-none">•</span>
-                                    <span className="text-sm font-medium leading-relaxed">{point}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-[#4AF3F3]/10 to-transparent rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700 pointer-events-none" />
-                          </motion.div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <div className="flex flex-nowrap overflow-x-auto scroll-smooth gap-6 pb-8 pt-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                      {govTenders.map((tender, index) => {
-                        const bgColors = [
-                          "bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/20 dark:to-zinc-900",
-                          "bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-zinc-900",
-                          "bg-gradient-to-br from-teal-50 to-white dark:from-teal-900/20 dark:to-zinc-900",
-                          "bg-gradient-to-br from-rose-50 to-white dark:from-rose-900/20 dark:to-zinc-9"
-                        ];
-                        const bgClass = bgColors[index % bgColors.length];
-                        return (
-                          <motion.div
-                            key={tender.id}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            whileHover={{ y: -8, scale: 1.02 }}
-                            transition={{ duration: 0.3 }}
-                            className={`snap-start shrink-0 w-[30%] md:w-[30%] max-w-[300px] border border-gray-100 dark:border-zinc-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl relative overflow-hidden group flex flex-col h-[340px] ${bgClass}`}
-                          >
-                            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#4AF3F3] to-blue-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
-                            <div className="mb-4 flex items-center justify-between">
-                              <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/80 dark:bg-black/50 text-gray-800 dark:text-gray-200 backdrop-blur-sm border border-gray-200 dark:border-zinc-700 shadow-sm">
-                                {tender.category}
-                              </span>
-                              {tender.url && (
-                                <a href={tender.url} target="_blank" rel="noopener noreferrer" className="bg-[#4AF3F3]/20 text-[#00E5E5] p-2.5 rounded-full hover:bg-[#4AF3F3] hover:text-black transition-all duration-300 shrink-0 shadow-sm group-hover:shadow-md">
-                                  <ExternalLink className="w-4 h-4" />
-                                </a>
-                              )}
-                            </div>
-                            <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-4 pr-4 leading-tight">
-                              {tender.title}
-                            </h3>
-                            {tender.bulletPoints && tender.bulletPoints.length > 0 && (
-                              <ul className="space-y-3 mt-2 text-gray-600 dark:text-gray-400 flex-grow overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                                {tender.bulletPoints.map((point: string, i: number) => (
-                                  <li key={i} className="flex items-start">
-                                    <span className="text-[#1E3A8A] mr-3 mt-1 text-lg leading-none">•</span>
-                                    <span className="text-sm font-medium leading-relaxed">{point}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-[#4AF3F3]/10 to-transparent rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700 pointer-events-none" />
-                          </motion.div>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {privateTenders.length > 0 && (
-                <div className="mb-8">
-                  <motion.h2 
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    className="text-2xl sm:text-3xl font-extrabold mb-6 text-left text-gray-900 dark:text-white pl-4 border-l-4 border-purple-500"
-                  >
-                    Private Tenders
-                  </motion.h2>
-                  <div className="flex flex-nowrap overflow-x-auto scroll-smooth gap-6 pb-8 pt-4 px-2 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                    {privateTenders.map((tender, index) => {
-                      const bgColors = [
-                          "bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-900/20 dark:to-zinc-900",
-                          "bg-gradient-to-br from-pink-50 to-white dark:from-pink-900/20 dark:to-zinc-900",
-                          "bg-gradient-to-br from-fuchsia-50 to-white dark:from-fuchsia-900/20 dark:to-zinc-900",
-                          "bg-gradient-to-br from-violet-50 to-white dark:from-violet-900/20 dark:to-zinc-900"
-                      ];
-                      const bgClass = bgColors[index % bgColors.length];
-                      
-                      return (
-                        <motion.div 
-                          key={tender.id}
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
-                          whileHover={{ y: -8, scale: 1.02 }}
-                          transition={{ duration: 0.3 }}
-                          className={`snap-center shrink-0 w-[300px] md:w-[380px] border border-gray-100 dark:border-zinc-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl relative overflow-hidden group flex flex-col h-[380px] ${bgClass}`}
-                        >
-                          <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-purple-500 to-pink-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
-                          
-                          <div className="mb-4 flex items-center justify-between">
-                            <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/80 dark:bg-black/50 text-gray-800 dark:text-gray-200 backdrop-blur-sm border border-gray-200 dark:border-zinc-700 shadow-sm">
-                              {tender.category}
-                            </span>
-                            {tender.url && (
-                              <a 
-                                href={tender.url} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="bg-purple-500/10 text-purple-600 dark:text-purple-400 p-2.5 rounded-full hover:bg-purple-500 hover:text-white transition-all duration-300 shrink-0 shadow-sm group-hover:shadow-md"
-                              >
-                                <ExternalLink className="w-4 h-4" />
-                              </a>
-                            )}
-                          </div>
-
-                          <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-4 pr-4 leading-tight">
-                            {tender.title}
-                          </h3>
-                          
-                          {tender.bulletPoints && tender.bulletPoints.length > 0 && (
-                            <ul className="space-y-3 mt-2 text-gray-600 dark:text-gray-400 flex-grow overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                              {tender.bulletPoints.map((point: string, i: number) => (
-                                <li key={i} className="flex items-start">
-                                  <span className="text-purple-500 mr-3 mt-1 text-lg leading-none">•</span>
-                                  <span className="text-sm font-medium leading-relaxed">{point}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                          
-                          <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-purple-500/10 to-transparent rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700 pointer-events-none" />
-                        </motion.div>
-                      )
-                    })}
-                  </div>
-                </div>
-              )}
-
-            </div>
-          )}
-          
-          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-medium leading-relaxed">
-            {headerData?.subheading || "We invite eligible contractors, suppliers, and service providers to bid on our construction and infrastructure projects. All tenders are evaluated on technical competence, financial capability, and value for money."}
+          <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto font-medium leading-relaxed">
+            {headerData?.subheading || "Explore open procurement contracts across Government, Private enterprise, and IT software sectors."}
           </p>
-
-          {headerData?.description && (
-            <p className="text-md text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-              {headerData.description}
-            </p>
-          )}
-
-          {headerData?.image && (
-            <div className="mt-8 relative w-full max-w-3xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl">
-              <Image 
-                src={headerData.image} 
-                alt="Tenders and Procurement" 
-                fill 
-                className="object-cover"
-              />
-            </div>
-          )}
-
-
         </motion.div>
       </section>
 
+      {/* ── 3 Column-Wise Listing Section (Government, Private, IT) ── */}
+      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-16 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
 
+          {/* 🏛️ COLUMN 1: GOVERNMENT TENDERS */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="flex flex-col h-full bg-[#0B1329]/90 border border-amber-500/25 rounded-3xl p-6 shadow-2xl backdrop-blur-md relative overflow-hidden"
+          >
+            <div className="flex items-center gap-3 pb-4 mb-6 border-b border-amber-500/30">
+              <div className="w-10 h-10 rounded-xl bg-[#FFA800]/15 border border-[#FFA800]/30 flex items-center justify-center text-[#FFA800]">
+                <Landmark className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-xl font-extrabold text-[#FFA800]">Government Tenders</h2>
+                <span className="text-xs text-gray-400">{govList.length} Opportunities Available</span>
+              </div>
+            </div>
+
+            <div className="space-y-4 flex-grow">
+              {govList.map((tender) => (
+                <div
+                  key={tender.id}
+                  className="group bg-[#0F172A] border border-white/10 hover:border-[#FFA800]/60 rounded-2xl p-5 transition-all duration-300 shadow-md hover:shadow-[0_0_20px_rgba(255,168,0,0.15)] flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#FFA800]/10 text-[#FFA800] border border-[#FFA800]/25">
+                      Government
+                    </span>
+                    {tender.url && (
+                      <a href={tender.url} target="_blank" rel="noopener noreferrer" className="text-[#FFA800] hover:text-white p-1">
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
+                  <h3 className="text-base font-bold text-white group-hover:text-[#FFA800] transition-colors leading-snug mb-2">
+                    {tender.title}
+                  </h3>
+                  {tender.bulletPoints && tender.bulletPoints.length > 0 && (
+                    <ul className="space-y-1.5 text-xs text-gray-300 leading-relaxed">
+                      {tender.bulletPoints.map((point: string, i: number) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <span className="text-[#FFA800] font-bold">•</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* 🏢 COLUMN 2: PRIVATE TENDERS */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-col h-full bg-[#0B1329]/90 border border-cyan-500/25 rounded-3xl p-6 shadow-2xl backdrop-blur-md relative overflow-hidden"
+          >
+            <div className="flex items-center gap-3 pb-4 mb-6 border-b border-cyan-500/30">
+              <div className="w-10 h-10 rounded-xl bg-[#4AF3F3]/15 border border-[#4AF3F3]/30 flex items-center justify-center text-[#4AF3F3]">
+                <Building2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-xl font-extrabold text-[#4AF3F3]">Private Tenders</h2>
+                <span className="text-xs text-gray-400">{privateList.length} Opportunities Available</span>
+              </div>
+            </div>
+
+            <div className="space-y-4 flex-grow">
+              {privateList.map((tender) => (
+                <div
+                  key={tender.id}
+                  className="group bg-[#0F172A] border border-white/10 hover:border-[#4AF3F3]/60 rounded-2xl p-5 transition-all duration-300 shadow-md hover:shadow-[0_0_20px_rgba(74,243,243,0.15)] flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#4AF3F3]/10 text-[#4AF3F3] border border-[#4AF3F3]/25">
+                      Private Enterprise
+                    </span>
+                    {tender.url && (
+                      <a href={tender.url} target="_blank" rel="noopener noreferrer" className="text-[#4AF3F3] hover:text-white p-1">
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
+                  <h3 className="text-base font-bold text-white group-hover:text-[#4AF3F3] transition-colors leading-snug mb-2">
+                    {tender.title}
+                  </h3>
+                  {tender.bulletPoints && tender.bulletPoints.length > 0 && (
+                    <ul className="space-y-1.5 text-xs text-gray-300 leading-relaxed">
+                      {tender.bulletPoints.map((point: string, i: number) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <span className="text-[#4AF3F3] font-bold">•</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* 💻 COLUMN 3: IT & SOFTWARE TENDERS */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col h-full bg-[#0B1329]/90 border border-purple-500/25 rounded-3xl p-6 shadow-2xl backdrop-blur-md relative overflow-hidden"
+          >
+            <div className="flex items-center gap-3 pb-4 mb-6 border-b border-purple-500/30">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                <Laptop className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-xl font-extrabold text-purple-400">IT & Software Tenders</h2>
+                <span className="text-xs text-gray-400">{itList.length} Opportunities Available</span>
+              </div>
+            </div>
+
+            <div className="space-y-4 flex-grow">
+              {itList.map((tender) => (
+                <div
+                  key={tender.id}
+                  className="group bg-[#0F172A] border border-white/10 hover:border-purple-400/60 rounded-2xl p-5 transition-all duration-300 shadow-md hover:shadow-[0_0_20px_rgba(168,85,247,0.15)] flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/25">
+                      IT & Tech
+                    </span>
+                    {tender.url && (
+                      <a href={tender.url} target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-white p-1">
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
+                  <h3 className="text-base font-bold text-white group-hover:text-purple-400 transition-colors leading-snug mb-2">
+                    {tender.title}
+                  </h3>
+                  {tender.bulletPoints && tender.bulletPoints.length > 0 && (
+                    <ul className="space-y-1.5 text-xs text-gray-300 leading-relaxed">
+                      {tender.bulletPoints.map((point: string, i: number) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <span className="text-purple-400 font-bold">•</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
 
       <SupportCard />
+      <Footer />
+      <MobileBottomNav />
     </div>
   )
 }

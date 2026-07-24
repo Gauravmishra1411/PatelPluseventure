@@ -44,64 +44,64 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 320 10% 3.9%;
+    --foreground: 0 0% 9%;
     --card: 0 0% 100%;
-    --card-foreground: 320 10% 3.9%;
+    --card-foreground: 0 0% 9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 320 10% 3.9%;
-    --primary: 212 80% 42%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 212 80% 42%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 210 20% 96%;
-    --muted-foreground: 210 4% 46%;
-    --accent: 184 97% 75%;
+    --popover-foreground: 0 0% 9%;
+    --primary: 40 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 100% 96%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 40 30% 96%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 40 100% 50%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 210 20% 90%;
-    --input: 210 20% 90%;
-    --ring: 212 80% 42%;
-    --primary-rgb: 21 101 192;
-    --accent-rgb: 129 245 253;
+    --border: 40 20% 90%;
+    --input: 40 20% 90%;
+    --ring: 40 100% 50%;
+    --primary-rgb: 255 168 0;
+    --accent-rgb: 255 168 0;
     --background-rgb: 255 255 255;
     --radius: 0.5rem;
-    --chart-1: 322 81% 43%;
-    --chart-2: 290 60% 50%;
-    --chart-3: 340 70% 50%;
-    --chart-4: 260 60% 60%;
-    --chart-5: 320 50% 60%;
-    --cart-background: 322 92% 59%;
+    --chart-1: 40 100% 50%;
+    --chart-2: 35 90% 45%;
+    --chart-3: 30 85% 40%;
+    --chart-4: 25 80% 35%;
+    --chart-5: 20 75% 30%;
+    --cart-background: 40 100% 50%;
   }
 
   .dark {
-    --background: 320 20% 4%;
-    --foreground: 320 10% 98%;
-    --card: 320 20% 4%;
-    --card-foreground: 320 10% 98%;
-    --popover: 320 20% 4%;
-    --popover-foreground: 320 10% 98%;
-    --primary: 212 80% 42%;
-    --primary-foreground: 210 10% 98%;
-    --secondary: 212 80% 42%;
-    --secondary-foreground: 210 10% 4%;
-    --muted: 210 30% 15%;
-    --muted-foreground: 210 10% 65%;
-    --accent: 184 97% 75%;
-    --accent-foreground: 210 10% 98%;
+    --background: 0 0% 9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 40 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 40 100% 50%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 10% 98%;
-    --border: 210 30% 15%;
-    --input: 210 30% 15%;
-    --ring: 212 80% 42%;
-    --primary-rgb: 21 101 192;
-    --accent-rgb: 129 245 253;
-    --background-rgb: 2 6 23;
-    --chart-1: 322 70% 50%;
-    --chart-2: 290 60% 45%;
-    --chart-3: 340 80% 55%;
-    --chart-4: 260 65% 60%;
-    --chart-5: 300 75% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 40 100% 50%;
+    --primary-rgb: 255 168 0;
+    --accent-rgb: 255 168 0;
+    --background-rgb: 23 23 23;
+    --chart-1: 40 100% 50%;
+    --chart-2: 35 90% 45%;
+    --chart-3: 30 85% 40%;
+    --chart-4: 25 80% 35%;
+    --chart-5: 20 75% 30%;
   }
 }
 
@@ -111,8 +111,19 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: radial-gradient(circle at 15% 15%, rgba(255, 247, 230, 0.9) 0%, transparent 55%),
+                radial-gradient(circle at 85% 85%, rgba(255, 251, 242, 0.9) 0%, transparent 55%),
+                #FFFFFF;
+    background-attachment: fixed;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  .dark body {
+    background: radial-gradient(circle at 15% 15%, rgba(255, 168, 0, 0.06) 0%, transparent 55%),
+                radial-gradient(circle at 85% 85%, rgba(23, 23, 23, 0.95) 0%, transparent 55%),
+                #171717;
+    background-attachment: fixed;
   }
 }
 
@@ -250,4 +261,26 @@
   .text-shadow-md {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
+}
+/* 3D Premium Background */
+.bg-3d-full {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  background: linear-gradient(135deg, #0B0B0B 0%, #151515 50%, #FFA800 100%);
+  background-size: 200% 200%;
+  animation: bg-3d-move 20s linear infinite;
+}
+
+/* subtle movement */
+@keyframes bg-3d-move {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* Dark mode support */
+.dark .bg-3d-full {
+  background: linear-gradient(135deg, #151515 0%, #0B0B0B 50%, #FFA800 100%);
 }

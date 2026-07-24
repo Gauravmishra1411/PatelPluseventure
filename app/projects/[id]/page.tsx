@@ -94,7 +94,9 @@ export default function ProjectDetailPage() {
             <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
               <div>
                 {project.mainImage && (
-                  <Image src={project.mainImage} alt={project.title} width={500} height={300} className="rounded-xl shadow-lg" />
+                  <div className="relative w-full h-80 sm:h-96 md:h-[28rem] rounded-2xl overflow-hidden shadow-2xl mb-6">
+                    <Image src={project.mainImage} alt={project.title} fill className="object-cover" priority />
+                  </div>
                 )}
                 <h1 className="text-4xl md:text-5xl font-bold mb-6 mt-6">{project.title}</h1>
                 {project.tagline && <p className="text-xl text-muted-foreground mb-4">{project.tagline}</p>}

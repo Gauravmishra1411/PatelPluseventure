@@ -33,7 +33,7 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Location",
-    value: "OC1125, 11th Floor, Gaur city center, sector 4, Greator noida west, 201318",
+    value: "OC 821, 8th Floor, Gaur city center, sector 4, Greator noida west, 201318",
     href: "https://www.google.com/maps/search/?api=1&query=Gaur+City+Center+Greater+Noida+West",
     gradient: "from-[#00D4FF] to-[#FF6B6B]",
   },
@@ -79,6 +79,7 @@ export default function ContactPage() {
     email: "",
     phone: "",
     company: "",
+    service: "",
     subject: "General Inquiry",
     message: "",
   })
@@ -117,6 +118,7 @@ export default function ContactPage() {
         email: "",
         phone: "",
         company: "",
+        service: "",
         subject: "General Inquiry",
         message: "",
       })
@@ -147,10 +149,8 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6">
-                <span className="bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#81f5fd] bg-clip-text text-transparent">
-                  Get in Touch
-                </span>
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 text-[#FFA800]">
+                Get in Touch
               </h1>
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
                 Ready to partner on major construction and infrastructure projects? Let&apos;s start the conversation and build something
@@ -178,8 +178,8 @@ export default function ContactPage() {
                   <div className="relative z-10">
                     <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4 md:mb-6">Send us a message</h3>
 
-                    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-                      <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
+                    <form onSubmit={handleSubmit} className="space-y-3 md:space-y-3.5">
+                      <div className="grid sm:grid-cols-2 gap-3 md:gap-3.5">
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
@@ -193,7 +193,7 @@ export default function ContactPage() {
                             value={formData.name}
                             onChange={handleChange}
                             required
-                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-11 md:h-12 text-sm md:text-base"
+                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-10 md:h-11 text-sm"
                           />
                         </motion.div>
 
@@ -210,12 +210,12 @@ export default function ContactPage() {
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-11 md:h-12 text-sm md:text-base"
+                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-10 md:h-11 text-sm"
                           />
                         </motion.div>
                       </div>
 
-                      <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
+                      <div className="grid sm:grid-cols-2 gap-3 md:gap-3.5">
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
@@ -228,7 +228,7 @@ export default function ContactPage() {
                             placeholder="Phone Number"
                             value={formData.phone}
                             onChange={handleChange}
-                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-11 md:h-12 text-sm md:text-base"
+                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-10 md:h-11 text-sm"
                           />
                         </motion.div>
 
@@ -244,10 +244,37 @@ export default function ContactPage() {
                             placeholder="Company Name"
                             value={formData.company}
                             onChange={handleChange}
-                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-11 md:h-12 text-sm md:text-base"
+                            className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-10 md:h-11 text-sm"
                           />
                         </motion.div>
                       </div>
+
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.45 }}
+                        viewport={{ once: true }}
+                      >
+                        <select
+                          name="service"
+                          value={formData.service}
+                          onChange={handleChange as any}
+                          className="w-full bg-background/50 border border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 h-10 md:h-11 text-sm rounded-md px-3 py-2 outline-none transition-colors"
+                        >
+                          <option value="" disabled className="bg-background text-foreground">Select Service Needed</option>
+                          <option value="Manpower Supply" className="bg-background text-foreground">Manpower Supply & Management</option>
+                          <option value="Horticulture" className="bg-background text-foreground">Horticulture & Landscaping</option>
+                          <option value="Housekeeping" className="bg-background text-foreground">Housekeeping & Cleaning</option>
+                          <option value="Canteen & Catering" className="bg-background text-foreground">Canteen & Catering Services</option>
+                          <option value="Facility Management" className="bg-background text-foreground">Facility Management</option>
+                          <option value="Maintenance Services" className="bg-background text-foreground">Operations & Maintenance</option>
+                          <option value="Tenders & Bidding" className="bg-background text-foreground">Government & Private Tenders</option>
+                          <option value="IT & Software Development" className="bg-background text-foreground">IT & Software Development</option>
+                          <option value="Mobile App Development" className="bg-background text-foreground">Mobile App Development</option>
+                          <option value="Cloud & Cybersecurity" className="bg-background text-foreground">Cloud & Cybersecurity</option>
+                          <option value="Other" className="bg-background text-foreground">Other Service</option>
+                        </select>
+                      </motion.div>
 
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -261,8 +288,8 @@ export default function ContactPage() {
                           value={formData.message}
                           onChange={handleChange}
                           required
-                          rows={5}
-                          className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 resize-none text-sm md:text-base min-h-[120px] md:min-h-[140px]"
+                          rows={3}
+                          className="bg-background/50 border-primary/20 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 resize-none text-sm min-h-[90px] md:min-h-[100px]"
                         />
                       </motion.div>
 
@@ -275,7 +302,7 @@ export default function ContactPage() {
                         <Button
                           type="submit"
                           disabled={isSubmitting}
-                          className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold py-3 md:py-4 text-sm md:text-base hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 disabled:opacity-50 h-12 md:h-14"
+                          className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold py-2.5 md:py-3 text-sm md:text-base hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 disabled:opacity-50 h-10 md:h-11"
                         >
                           {isSubmitting ? (
                             <motion.div

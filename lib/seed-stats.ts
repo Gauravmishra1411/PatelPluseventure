@@ -66,7 +66,7 @@ export async function seedHomeHeroStats() {
 
         // Clear existing data
         const snapshot = await getDocs(collectionRef)
-        const deletePromises = snapshot.docs.map(doc => deleteDoc(doc.ref))
+        const deletePromises = snapshot.docs.map((doc: any) => deleteDoc(doc.ref))
         await Promise.all(deletePromises)
 
         // Add new data
@@ -91,7 +91,7 @@ export async function seedHomeAboutStats() {
 
         // Clear existing data
         const snapshot = await getDocs(collectionRef)
-        const deletePromises = snapshot.docs.map(doc => deleteDoc(doc.ref))
+        const deletePromises = snapshot.docs.map((doc: any) => deleteDoc(doc.ref))
         await Promise.all(deletePromises)
 
         // Add new data

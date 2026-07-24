@@ -3,10 +3,10 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 
 const sizes = {
-  sm: { width: 200, height: 65, className: "h-12 w-auto" },
-  md: { width: 300, height: 90, className: "h-20 w-auto" },
-  lg: { width: 400, height: 120, className: "h-28 w-auto" },
-  xl: { width: 600, height: 240, className: "h-44 sm:h-56 w-auto" },
+  sm: { width: 210, height: 68, className: "h-[3.15rem] w-auto" },
+  md: { width: 315, height: 95, className: "h-[5.25rem] w-auto" },
+  lg: { width: 420, height: 126, className: "h-[7.35rem] w-auto" },
+  xl: { width: 630, height: 252, className: "h-[11.55rem] sm:h-[14.7rem] w-auto" },
 } as const
 
 type LogoSize = keyof typeof sizes
@@ -24,7 +24,7 @@ export function Logo({ size = "md", href = "/", linked = true, className, priori
 
   const image = (
     <Image
-      src="/logo-ppv.png"
+      src="/bg.png"
       alt="Patel Pulse Ventures"
       width={config.width}
       height={config.height}

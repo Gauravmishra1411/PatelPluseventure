@@ -45,7 +45,9 @@ interface Project {
   duration?: string
   team?: string
   color?: string
-  link?: string // Added link property
+  link?: string
+  order?: number
+  createdAt?: any
 }
 
 
@@ -59,12 +61,12 @@ export default function ProjectsSlider() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const q = query(collection(db, "projects"), orderBy("createdAt", "desc"))
+    const q = collection(db, "projects")
     const unsubscribe = onSnapshot(
       q,
-      (querySnapshot) => {
+      (querySnapshot: any) => {
         const projectsData: Project[] = []
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach((doc: any) => {
           const data = doc.data()
           projectsData.push({
             id: doc.id,
@@ -77,10 +79,15 @@ export default function ProjectsSlider() {
             ...data
           } as Project)
         })
+        projectsData.sort((a, b) => {
+          const timeA = a.createdAt?.toMillis?.() || (a.createdAt as any)?.seconds * 1000 || 0
+          const timeB = b.createdAt?.toMillis?.() || (b.createdAt as any)?.seconds * 1000 || 0
+          return timeB - timeA
+        })
         setProjects(projectsData)
         setLoading(false)
       },
-      (error) => {
+      (error: any) => {
         console.error("Error fetching projects:", error)
         toast.error("Failed to load projects.")
         setLoading(false)
@@ -111,12 +118,12 @@ export default function ProjectsSlider() {
 
 
   return (
-    <section id="projects" className="py-6 md:py-12 lg:py-20 bg-gradient-to-br from-white via-gray-50 to-white dark:from-background dark:via-primary/20 dark:to-background relative overflow-hidden">
+    <section id="projects" className="py-6 md:py-12 lg:py-20 bg-[#FFFBF2] dark:bg-[#181510] relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-radial from-accent/5 to-transparent rounded-full blur-3xl opacity-50 dark:opacity-100" />
-        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-radial from-primary/5 to-transparent rounded-full blur-3xl opacity-50 dark:opacity-100" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-radial from-accent/5 to-transparent rounded-full blur-3xl opacity-50 dark:opacity-100" />
+        <div className="absolute top-20 left-20 w-96 h-96 bg-[#FFA800]/5 rounded-full blur-3xl opacity-50 dark:opacity-100" />
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-[#FFA800]/5 rounded-full blur-3xl opacity-50 dark:opacity-100" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-[#FFA800]/5 rounded-full blur-3xl opacity-50 dark:opacity-100" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -128,13 +135,11 @@ export default function ProjectsSlider() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Featured Tenders
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#111111] dark:text-white">
+            Featured <span className="text-[#FFA800]">Projects & Tenders</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Explore our track record of successful construction and infrastructure tenders
+          <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto font-medium">
+            Explore our track record of successful construction, infrastructure, and IT projects
           </p>
         </motion.div>
 
@@ -142,7 +147,7 @@ export default function ProjectsSlider() {
         <div className="relative">
           {loading ? (
             <div className="flex justify-center items-center h-96">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#FF0080]"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#FFA800]"></div>
             </div>
           ) : (
             <div className="overflow-hidden" ref={emblaRef}>
@@ -158,7 +163,7 @@ export default function ProjectsSlider() {
                         passHref
                         className="block h-full cursor-pointer"
                       >
-                        <Card className="group relative overflow-hidden rounded-2xl h-96 bg-white dark:bg-primary/30 border border-gray-200 dark:border-accent/20 shadow-sm dark:shadow-none transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
+                        <Card className="group relative overflow-hidden rounded-2xl h-[26rem] sm:h-[28rem] bg-[#171717] border border-[#FFA800]/20 hover:border-[#FFA800]/60 shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,168,0,0.25)]">
                           <Image
                             src={project.mainImage || "/placeholder.svg?height=400&width=600"}
                             alt={project.title}
@@ -166,9 +171,9 @@ export default function ProjectsSlider() {
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                          <div className="absolute inset-0 flex flex-col justify-end p-6">
-                            <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/50 to-transparent opacity-90" />
+                          <div className="absolute inset-0 flex flex-col justify-end p-6 z-10 text-left">
+                            <h3 className="text-xl font-bold text-white group-hover:text-[#FFA800] mb-2 leading-tight transition-colors duration-300">{project.title}</h3>
                             <p className="text-gray-300 text-sm mb-4 line-clamp-2">{project.description}</p>
                             <motion.div
                               initial={{ opacity: 0, y: 20 }}
@@ -176,9 +181,9 @@ export default function ProjectsSlider() {
                               transition={{ duration: 0.5, delay: 0.2 }}
                             >
                               <div
-                                className={`inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2 w-full mt-auto bg-gradient-to-r from-[#FF0080] to-[#D400FF] text-white hover:shadow-lg hover:shadow-[#FF0080]/25 transition-all duration-300`}
+                                className={`inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold h-10 px-4 py-2 w-full mt-auto bg-[#FFA800] text-[#0A0A0A] hover:bg-[#E58F00] hover:shadow-[0_0_20px_rgba(255,168,0,0.3)] transition-all duration-300`}
                               >
-                                View Tender
+                                View Project →
                               </div>
                             </motion.div>
                           </div>

@@ -21,7 +21,7 @@ import {
 import { BarChart3, FolderOpen, Home, MessageSquare, Users, Wrench, Info, Star, Briefcase, ShoppingBag, Settings, LayoutDashboard, FileBarChart, ShoppingCart, LogOut, Package, Percent, Palette, LayoutGrid, Bell, FileText, FileSignature } from "lucide-react"
 import Link from "next/link"
 import { Logo } from "@/components/logo"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { toast } from "sonner"
 import { signOut } from "firebase/auth"
 import { auth, db } from "@/lib/firebase"
@@ -36,15 +36,19 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   const router = useRouter()
+  const pathname = usePathname()
   const [unreadNotifications, setUnreadNotifications] = useState(0);
 
+  const isLoginPage = pathname === "/admin/login" || pathname?.startsWith("/admin/login")
+
   useEffect(() => {
+    if (isLoginPage) return;
     const q = query(collection(db, "notifications"), where("isRead", "==", false));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setUnreadNotifications(snapshot.size);
     });
     return () => unsubscribe();
-  }, []);
+  }, [isLoginPage]);
 
   const handleLogout = async () => {
     try {
@@ -54,6 +58,10 @@ export default function AdminLayout({
     } catch (error) {
       toast.error("Failed to log out")
     }
+  }
+
+  if (isLoginPage) {
+    return <AdminAuthGuard>{children}</AdminAuthGuard>
   }
 
   return (
@@ -223,53 +231,7 @@ export default function AdminLayout({
                   </SidebarGroupContent>
                 </SidebarGroup>
 
-                <SidebarGroup className="mt-8">
-                  <SidebarGroupLabel className="text-muted-foreground font-semibold text-sm uppercase tracking-wider mb-4 px-4">
-                    Marketplace
-                  </SidebarGroupLabel>
-                  <SidebarGroupContent>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton href="/admin/marketplace/orders" asChild className="w-full justify-start text-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 rounded-lg px-4 py-3 group">
-                        <Link href="/admin/marketplace/orders" className="flex items-center gap-3"><ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform" /><span className="font-medium">Orders</span></Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton href="/admin/marketplace/customers" asChild className="w-full justify-start text-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 rounded-lg px-4 py-3 group">
-                        <Link href="/admin/marketplace/customers" className="flex items-center gap-3"><Users className="h-5 w-5 group-hover:scale-110 transition-transform" /><span className="font-medium">Customers</span></Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton href="/admin/marketplace/reviews" asChild className="w-full justify-start text-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 rounded-lg px-4 py-3 group">
-                        <Link href="/admin/marketplace/reviews" className="flex items-center gap-3"><Star className="h-5 w-5 group-hover:scale-110 transition-transform" /><span className="font-medium">Reviews</span></Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton href="/admin/marketplace/products" asChild className="w-full justify-start text-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 rounded-lg px-4 py-3 group">
-                        <Link href="/admin/marketplace/products" className="flex items-center gap-3"><Package className="h-5 w-5 group-hover:scale-110 transition-transform" /><span className="font-medium">Products</span></Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton href="/admin/marketplace/categories" asChild className="w-full justify-start text-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 rounded-lg px-4 py-3 group">
-                        <Link href="/admin/marketplace/categories" className="flex items-center gap-3"><LayoutGrid className="h-5 w-5 group-hover:scale-110 transition-transform" /><span className="font-medium">Categories</span></Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton href="/admin/marketplace/discounts" asChild className="w-full justify-start text-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 rounded-lg px-4 py-3 group">
-                        <Link href="/admin/marketplace/discounts" className="flex items-center gap-3"><Percent className="h-5 w-5 group-hover:scale-110 transition-transform" /><span className="font-medium">Discounts</span></Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton href="/admin/marketplace/customize" asChild className="w-full justify-start text-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 rounded-lg px-4 py-3 group">
-                        <Link href="/admin/marketplace/customize" className="flex items-center gap-3"><Settings className="h-5 w-5 group-hover:scale-110 transition-transform" /><span className="font-medium">Customize</span></Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton href="/admin/analytics" asChild className="w-full justify-start text-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 rounded-lg px-4 py-3 group">
-                        <Link href="/admin/analytics" className="flex items-center gap-3"><BarChart3 className="h-5 w-5 group-hover:scale-110 transition-transform" /><span className="font-medium">Analytics</span></Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </SidebarGroupContent>
-                </SidebarGroup>
+
 
                 <SidebarMenuItem className="mt-8">
                   <SidebarMenuButton

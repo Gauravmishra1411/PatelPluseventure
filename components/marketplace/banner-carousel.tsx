@@ -27,8 +27,8 @@ export default function BannerCarousel() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsub = onSnapshot(collection(db, "marketplace_hero_banners"), (snapshot) => {
-            const bannerData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Banner));
+        const unsub = onSnapshot(collection(db, "marketplace_hero_banners"), (snapshot: any) => {
+            const bannerData = snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() } as Banner));
             setBanners(bannerData);
             setLoading(false);
         });

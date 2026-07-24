@@ -16,7 +16,7 @@ export default function ThemeCustomizer() {
     const { resolvedTheme } = useTheme()
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(doc(db, "settings", "theme"), (doc) => {
+        const unsubscribe = onSnapshot(doc(db, "settings", "theme"), (doc: any) => {
             if (doc.exists()) {
                 const data = doc.data()
                 const themeConfig = data[resolvedTheme === "dark" ? "dark" : "light"] || data.dark

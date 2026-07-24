@@ -52,17 +52,17 @@ export default function PreLoader() {
       <div className="text-center relative z-10 px-4">
         {/* Logo */}
         <motion.div
-          className="flex items-center justify-center mb-6 md:mb-8"
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
+          className="flex items-center justify-center mb-8 md:mb-12 scale-125 sm:scale-150 md:scale-[1.6]"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1.25, opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <motion.div
             animate={{
               filter: [
-                "drop-shadow(0 0 8px rgba(142, 217, 104, 0.3))",
-                "drop-shadow(0 0 20px rgba(142, 217, 104, 0.7))",
-                "drop-shadow(0 0 8px rgba(142, 217, 104, 0.3))",
+                "drop-shadow(0 0 10px rgba(129, 245, 253, 0.5))",
+                "drop-shadow(0 0 30px rgba(129, 245, 253, 0.95))",
+                "drop-shadow(0 0 10px rgba(129, 245, 253, 0.5))",
               ],
             }}
             transition={{
@@ -71,21 +71,21 @@ export default function PreLoader() {
               ease: "easeInOut",
             }}
           >
-            <Logo size="xl" linked={false} priority />
+            <Logo size="xl" className="h-32 sm:h-44 md:h-56" linked={false} priority />
           </motion.div>
         </motion.div>
 
         {/* Animated Icon */}
         <motion.div
-          className="mb-6 md:mb-8"
+          className="mb-8 md:mb-10"
           key={currentIcon}
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           exit={{ scale: 0, rotate: 180 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 mx-auto bg-white dark:bg-gradient-to-r dark:from-background dark:to-primary rounded-full flex items-center justify-center border-2 border-gray-200 dark:border-accent/30 shadow-md dark:shadow-none">
-            <IconComponent className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 text-accent" />
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 mx-auto bg-white dark:bg-gradient-to-r dark:from-background dark:to-primary rounded-full flex items-center justify-center border-2 border-gray-200 dark:border-accent/30 shadow-lg dark:shadow-none">
+            <IconComponent className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-accent" />
           </div>
         </motion.div>
 

@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useEffect, useRef } from "react"
@@ -7,23 +6,23 @@ import Link from "next/link"
 import { Logo } from "@/components/logo"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
-import { Menu, X, Home, Briefcase, User, Mail, Star, Moon, Sun, FileText } from "lucide-react"
+import { Menu, X, Home, Briefcase, User, Mail, Star, Moon, Sun, FileText, Info } from "lucide-react"
+import { useActiveSection } from "@/hooks/use-active-section"
 
-const navItems = [
-  { name: "Home", href: "/", icon: Home },
-  { name: "Services", href: "/services", icon: Briefcase },
-  { name: "Projects", href: "/projects", icon: Star },
-  { name: "Tenders", href: "/tenders", icon: FileText },
-  { name: "Contact", href: "/contact", icon: Mail },
-]
+import { navItems, sectionIds, handleNavClick } from "@/lib/navigation"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState("")
   const { theme, setTheme } = useTheme()
   const pathname = usePathname()
   const navRef = useRef<HTMLElement>(null)
+
+  const activeSection = useActiveSection({
+    sectionIds,
+    navbarHeight: 80,
+    defaultSection: "home",
+  })
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -43,137 +42,115 @@ export default function Navbar() {
       setScrolled(window.scrollY > 50)
     }
 
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  useEffect(() => {
-    if (pathname !== "/") return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
+  const onNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: typeof navItems[0]) => {
+    handleNavClick(e, item, pathname, () => setIsOpen(false))
+  }
 
-    const sections = document.querySelectorAll("section[id]");
-    sections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, [pathname]);
-
-  const isActive = (href: string) => {
-    if (pathname === href && pathname !== "/") return true;
+  const isItemActive = (item: typeof navItems[0]) => {
     if (pathname === "/") {
-      if (href === "/" && (activeSection === "home" || !activeSection)) return true;
-      if (href === "/services" && activeSection === "services") return true;
-      if (href === "/projects" && activeSection === "projects") return true;
-      if (href === "/contact" && activeSection === "contact") return true;
+      return activeSection === item.id
     }
-    return false;
+    return pathname === item.href || pathname.startsWith(item.href + "/")
   }
 
   if (pathname.startsWith("/admin")) {
-    return null;
+    return null
   }
 
   return (
     <motion.nav
       ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/90 dark:bg-background/90 backdrop-blur-md border-b border-gray-200 dark:border-accent/20" : "bg-transparent"}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/95 dark:bg-[#171717]/95 backdrop-blur-md border-b border-amber-100 dark:border-neutral-800 shadow-sm"
+          : "bg-white/95 dark:bg-[#171717]/95 backdrop-blur-md border-b border-amber-100/50 dark:border-neutral-800/50"
+      }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 sm:h-20">
 
-
+          {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link href="/" className="flex items-center">
-                <Logo size="md" className="h-16 md:h-20" linked={false} />
+              <Link href="/" className="flex items-center" onClick={(e) => onNavClick(e, navItems[0])}>
+                <Logo size="md" className="h-[4.5rem] md:h-[5.5rem] translate-y-[12%] drop-shadow-md" linked={false} />
               </Link>
             </motion.div>
           </div>
 
+          {/* Desktop Navigation Links */}
           <div className="hidden md:flex flex-1 items-center justify-center">
-            <div className="ml-10 flex items-baseline space-x-4">
-              {navItems.map((item, index) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <Link
-                    href={item.href}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 relative group ${isActive(item.href) ? "text-accent" : "text-gray-600 dark:text-gray-300 hover:text-accent dark:hover:text-accent"
+            <div className="ml-8 flex items-center space-x-2 lg:space-x-4">
+              {navItems.map((item) => {
+                const active = isItemActive(item)
+                return (
+                  <div key={item.name} className="relative py-2">
+                    <Link
+                      href={item.href}
+                      onClick={(e) => onNavClick(e, item)}
+                      className={`px-3 py-2 text-sm transition-colors duration-300 relative block ${
+                        active
+                          ? "text-[#F59E0B] font-bold"
+                          : "text-[#171717] dark:text-gray-200 font-semibold hover:text-[#F59E0B] dark:hover:text-[#F59E0B]"
                       }`}
-                  >
-                    {item.name}
-                    {isActive(item.href) && (
-                      <motion.div
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-accent"
-                        layoutId="activeTab"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    )}
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                  </Link>
-                </motion.div>
-              ))}
+                    >
+                      {item.name}
+                      {active && (
+                        <motion.div
+                          layoutId="activeNavUnderline"
+                          className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#F59E0B] rounded-full shadow-[0_0_8px_rgba(245,158,11,0.5)]"
+                          transition={{
+                            type: "spring",
+                            stiffness: 380,
+                            damping: 30,
+                            duration: 0.3,
+                          }}
+                        />
+                      )}
+                    </Link>
+                  </div>
+                )
+              })}
             </div>
           </div>
 
-          {/* Action Buttons */}
+          {/* Theme Toggle Button */}
           <div className="hidden md:flex items-center gap-4">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-            >
-
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
             >
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full bg-gray-200 dark:bg-primary text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-primary/80 transition-colors relative"
+                className="p-2.5 rounded-full bg-gray-100 dark:bg-primary/20 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-primary/40 transition-colors relative border border-amber-200/40 dark:border-amber-500/20"
+                aria-label="Toggle theme"
               >
-                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-                <span className="sr-only">Toggle theme</span>
+                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-[#F59E0B]" />
+                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#F59E0B]" />
               </button>
             </motion.div>
           </div>
 
-
-          {/* Mobile menu button */}
+          {/* Mobile menu controls */}
           <div className="md:hidden flex items-center gap-2">
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-accent transition-colors relative"
             >
-              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-              <span className="sr-only">Toggle theme</span>
+              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-[#F59E0B]" />
+              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#F59E0B]" />
             </button>
-            <Link href="/onboarding" className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-100 dark:hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-all duration-300">
-              <User className="h-6 w-6" />
-            </Link>
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-100 dark:hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-all duration-300"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-100 dark:hover:bg-primary/20 focus:outline-none transition-all duration-300"
               whileTap={{ scale: 0.95 }}
             >
               <AnimatePresence mode="wait">
@@ -204,7 +181,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -214,36 +191,33 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/95 dark:bg-background/95 backdrop-blur-md border-t border-gray-200 dark:border-accent/20">
-              {navItems.map((item, index) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                >
-                  <Link
-                    href={item.href}
-                    className={`flex items-center px-3 py-2 rounded-md text-base font-medium transition-all ${isActive(item.href)
-                      ? "text-accent bg-gray-100 dark:bg-primary/20"
-                      : "text-gray-600 dark:text-gray-300 hover:text-accent hover:bg-gray-100 dark:hover:bg-primary/20"
-                      }`}
-                    onClick={() => setIsOpen(false)}
+            <div className="px-3 pt-2 pb-4 space-y-1 bg-white/95 dark:bg-[#171717]/95 backdrop-blur-md border-t border-gray-200 dark:border-neutral-800">
+              {navItems.map((item, index) => {
+                const active = isItemActive(item)
+                return (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
                   >
-                    <item.icon className="w-5 h-5 mr-3" />
-                    {item.name}
-                  </Link>
-                </motion.div>
-              ))}
-
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: navItems.length * 0.1 }}
-                className="pt-2"
-              >
-
-              </motion.div>
+                    <Link
+                      href={item.href}
+                      className={`flex items-center px-4 py-2.5 rounded-xl text-base font-bold transition-all ${
+                        active
+                          ? "text-[#F59E0B] bg-[#F59E0B]/10 border border-[#F59E0B]/30"
+                          : "text-gray-700 dark:text-gray-300 hover:text-[#F59E0B] hover:bg-gray-100 dark:hover:bg-white/5"
+                      }`}
+                      onClick={(e) => {
+                        onNavClick(e, item)
+                      }}
+                    >
+                      <item.icon className="w-5 h-5 mr-3 text-[#F59E0B]" />
+                      {item.name}
+                    </Link>
+                  </motion.div>
+                )
+              })}
             </div>
           </motion.div>
         )}

@@ -25,11 +25,11 @@ export default function CategorySlider() {
 
     useEffect(() => {
         const q = query(collection(db, "marketplace_categories"), orderBy("name"));
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const cats = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Category));
+        const unsubscribe = onSnapshot(q, (snapshot: any) => {
+            const cats = snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() } as Category));
             setCategories(cats);
             setLoading(false);
-        }, (error) => {
+        }, (error: any) => {
             console.error("Error fetching categories: ", error);
             setLoading(false);
         });

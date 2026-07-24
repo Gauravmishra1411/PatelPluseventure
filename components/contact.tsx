@@ -1,10 +1,9 @@
-
 "use client"
 
 import type React from "react"
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Mail, Phone, MapPin, Send } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Clock } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,13 +11,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { db } from "@/lib/firebase"
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"
 import { toast } from "sonner"
-import { Facebook, Twitter, Instagram, Youtube, Linkedin, Clock } from "lucide-react"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
 
 const contactInfo = [
   {
@@ -26,28 +18,24 @@ const contactInfo = [
     title: "Email Us",
     details: "contact@patelpulseventures.com",
     description: "Send us an email anytime",
-    color: "from-[#FF0080] to-[#D400FF]",
   },
   {
     icon: Phone,
     title: "Call Us",
     details: "+91 7838130064, +91 1205106926",
     description: "Mon - Fri, 10AM - 7PM IST",
-    color: "from-[#D400FF] to-[#FF0055]",
   },
   {
     icon: MapPin,
     title: "Visit Us",
     details: "OC1125, 11th Floor, Gaur city center, sector 4",
-    description: "Greator noida west, 201318",
-    color: "from-[#FF0055] to-[#FF0080]",
+    description: "Greater Noida West, 201318",
   },
   {
     icon: Clock,
     title: "Working Hours",
     details: "Mon - Fri, 10AM - 7PM IST",
     description: "Weekend Closed",
-    color: "from-[#FF0080] to-[#D400FF]",
   },
 ]
 
@@ -57,12 +45,13 @@ export default function Contact() {
     email: "",
     company: "",
     phone: "",
+    service: "",
     subject: "General Inquiry",
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
@@ -100,6 +89,7 @@ export default function Contact() {
         email: "",
         company: "",
         phone: "",
+        service: "",
         subject: "General Inquiry",
         message: "",
       })
@@ -112,12 +102,17 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-6 md:py-12 lg:py-20 relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-white dark:from-background dark:via-primary/20 dark:to-background">
-      {/* Background Effects */}
+    <section
+      id="contact"
+      className="py-12 md:py-20 relative overflow-hidden border-t border-[#FDE68A]"
+      style={{
+        background: "linear-gradient(135deg, #FFF8E1 0%, #FEF3C7 35%, #FDE68A 70%, #FFFFFF 100%)"
+      }}
+    >
+      {/* Background Glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-full h-full bg-[url('/grid.svg')] opacity-[0.03] dark:opacity-[0.1]" />
-        <div className="absolute -top-20 -right-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-50 dark:opacity-100" />
-        <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-50 dark:opacity-100" />
+        <div className="absolute -top-20 -right-20 w-96 h-96 bg-[#FBBF24]/15 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[#F59E0B]/15 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -129,17 +124,18 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Get in <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Touch</span>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-[#111827] mb-4 tracking-tight">
+            Get in <span className="text-[#F59E0B]">Touch</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-[#4B5563] max-w-3xl mx-auto leading-relaxed">
             Ready to transform your ideas into reality? Let&apos;s discuss your project and explore how we can help you
             achieve your goals.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+
+          {/* Left Column: Contact Info Cards */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -148,54 +144,59 @@ export default function Contact() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Let&apos;s Start a Conversation</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">
+              <h3 className="text-2xl sm:text-3xl font-bold text-[#111827] mb-4">
+                Let&apos;s Start a <span className="text-[#F59E0B]">Conversation</span>
+              </h3>
+              <p className="text-[#4B5563] text-base sm:text-lg leading-relaxed mb-6">
                 We&apos;re here to help you bring your vision to life. Whether you have a specific project in mind or just
                 want to explore possibilities, we&apos;d love to hear from you.
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4">
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="p-6 rounded-2xl bg-white/50 dark:bg-primary/30 border border-gray-200 dark:border-accent/20 backdrop-blur-sm hover:border-accent/50 transition-colors shadow-sm dark:shadow-none">
+                  <Card className="p-5 sm:p-6 rounded-2xl bg-white/90 border border-[#FDE68A] shadow-sm hover:shadow-md hover:border-[#F59E0B]/50 transition-all duration-300">
                     <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
-                        <info.icon className="w-6 h-6 text-accent" />
+                      {/* Icon Background */}
+                      <div className="w-12 h-12 rounded-2xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <info.icon className="w-6 h-6 text-[#F59E0B]" />
                       </div>
-                      <div>
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{info.title}</h4>
-                        <p className="text-accent font-medium">{info.details}</p>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm">{info.description}</p>
+                      <div className="min-w-0 flex-1">
+                        {/* Card Heading */}
+                        <h4 className="text-lg font-bold text-[#111827]">{info.title}</h4>
+                        {/* Email & Phone / Details */}
+                        <p className="text-[#F59E0B] font-semibold text-sm sm:text-base break-words mt-0.5">{info.details}</p>
+                        <p className="text-[#4B5563] text-xs sm:text-sm mt-1">{info.description}</p>
                       </div>
                     </div>
                   </Card>
                 </motion.div>
               ))}
             </div>
-
-
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Right Column: Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            <Card className="bg-white/50 dark:bg-primary/30 border-gray-200 dark:border-accent/20 backdrop-blur-sm shadow-sm dark:shadow-none">
-              <CardContent className="p-8">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
+            <Card className="bg-white/95 border border-[#FDE68A] shadow-xl rounded-3xl overflow-hidden backdrop-blur-md">
+              <CardContent className="p-6 sm:p-8">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  
+                  {/* Name & Email Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-[#374151] mb-1.5">
                         Full Name *
                       </label>
                       <Input
@@ -205,12 +206,12 @@ export default function Contact() {
                         required
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="bg-white/50 dark:bg-background/50 border-gray-200 dark:border-accent/10 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-accent focus:ring-accent"
+                        className="bg-white border-[#FDE68A] text-[#111827] placeholder-[#9CA3AF] focus:border-[#F59E0B] focus:ring-[#F59E0B] h-11 text-sm rounded-xl"
                         placeholder="Your full name"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-[#374151] mb-1.5">
                         Email Address *
                       </label>
                       <Input
@@ -220,15 +221,16 @@ export default function Contact() {
                         required
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="bg-white/50 dark:bg-background/50 border-gray-200 dark:border-accent/10 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-accent focus:ring-accent"
+                        className="bg-white border-[#FDE68A] text-[#111827] placeholder-[#9CA3AF] focus:border-[#F59E0B] focus:ring-[#F59E0B] h-11 text-sm rounded-xl"
                         placeholder="your.email@example.com"
                       />
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
+                  {/* Company & Phone Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label htmlFor="company" className="block text-xs sm:text-sm font-medium text-[#374151] mb-1.5">
                         Company (Optional)
                       </label>
                       <Input
@@ -237,12 +239,12 @@ export default function Contact() {
                         type="text"
                         value={formData.company}
                         onChange={handleInputChange}
-                        className="bg-white/50 dark:bg-background/50 border-gray-200 dark:border-accent/10 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-accent focus:ring-accent"
+                        className="bg-white border-[#FDE68A] text-[#111827] placeholder-[#9CA3AF] focus:border-[#F59E0B] focus:ring-[#F59E0B] h-11 text-sm rounded-xl"
                         placeholder="Your company name"
                       />
                     </div>
                     <div>
-                      <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-[#374151] mb-1.5">
                         Phone (Optional)
                       </label>
                       <Input
@@ -251,40 +253,69 @@ export default function Contact() {
                         type="text"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="bg-white/50 dark:bg-background/50 border-gray-200 dark:border-accent/10 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-accent focus:ring-accent"
+                        className="bg-white border-[#FDE68A] text-[#111827] placeholder-[#9CA3AF] focus:border-[#F59E0B] focus:ring-[#F59E0B] h-11 text-sm rounded-xl"
                         placeholder="Enter your mobile number"
                       />
                     </div>
                   </div>
 
+                  {/* Service Needed Dropdown */}
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="service" className="block text-xs sm:text-sm font-medium text-[#374151] mb-1.5">
+                      Service Needed
+                    </label>
+                    <select
+                      id="service"
+                      name="service"
+                      value={formData.service}
+                      onChange={handleInputChange}
+                      className="w-full bg-white border border-[#FDE68A] text-[#111827] focus:border-[#F59E0B] focus:ring-[#F59E0B] h-11 text-sm rounded-xl px-3.5 py-2 outline-none transition-colors"
+                    >
+                      <option value="" disabled className="text-[#9CA3AF]">Select Service Needed</option>
+                      <option value="Manpower Supply">Manpower Supply & Management</option>
+                      <option value="Horticulture">Horticulture & Landscaping</option>
+                      <option value="Housekeeping">Housekeeping & Cleaning</option>
+                      <option value="Canteen & Catering">Canteen & Catering Services</option>
+                      <option value="Facility Management">Facility Management</option>
+                      <option value="Maintenance Services">Operations & Maintenance</option>
+                      <option value="Tenders & Bidding">Government & Private Tenders</option>
+                      <option value="IT & Software Development">IT & Software Development</option>
+                      <option value="Mobile App Development">Mobile App Development</option>
+                      <option value="Cloud & Cybersecurity">Cloud & Cybersecurity</option>
+                      <option value="Other">Other Service</option>
+                    </select>
+                  </div>
+
+                  {/* Message Field */}
+                  <div>
+                    <label htmlFor="message" className="block text-xs sm:text-sm font-medium text-[#374151] mb-1.5">
                       Message *
                     </label>
                     <Textarea
                       id="message"
                       name="message"
                       required
-                      rows={6}
+                      rows={4}
                       value={formData.message}
                       onChange={handleInputChange}
-                      className="bg-white/50 dark:bg-background/50 border-gray-200 dark:border-accent/10 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-accent focus:ring-accent h-32 resize-none"
+                      className="bg-white border-[#FDE68A] text-[#111827] placeholder-[#9CA3AF] focus:border-[#F59E0B] focus:ring-[#F59E0B] h-28 resize-none text-sm rounded-xl"
                       placeholder="Tell us about your project, goals, and how we can help..."
                     />
                   </div>
 
+                  {/* Submit Button */}
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-primary to-accent text-white font-semibold py-4 rounded-xl hover:shadow-lg hover:shadow-accent/25 transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed h-12 text-base mt-2"
                   >
                     {isSubmitting ? (
                       <div className="flex items-center justify-center">
-                        <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin mr-2" />
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
                         Sending Message...
                       </div>
                     ) : (
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center justify-center font-bold">
                         <Send className="w-5 h-5 mr-2" />
                         Send Message
                       </div>
@@ -294,6 +325,7 @@ export default function Contact() {
               </CardContent>
             </Card>
           </motion.div>
+
         </div>
       </div>
     </section>

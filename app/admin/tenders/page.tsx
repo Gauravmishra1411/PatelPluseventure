@@ -128,7 +128,7 @@ export default function AdminTendersPage() {
 
             if (isEditingTender && currentTender.id) {
                 const { id, ...tenderData } = { ...currentTender, bulletPoints: bulletPointsArray };
-                await updateDoc(doc(db, "tenders_list", id), tenderData);
+                await updateDoc(doc(db, "tenders_list", currentTender.id), tenderData);
                 toast.success("Tender updated successfully!");
             } else {
                 const { id, ...tenderData } = { ...currentTender, bulletPoints: bulletPointsArray };

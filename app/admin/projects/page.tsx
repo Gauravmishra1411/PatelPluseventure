@@ -35,11 +35,17 @@ export default function ProjectsPage() {
   const router = useRouter()
 
   useEffect(() => {
-    const q = query(collection(db, "projects"), orderBy("order", "asc"))
+    const q = collection(db, "projects")
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
         const projectsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Project))
+        projectsData.sort((a, b) => {
+          if (a.order !== undefined && b.order !== undefined) return a.order - b.order
+          const timeA = a.createdAt?.toMillis?.() || (a.createdAt as any)?.seconds * 1000 || 0
+          const timeB = b.createdAt?.toMillis?.() || (b.createdAt as any)?.seconds * 1000 || 0
+          return timeB - timeA
+        })
         setProjects(projectsData)
         setLoading(false)
       },

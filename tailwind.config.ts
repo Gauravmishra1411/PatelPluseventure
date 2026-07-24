@@ -69,6 +69,9 @@ const config: Config = {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
 			},
+			backgroundSize: {
+				'400': '400% 400%',
+			},
 			keyframes: {
 				'accordion-down': {
 					from: {
@@ -85,11 +88,33 @@ const config: Config = {
 					to: {
 						height: '0'
 					}
-				}
+				},
+				'code-rain': {
+					'0%': {
+						transform: 'translateY(-100%)'
+					},
+					'100%': {
+						transform: 'translateY(100%)'
+					}
+				},
+				gradient: {
+					'0%': {
+						backgroundPosition: '0% 50%',
+					},
+					'50%': {
+						backgroundPosition: '100% 50%',
+					},
+					'100%': {
+						backgroundPosition: '0% 50%',
+					},
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'code-rain': 'code-rain 1s linear infinite',
+				gradient: 'gradient 30s ease infinite',
+				'gradient-slow': 'gradient 60s ease infinite',
 			}
 		}
 	},

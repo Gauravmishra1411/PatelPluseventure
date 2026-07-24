@@ -13,9 +13,8 @@ const mainNavItems = [
   { name: "Home", href: "/", icon: Home },
   { name: "Services", href: "/services", icon: Briefcase },
   { name: "Projects", href: "/projects", icon: FolderOpen },
+  { name: "About Us", href: "/about", icon: Info },
   { name: "Contact", href: "/contact", icon: Mail },
-  { name: "About", href: "/about", icon: Info },
-  // { name: "Marketplace", href: "/marketplace", icon: ShoppingBag },
 ]
 
 const adminNavItems = [

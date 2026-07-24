@@ -76,7 +76,7 @@ export const AnimatedTestimonials = ({
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r  from-[#FFA800] to-[#FF8A00] bg-clip-text text-transparent">
               Client Success Stories
             </span>
           </h2>
@@ -152,62 +152,74 @@ export const AnimatedTestimonials = ({
                     ease: "easeInOut",
                   }}
                 >
-                  {/* Rating Stars */}
-                  <div className="flex gap-1 mb-4 justify-center md:justify-start">
-                    {[...Array(testimonials[activeIndex].rating)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.1 * i, duration: 0.3 }}
-                      >
-                        <IconStar className="h-4 w-4 text-accent fill-current" />
-                      </motion.div>
-                    ))}
-                  </div>
+                  {(() => {
+                    const current = testimonials[activeIndex] || testimonials[0]
+                    if (!current) return null
+                    const rating = typeof current.rating === "number" && current.rating > 0 ? current.rating : 5
+                    const quote = current.quote || ""
+                    return (
+                      <>
+                        {/* Rating Stars */}
+                        <div className="flex gap-1 mb-4 justify-center md:justify-start">
+                          {[...Array(rating)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              initial={{ opacity: 0, scale: 0 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.1 * i, duration: 0.3 }}
+                            >
+                              <IconStar className="h-4 w-4 text-accent fill-current" />
+                            </motion.div>
+                          ))}
+                        </div>
 
-                  {/* Quote */}
-                  <motion.p className="text-lg md:text-xl font-light text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                    &quot;
-                    {testimonials[activeIndex].quote.split(" ").map((word, index) => (
-                      <motion.span
-                        key={index}
-                        initial={{
-                          filter: "blur(10px)",
-                          opacity: 0,
-                          y: 5,
-                        }}
-                        animate={{
-                          filter: "blur(0px)",
-                          opacity: 1,
-                          y: 0,
-                        }}
-                        transition={{
-                          duration: 0.3,
-                          ease: "easeInOut",
-                          delay: 0.03 * index,
-                        }}
-                        className="inline-block"
-                      >
-                        {word}&nbsp;
-                      </motion.span>
-                    ))}
-                    &quot;
-                  </motion.p>
+                        {/* Quote */}
+                        <motion.p className="text-lg md:text-xl font-light text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                          &quot;
+                          {quote.split(" ").map((word, index) => (
+                            <motion.span
+                              key={index}
+                              initial={{
+                                filter: "blur(10px)",
+                                opacity: 0,
+                                y: 5,
+                              }}
+                              animate={{
+                                filter: "blur(0px)",
+                                opacity: 1,
+                                y: 0,
+                              }}
+                              transition={{
+                                duration: 0.3,
+                                ease: "easeInOut",
+                                delay: 0.03 * index,
+                              }}
+                              className="inline-block"
+                            >
+                              {word}&nbsp;
+                            </motion.span>
+                          ))}
+                          &quot;
+                        </motion.p>
 
-                  {/* Client Info */}
-                  <div className="mb-4">
-                    <h3 className="text-lg font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                      {testimonials[activeIndex].name}
-                    </h3>
-                    <p className="text-lg text-gray-500 dark:text-gray-400 mb-2">{testimonials[activeIndex].designation}</p>
-                    <p className="text-accent font-medium">{testimonials[activeIndex].company}</p>
-                  </div>
+                        {/* Client Info */}
+                        <div className="mb-4">
+                          <h3 className="text-lg font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                            {current.name || "Client"}
+                          </h3>
+                          <p className="text-lg text-gray-500 dark:text-gray-400 mb-2">{current.designation || ""}</p>
+                          <p className="text-accent font-medium">{current.company || ""}</p>
+                        </div>
 
-                  <div className="bg-white dark:bg-gradient-to-r dark:from-background dark:to-primary p-4 rounded-xl border border-gray-200 dark:border-accent/20 mb-8 max-w-md mx-auto md:mx-0 shadow-sm dark:shadow-none">
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Project Results:</p>
-                    <p className="text-accent font-semibold">{testimonials[activeIndex].results}</p>
-                  </div>
+                        {current.results && (
+                          <div className="bg-white dark:bg-gradient-to-r dark:from-background dark:to-primary p-4 rounded-xl border border-gray-200 dark:border-accent/20 mb-8 max-w-md mx-auto md:mx-0 shadow-sm dark:shadow-none">
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Project Results:</p>
+                            <p className="text-accent font-semibold">{current.results}</p>
+                          </div>
+                        )}
+                      </>
+                    )
+                  })()}
                 </motion.div>
               </AnimatePresence>
             </div>

@@ -2,148 +2,166 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Settings2, Search, Cloud, FlaskConical } from 'lucide-react'
+import { Landmark, Building2, Laptop, ClipboardCheck, ShieldCheck, Handshake, CheckCircle2, Sparkles } from 'lucide-react'
 
-// Inline SVG icons — guaranteed to render, no import issues
-const AxeIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="m14 12-8.5 8.5a2.12 2.12 0 1 1-3-3L11 9" />
-        <path d="M5.5 16.5 2 13" />
-        <path d="m16 2 6 6-1.5 1.5" />
-        <path d="M9 9c-1.5-1.5-2-3.5-1.5-5.5L12 2l5.5 5.5-2.5 4.5" />
-        <path d="M16 8 9 15" />
-    </svg>
-)
-
-const PotFoodIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 12h20" />
-        <path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6" />
-        <path d="M6 12V6a6 6 0 0 1 12 0v6" />
-        <path d="M9 6h6" />
-        <path d="M12 2v4" />
-        <path d="M19 4a1 1 0 0 1 2 0v4a1 1 0 0 1-2 0V4z" />
-    </svg>
-)
-
-const ChairIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3" />
-        <path d="M3 11v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H7v-2a2 2 0 0 0-4 0Z" />
-        <path d="M5 18v2" />
-        <path d="M19 18v2" />
-    </svg>
-)
-
-const BanParkingIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="m4.9 4.9 14.2 14.2" />
-        <path d="M9 9h2.5a2 2 0 0 1 0 4H9V9z" />
-        <path d="M9 13v4" />
-    </svg>
-)
+const expertiseItems = [
+  {
+    icon: Landmark,
+    title: "Government Tender Projects",
+    description: "End-to-end execution of municipal, state & central tender contracts.",
+    emoji: "🏛️",
+  },
+  {
+    icon: Building2,
+    title: "Private Sector Projects",
+    description: "Turnkey commercial, industrial & private enterprise solutions.",
+    emoji: "🏢",
+  },
+  {
+    icon: Laptop,
+    title: "IT & Software Development",
+    description: "Custom software, web apps, mobile solutions & cloud infrastructure.",
+    emoji: "💻",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Project Planning & Management",
+    description: "Structured workflows, milestone tracking & transparent communication.",
+    emoji: "📋",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Quality Assurance & Compliance",
+    description: "Strict quality benchmarks, safety protocols & regulatory standards.",
+    emoji: "⚙️",
+  },
+  {
+    icon: Handshake,
+    title: "Post-Project Support & Maintenance",
+    description: "Long-term operational support, maintenance & dedicated assistance.",
+    emoji: "🤝",
+  },
+]
 
 export default function DevelopmentStages() {
-    return (
-        <section className="py-6 md:py-12 lg:py-20 relative overflow-hidden bg-background">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl bg-gradient-to-r from-[#1565c0] via-[#81f5fd] to-[#1565c0] bg-clip-text text-transparent">
-                        For government and private tenders
-                    </h2>
-                </div>
+  return (
+    <section
+      id="tenders"
+      className="py-16 md:py-24 relative overflow-hidden bg-[#0B101D] text-white border-b border-white/10"
+    >
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes slowPulse {
+          0%, 100% { opacity: 0.25; transform: scale(1); }
+          50% { opacity: 0.45; transform: scale(1.06); }
+        }
+        .animate-slow-pulse {
+          animation: slowPulse 12s ease-in-out infinite;
+        }
+      ` }} />
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center mx-auto">
-                    {/* Left Column */}
-                    <div className="flex flex-col gap-8">
-                        <StageCard
-                            icon={<AxeIcon />}
-                            title="Tender Notices"
-                            description="Inviting Qualified Vendors & Contractors to Submit Bids"
-                        />
-                        <StageCard
-                            icon={<ChairIcon />}
-                            title="About Our Tendering Process"
-                            description="We invite eligible contractors, suppliers, and service providers to bid on our construction and infrastructure projects. All tenders are evaluated on technical competence, financial capability, and value for money — ensuring a fair and transparent process for every participant."
-                        />
-                        <StageCard
-                            icon={<BanParkingIcon />}
-                            title="Current Open Tenders"
-                            description="Tender No. PPV-2026-001
-Project: Feild Gun Factory (Scrap Material)
-Location: Kanpur
-Last Date: 20-12-2026
-"
-                        />
-                    </div>
+      {/* Ultra-soft ambient slow glowing accents */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-15%] left-[-10%] w-[600px] h-[600px] bg-[#FFA800]/12 rounded-full blur-[140px] animate-slow-pulse" />
+        <div className="absolute bottom-[-15%] right-[-10%] w-[600px] h-[600px] bg-[#3B82F6]/12 rounded-full blur-[140px] animate-slow-pulse" style={{ animationDelay: '6s' }} />
+      </div>
 
-                    {/* Center Image */}
-                    <div className="hidden lg:flex justify-center items-center h-full">
-                        <div className="relative w-full aspect-square max-w-[400px]">
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl opacity-30 animate-pulse" />
-                            <motion.img
-                                animate={{ rotate: 360 }}
-                                transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-                                alt="Development Lifecycle"
-                                src="https://res.cloudinary.com/ddthlutz4/image/upload/v1781172817/yitbu85lx4rovlw11nuj.png"
-                                className="w-full h-full object-contain relative z-10 drop-shadow-2xl"
-                                loading="lazy"
-                            />
-                        </div>
-                    </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-                    {/* Right Column */}
-                    <div className="flex flex-col gap-8">
-                        <StageCard
-                            icon={<Settings2 className="w-6 h-6" />}
-                            title="Eligibility Criteria"
-                            description="Bidders must hold valid registrations, demonstrate relevant experience, and maintain satisfactory financial standing to qualify for evaluation."
-                        />
-                        <StageCard
-                            icon={<Search className="w-6 h-6" />}
-                            title="How to Apply"
-                            description="How to Apply
-Download the tender document, attend the pre-bid meeting, and submit your sealed bid before the deadline to be considered."
-                        />
-                        <StageCard
-                            icon={<Cloud className="w-6 h-6" />}
-                            title="Tender Fee & EMD"
-                            description="Tender Fee & EMD
-A non-refundable tender document fee and Earnest Money Deposit (EMD) are required at the time of submission. Payment via DD/NEFT/RTGS."
-                        />
-                        <StageCard
-                            icon={<FlaskConical className="w-6 h-6" />}
-                            title="Terms & Conditions"
-                            description="PPV reserves the right to accept or reject any bid. Canvassing leads to disqualification. All disputes subject to local jurisdiction"
-                        />
-                    </div>
-                </div>
+          {/* Left Column: Text */}
+          <motion.div
+            className="lg:col-span-6 space-y-6"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            {/* Tag Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-[#FFA800]/20 border border-[#FFA800]/40 text-[#FFA800]">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Reliable Project Execution</span>
             </div>
-        </section>
-    )
-}
 
-function StageCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
-    return (
-        <div className="h-full group">
-            <div className="w-full h-full rounded-lg border border-gray-200 dark:border-primary/20 bg-white dark:bg-[#112218] backdrop-blur-sm shadow-sm dark:shadow-none hover:shadow-md hover:shadow-primary/10 dark:hover:shadow-[0_0_30px_rgba(142,217,104,0.1)] hover:border-primary dark:hover:border-accent/50 transition-all duration-300 cursor-pointer p-6">
-                <div className="space-y-4">
-                    <div className="flex flex-row items-center gap-4">
-                        <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/20 group-hover:bg-primary/20 dark:group-hover:bg-primary/30 transition-colors text-primary dark:text-accent">
-                            {icon}
-                        </div>
-                        <div className="tracking-tight text-foreground dark:text-white font-semibold text-lg group-hover:text-primary dark:group-hover:text-accent transition-colors">
-                            {title}
-                        </div>
-                    </div>
-                    <div>
-                        <p className="text-muted-foreground dark:text-gray-400 text-sm leading-relaxed">
-                            {description}
-                        </p>
-                    </div>
-                </div>
+            {/* Main Heading */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-[1.15] tracking-tight">
+              Building Success Through{" "}
+              <span className="text-[#FFA800] underline decoration-[#FFA800]/40 underline-offset-8">
+                Reliable Project Execution
+              </span>
+            </h2>
+
+            {/* Paragraph Text */}
+            <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
+              Patel Pulse Ventures delivers high-quality solutions across Government, Private, and IT sectors. Our expertise spans infrastructure development, tender-based projects, software solutions, digital transformation, and business services. We follow a structured approach that emphasizes strategic planning, transparent communication, quality execution, and on-time delivery. Every project is managed with professionalism, innovation, and a commitment to exceeding client expectations.
+            </p>
+
+            {/* Value Highlights */}
+            <div className="grid grid-cols-2 gap-4 pt-2">
+              <div className="flex items-center gap-2.5 text-sm font-medium text-white">
+                <CheckCircle2 className="w-5 h-5 text-[#FFA800] flex-shrink-0" />
+                <span>On-Time Delivery</span>
+              </div>
+              <div className="flex items-center gap-2.5 text-sm font-medium text-white">
+                <CheckCircle2 className="w-5 h-5 text-[#FFA800] flex-shrink-0" />
+                <span>Transparent Communication</span>
+              </div>
+              <div className="flex items-center gap-2.5 text-sm font-medium text-white">
+                <CheckCircle2 className="w-5 h-5 text-[#FFA800] flex-shrink-0" />
+                <span>Quality Execution</span>
+              </div>
+              <div className="flex items-center gap-2.5 text-sm font-medium text-white">
+                <CheckCircle2 className="w-5 h-5 text-[#FFA800] flex-shrink-0" />
+                <span>Structured Management</span>
+              </div>
             </div>
+          </motion.div>
+
+          {/* Right Column: Our Expertise Includes */}
+          <motion.div
+            className="lg:col-span-6"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <div className="bg-[#0B1329]/90 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-amber-500/30 shadow-2xl relative overflow-hidden">
+              <div className="mb-6">
+                <h3 className="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3">
+                  Our Expertise Includes
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#FFA800] inline-block animate-ping" />
+                </h3>
+                <div className="w-20 h-1 bg-[#FFA800] rounded-full mt-2" />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {expertiseItems.map((item, index) => (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.08 }}
+                    viewport={{ once: true }}
+                    className="group p-3.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 hover:border-[#FFA800]/60 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(255,168,0,0.2)] flex items-start gap-3"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-[#FFA800]/20 border border-[#FFA800]/30 flex items-center justify-center flex-shrink-0 text-lg group-hover:scale-110 transition-transform duration-300">
+                      {item.emoji}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-sm font-bold text-white group-hover:text-[#FFA800] transition-colors leading-snug">
+                        {item.title}
+                      </h4>
+                      <p className="text-xs text-gray-300 mt-1 leading-normal line-clamp-2">
+                        {item.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
         </div>
-    )
+      </div>
+    </section>
+  )
 }

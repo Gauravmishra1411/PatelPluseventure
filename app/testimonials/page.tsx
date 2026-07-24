@@ -39,15 +39,15 @@ export default function TestimonialsPage() {
     const q = query(collection(db, "testimonials"), orderBy("createdAt", "desc"))
     const unsubscribe = onSnapshot(
       q,
-      (querySnapshot) => {
+      (querySnapshot: any) => {
         const testimonialsData: Testimonial[] = []
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach((doc: any) => {
           testimonialsData.push({ id: doc.id, ...doc.data() } as Testimonial)
         })
         setTestimonials(testimonialsData)
         setLoading(false)
       },
-      (error) => {
+      (error: any) => {
         console.error("Error fetching testimonials:", error)
         toast.error("Failed to load testimonials.")
         setLoading(false)

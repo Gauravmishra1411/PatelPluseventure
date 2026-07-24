@@ -25,7 +25,7 @@ export default function ProductCard({ product }: { product: any }) {
   useEffect(() => {
     if (user && product.id) {
         const userRef = doc(db, "users", user.uid);
-        const unsub = onSnapshot(userRef, (docSnap) => {
+        const unsub = onSnapshot(userRef, (docSnap: any) => {
             if (docSnap.exists()) {
                 const wishlist = docSnap.data().wishlist || [];
                 setIsLiked(wishlist.includes(product.id));

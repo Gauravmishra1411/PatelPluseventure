@@ -32,7 +32,7 @@ export default function AdminAuthGuard({ children }: AdminAuthGuardProps) {
   useEffect(() => {
     if (loading) return
 
-    const isLoginPage = pathname === "/admin/login"
+    const isLoginPage = pathname === "/admin/login" || pathname?.startsWith("/admin/login")
     const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL
 
     if (!user && !isLoginPage) {
@@ -53,8 +53,10 @@ export default function AdminAuthGuard({ children }: AdminAuthGuardProps) {
     }
   }, [user, loading, pathname, router])
 
+  const isLoginPage = pathname === "/admin/login" || pathname?.startsWith("/admin/login")
+
   // Always show the login page without a loading spinner
-  if (pathname === "/admin/login") {
+  if (isLoginPage) {
     return <>{children}</>
   }
 

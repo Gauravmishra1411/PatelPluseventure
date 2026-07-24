@@ -25,9 +25,15 @@ export default function Integrations() {
     }, [])
 
     return (
-        <section className="py-24 overflow-hidden bg-background">
-            <div className="relative container mx-auto px-6 text-center">
-                <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-[#81f5fd] dark:text-[#81f5fd] max-w-4xl mx-auto leading-tight">
+        <section
+            id="tenders"
+            className="py-24 overflow-hidden text-white relative"
+            style={{
+                background: "linear-gradient(135deg, #020617 0%, #0F172A 35%, #1E293B 70%, #0F172A 100%)"
+            }}
+        >
+            <div className="relative container mx-auto px-6 text-center z-10">
+                <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-[#FFA800] max-w-4xl mx-auto leading-tight" style={{ textShadow: "0 0 30px rgba(255,168,0,0.3)" }}>
                     TENDERS & PROCUREMENT <br className="hidden md:block" /> AT PATEL PULSE VENTURES
                 </h2>
                 
@@ -40,12 +46,12 @@ export default function Integrations() {
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group flex flex-col h-full"
+                                    className="bg-[#0F172A]/90 border border-white/15 rounded-2xl p-6 shadow-xl hover:border-[#FFA800]/60 transition-all duration-300 relative overflow-hidden group flex flex-col h-full backdrop-blur-md"
                                 >
-                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#81f5fd] to-blue-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#FFA800] to-amber-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
                                     
                                     <div className="mb-3 flex items-center justify-between">
-                                        <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gray-100 dark:bg-zinc-800 text-gray-800 dark:text-gray-200">
+                                        <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/10 text-[#FFA800] border border-[#FFA800]/30">
                                             {tender.category}
                                         </span>
                                         {tender.url && (
@@ -53,7 +59,7 @@ export default function Integrations() {
                                                 href={tender.url} 
                                                 target="_blank" 
                                                 rel="noopener noreferrer"
-                                                className="bg-[#81f5fd]/10 text-[#81f5fd] p-2 rounded-full hover:bg-[#81f5fd] hover:text-black transition-colors shrink-0"
+                                                className="bg-[#FFA800]/15 text-[#FFA800] p-2 rounded-full hover:bg-[#FFA800] hover:text-black transition-colors shrink-0"
                                             >
                                                 <ExternalLink className="w-4 h-4" />
                                             </a>
