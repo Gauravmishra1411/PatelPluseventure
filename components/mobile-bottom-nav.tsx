@@ -122,12 +122,18 @@ export default function MobileBottomNav() {
   }
 
   const navClassName = isMarketplaceRoute ?
-    "bg-background/80 backdrop-blur-md border-t border-t-border/20 shadow-[0_-5px_20px_rgba(0,0,0,0.1)]" :
-    "bg-white/95 dark:bg-gradient-to-t dark:from-background dark:to-background/80 backdrop-blur-md border-t border-gray-200 dark:border-t-accent/20 shadow-[0_-5px_20px_rgba(142,217,104,0.05)]";
+    "bg-background/95 backdrop-blur-lg border-t border-border/40 shadow-[0_-4px_20px_rgba(0,0,0,0.12)]" :
+    "bg-white/95 dark:bg-[#171717]/95 backdrop-blur-lg border-t border-gray-200/80 dark:border-neutral-800/80 shadow-[0_-4px_20px_rgba(0,0,0,0.12)]";
 
-  const activeTextColor = isMarketplaceRoute ? "text-primary-foreground" : "text-accent";
-  const inactiveTextColor = isMarketplaceRoute ? "text-muted-foreground group-hover:text-primary" : "text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white";
-  const activeBg = isMarketplaceRoute ? "bg-primary" : "bg-gradient-to-br from-primary to-accent";
+  const activeTextColor = isMarketplaceRoute 
+    ? "text-primary dark:text-primary font-semibold" 
+    : "text-[#FFA800] dark:text-[#FFA800] font-semibold";
+  const inactiveTextColor = isMarketplaceRoute 
+    ? "text-muted-foreground group-hover:text-primary font-medium" 
+    : "text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white font-medium";
+  const activeBg = isMarketplaceRoute 
+    ? "bg-primary/15 dark:bg-primary/20 border border-primary/30" 
+    : "bg-[#FFA800]/15 dark:bg-[#FFA800]/20 border border-[#FFA800]/40 shadow-sm shadow-[#FFA800]/10";
 
 
   return (
@@ -141,7 +147,7 @@ export default function MobileBottomNav() {
           className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
         >
           <div className={navClassName}>
-            <div className="flex items-center justify-around py-2">
+            <div className="flex items-center justify-around py-1.5 px-2 max-w-md mx-auto">
               {navItems.map((item, index) => {
                 const active = isActive(item.href)
 
@@ -153,23 +159,27 @@ export default function MobileBottomNav() {
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3, delay: index * 0.1 }}
+                          transition={{ duration: 0.3, delay: index * 0.05 }}
+                          className="flex-1 flex justify-center"
                         >
-                          <div
-                            className="flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300 w-16 h-16 relative group"
+                          <button
+                            type="button"
+                            className="flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition-all duration-200 w-full max-w-[72px] relative group"
                           >
-                            <motion.div
-                              whileTap={{ scale: 0.9 }}
-                              className={`relative z-10 transition-colors duration-300 ${inactiveTextColor}`}
-                            >
-                              <item.icon className="w-6 h-6 mb-1" />
-                            </motion.div>
-                            <span
-                              className={`text-xs font-medium transition-colors duration-300 ${inactiveTextColor}`}
-                            >
-                              {item.name}
-                            </span>
-                          </div>
+                            <div className="relative z-10 flex flex-col items-center justify-center w-full">
+                              <motion.div
+                                whileTap={{ scale: 0.9 }}
+                                className={`transition-colors duration-200 ${inactiveTextColor}`}
+                              >
+                                <item.icon className="w-5 h-5 mb-1" />
+                              </motion.div>
+                              <span
+                                className={`text-[11px] leading-none transition-colors duration-200 truncate ${inactiveTextColor}`}
+                              >
+                                {item.name}
+                              </span>
+                            </div>
+                          </button>
                         </motion.div>
                       </DrawerTrigger>
                       <DrawerContent className={isAdminRoute ? "bg-black text-white border-gray-800" : "bg-white dark:bg-background text-gray-900 dark:text-white border-gray-200 dark:border-gray-800"}>
@@ -204,33 +214,36 @@ export default function MobileBottomNav() {
                     key={item.name}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    className="flex-1 flex justify-center"
                   >
                     <Link
                       href={item.href}
-                      className="flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300 w-16 h-16 relative group"
+                      className="flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition-all duration-200 w-full max-w-[72px] relative group"
                     >
-                      <motion.div
-                        whileTap={{ scale: 0.9 }}
-                        className={`relative z-10 transition-colors duration-300 ${active ? activeTextColor : inactiveTextColor
+                      <div className="relative z-10 flex flex-col items-center justify-center w-full">
+                        <motion.div
+                          whileTap={{ scale: 0.9 }}
+                          className={`transition-colors duration-200 ${active ? activeTextColor : inactiveTextColor}`}
+                        >
+                          <item.icon className="w-5 h-5 mb-1" />
+                        </motion.div>
+                        <span
+                          className={`text-[11px] leading-none transition-colors duration-200 truncate ${
+                            active ? activeTextColor : inactiveTextColor
                           }`}
-                      >
-                        <item.icon className="w-6 h-6 mb-1" />
-                      </motion.div>
-                      <span
-                        className={`text-xs font-medium transition-colors duration-300 ${active ? activeTextColor : inactiveTextColor
-                          }`}
-                      >
-                        {item.name}
-                      </span>
+                        >
+                          {item.name}
+                        </span>
+                      </div>
 
                       {active && (
                         <motion.div
                           layoutId="activeMobileIndicator"
-                          className={`absolute inset-0 ${activeBg} rounded-xl shadow-lg ${isMarketplaceRoute ? 'shadow-primary/30' : 'shadow-accent/30'}`}
-                          initial={{ opacity: 0, scale: 0.5 }}
+                          className={`absolute inset-0 ${activeBg} rounded-xl`}
+                          initial={{ opacity: 0, scale: 0.85 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 28 }}
                         />
                       )}
                     </Link>
