@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation"
 import { navItems, handleNavClick } from "@/lib/navigation"
 import { useState, useEffect } from "react"
 import { db } from "@/lib/firebase"
-import { collection, onSnapshot } from "firebase/firestore"
+import { collection, onSnapshot, doc, getDoc } from "firebase/firestore"
 
 const footerLinks = {
   company: [], // Replaced by navItems below
@@ -40,8 +40,27 @@ const socialLinks = [
 export default function Footer() {
   const pathname = usePathname()
   const [dbServices, setDbServices] = useState<{ id: string, title: string }[]>([])
+  const [contactInfo, setContactInfo] = useState({
+    email: "contact@patelpulseventures.com",
+    phone: "+91 7838130064, +91 1205106926",
+    address: "OC821, 8th Floor, Gaur city center",
+    city_pin: "sector 4, Greator noida west, 201318",
+  })
 
   useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const docRef = doc(db, "settings", "contact_info")
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+          setContactInfo(docSnap.data() as any)
+        }
+      } catch (error) {
+        console.error("Error fetching contact info:", error)
+      }
+    }
+    fetchContactInfo()
+
     const q = collection(db, "services")
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const servicesData = snapshot.docs.map(doc => ({ id: doc.id, title: doc.data().title }))
@@ -78,15 +97,15 @@ export default function Footer() {
               <div className="space-y-3">
                 <div className="flex items-center text-gray-300">
                   <Mail className="h-4 w-4 text-[#FFA800] mr-3" />
-                  contact@patelpulseventures.com
+                  {contactInfo.email}
                 </div>
                 <div className="flex items-center text-gray-300">
                   <Phone className="h-4 w-4 text-[#FFA800] mr-3" />
-                  +91 7838130064, +91 1205106926
+                  {contactInfo.phone}
                 </div>
                 <div className="flex items-start text-gray-300">
                   <MapPin className="h-4 w-4 text-[#FFA800] mr-3 mt-1 flex-shrink-0" />
-                  <span>OC821, 8th Floor, Gaur city center,<br />sector 4, Greator noida west, 201318</span>
+                  <span>{contactInfo.address},<br />{contactInfo.city_pin}</span>
                 </div>
               </div>
             </motion.div>

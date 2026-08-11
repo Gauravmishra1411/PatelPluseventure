@@ -6,8 +6,31 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import MobileBottomNav from "@/components/mobile-bottom-nav"
 import Link from "next/link"
+import { useState, useEffect } from "react"
+import { db } from "@/lib/firebase"
+import { doc, getDoc } from "firebase/firestore"
 
 export default function TermsOfService() {
+  const [contactInfo, setContactInfo] = useState({
+    email: "contact@patelpulseventures.com",
+    phone: "+91 7838130064, +91 1205106926",
+  })
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const docRef = doc(db, "settings", "contact_info")
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+          setContactInfo(docSnap.data() as any)
+        }
+      } catch (error) {
+        console.error("Error fetching contact info:", error)
+      }
+    }
+    fetchContactInfo()
+  }, [])
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <main className="pt-24 pb-12">
@@ -108,7 +131,7 @@ export default function TermsOfService() {
                   <div className="mt-4 space-y-2">
                     <div className="flex items-center text-muted-foreground">
                       <Mail className="h-5 w-5 text-primary mr-3" />
-                      <span>contact@patelpulseventures.com</span>
+                      <span>{contactInfo.email}</span>
                     </div>
                   </div>
                 </div>

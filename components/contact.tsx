@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Mail, Phone, MapPin, Send, Clock } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
@@ -9,36 +9,40 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { db } from "@/lib/firebase"
-import { collection, addDoc, serverTimestamp } from "firebase/firestore"
+import { collection, addDoc, serverTimestamp, doc, getDoc } from "firebase/firestore"
 import { toast } from "sonner"
 
-const contactInfo = [
+// We will fetch this data from Firestore dynamically
+const defaultContactInfo = [
   {
+    id: "email",
     icon: Mail,
     title: "Email Us",
     details: "contact@patelpulseventures.com",
     description: "Send us an email anytime",
   },
   {
+    id: "phone",
     icon: Phone,
     title: "Call Us",
-    details: "+91 7838130064, +91 1205106926",
+    details: "+91 7838130064, +91 7428128001",
     description: "Mon - Fri, 10AM - 7PM IST",
   },
   {
+    id: "address",
     icon: MapPin,
     title: "Visit Us",
     details: "OC1125, 11th Floor, Gaur city center, sector 4",
     description: "Greater Noida West, 201318",
   },
   {
+    id: "hours",
     icon: Clock,
     title: "Working Hours",
     details: "Mon - Fri, 10AM - 7PM IST",
     description: "Weekend Closed",
   },
 ]
-
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -50,6 +54,59 @@ export default function Contact() {
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  
+  // Dynamic contact info state
+  const [contactCards, setContactCards] = useState(defaultContactInfo)
+  const [loadingContact, setLoadingContact] = useState(true)
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const docRef = doc(db, "settings", "contact_info")
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.exists()) {
+          const data = docSnap.data()
+          setContactCards([
+            {
+              id: "email",
+              icon: Mail,
+              title: "Email Us",
+              details: data.email || defaultContactInfo[0].details,
+              description: "Send us an email anytime",
+            },
+            {
+              id: "phone",
+              icon: Phone,
+              title: "Call Us",
+              details: data.phone || defaultContactInfo[1].details,
+              description: data.workingHours || defaultContactInfo[1].description, // Often hours are placed here too
+            },
+            {
+              id: "address",
+              icon: MapPin,
+              title: "Visit Us",
+              details: data.address || defaultContactInfo[2].details,
+              description: data.city_pin || defaultContactInfo[2].description,
+            },
+            {
+              id: "hours",
+              icon: Clock,
+              title: "Working Hours",
+              details: data.workingHours || defaultContactInfo[3].details,
+              description: data.weekendStatus || defaultContactInfo[3].description,
+            },
+          ])
+        }
+      } catch (error) {
+        console.error("Error fetching contact info:", error)
+      } finally {
+        setLoadingContact(false)
+      }
+    }
+
+    fetchContactInfo()
+  }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -154,9 +211,9 @@ export default function Contact() {
             </div>
 
             <div className="space-y-4">
-              {contactInfo.map((info, index) => (
+              {contactCards.map((info, index) => (
                 <motion.div
-                  key={index}
+                  key={info.id || index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
@@ -172,8 +229,12 @@ export default function Contact() {
                         {/* Card Heading */}
                         <h4 className="text-lg font-bold text-[#111827]">{info.title}</h4>
                         {/* Email & Phone / Details */}
-                        <p className="text-[#F59E0B] font-semibold text-sm sm:text-base break-words mt-0.5">{info.details}</p>
-                        <p className="text-[#4B5563] text-xs sm:text-sm mt-1">{info.description}</p>
+                        <p className="text-[#F59E0B] font-semibold text-sm sm:text-base break-words mt-0.5">
+                          {loadingContact ? <div className="h-4 bg-gray-200 animate-pulse rounded w-3/4 mt-1"></div> : info.details}
+                        </p>
+                        <p className="text-[#4B5563] text-xs sm:text-sm mt-1">
+                          {loadingContact ? <div className="h-3 bg-gray-200 animate-pulse rounded w-1/2"></div> : info.description}
+                        </p>
                       </div>
                     </div>
                   </Card>

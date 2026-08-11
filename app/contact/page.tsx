@@ -12,11 +12,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { db } from "@/lib/firebase"
-import { collection, addDoc, serverTimestamp } from "firebase/firestore"
+import { collection, addDoc, serverTimestamp, doc, getDoc } from "firebase/firestore"
 import { toast } from "sonner"
 
-const contactInfo = [
+const defaultContactInfo = [
   {
+    id: "email",
     icon: Mail,
     label: "Email",
     value: "contact@patelpulseventures.com",
@@ -24,6 +25,7 @@ const contactInfo = [
     gradient: "from-primary to-accent",
   },
   {
+    id: "phone",
     icon: Phone,
     label: "Phone",
     value: "+91 7838130064, +91 8796140682",
@@ -31,6 +33,7 @@ const contactInfo = [
     gradient: "from-accent to-[#00D4FF]",
   },
   {
+    id: "address",
     icon: MapPin,
     label: "Location",
     value: "OC 821, 8th Floor, Gaur city center, sector 4, Greator noida west, 201318",
@@ -38,6 +41,7 @@ const contactInfo = [
     gradient: "from-[#00D4FF] to-[#FF6B6B]",
   },
   {
+    id: "hours",
     icon: Clock,
     label: "Working Hours",
     value: "Mon - Fri, 10AM - 7PM IST",
@@ -66,6 +70,7 @@ const socialLinks = [
     gradient: "from-[#1DA1F2] to-[#0d8bd9]",
   },
   {
+    id: "email_social",
     icon: Mail,
     label: "Email",
     href: "mailto:contact@patelpulseventures.com",
@@ -84,6 +89,63 @@ export default function ContactPage() {
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [contactCards, setContactCards] = useState(defaultContactInfo)
+  const [socialLinksState, setSocialLinksState] = useState(socialLinks)
+
+  React.useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const docRef = doc(db, "settings", "contact_info")
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.exists()) {
+          const data = docSnap.data()
+          setContactCards([
+            {
+              id: "email",
+              icon: Mail,
+              label: "Email",
+              value: data.email || defaultContactInfo[0].value,
+              href: `mailto:${data.email || defaultContactInfo[0].value}`,
+              gradient: "from-primary to-accent",
+            },
+            {
+              id: "phone",
+              icon: Phone,
+              label: "Phone",
+              value: data.phone || defaultContactInfo[1].value,
+              href: `tel:${(data.phone || defaultContactInfo[1].value).split(',')[0]}`,
+              gradient: "from-accent to-[#00D4FF]",
+            },
+            {
+              id: "address",
+              icon: MapPin,
+              label: "Location",
+              value: `${data.address || ''}, ${data.city_pin || ''}` || defaultContactInfo[2].value,
+              href: "https://www.google.com/maps/search/?api=1&query=Gaur+City+Center+Greater+Noida+West",
+              gradient: "from-[#00D4FF] to-[#FF6B6B]",
+            },
+            {
+              id: "hours",
+              icon: Clock,
+              label: "Working Hours",
+              value: data.workingHours || defaultContactInfo[3].value,
+              href: null,
+              gradient: "from-[#FF6B6B] to-primary",
+            },
+          ])
+
+          setSocialLinksState(prev => prev.map(link => 
+            link.id === "email_social" ? { ...link, href: `mailto:${data.email || defaultContactInfo[0].value}` } : link
+          ))
+        }
+      } catch (error) {
+        console.error("Error fetching contact info:", error)
+      }
+    }
+
+    fetchContactInfo()
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -337,9 +399,9 @@ export default function ContactPage() {
                   <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4 md:mb-6">Contact Information</h3>
 
                   <div className="space-y-3 md:space-y-4">
-                    {contactInfo.map((info, index) => (
+                    {contactCards.map((info, index) => (
                       <motion.div
-                        key={info.label}
+                        key={info.id || info.label}
                         className="group"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -387,9 +449,9 @@ export default function ContactPage() {
                 <div>
                   <h4 className="text-lg md:text-xl font-bold text-foreground mb-3 md:mb-4">Follow Us</h4>
                   <div className="grid grid-cols-2 gap-3 md:gap-4">
-                    {socialLinks.map((social, index) => (
+                    {socialLinksState.map((social, index) => (
                       <motion.a
-                        key={social.label}
+                        key={social.id || social.label}
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
