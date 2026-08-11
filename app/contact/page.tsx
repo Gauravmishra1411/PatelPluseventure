@@ -2,7 +2,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Send, Mail, Phone, MapPin, Clock, Linkedin, Github, Twitter, Instagram } from "lucide-react"
 import Navbar from "@/components/navbar"
@@ -92,7 +92,7 @@ export default function ContactPage() {
   const [contactCards, setContactCards] = useState(defaultContactInfo)
   const [socialLinksState, setSocialLinksState] = useState(socialLinks)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchContactInfo = async () => {
       try {
         const docRef = doc(db, "settings", "contact_info")
